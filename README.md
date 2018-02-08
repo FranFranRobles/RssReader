@@ -4,7 +4,7 @@
 
 This repository contains three projects, *so far*. The RSS_LogicEngine project will contain all of our application's logic, while the RSS_UI project will implement our user interface.
 
-The logic engine project has a corresponding test project. I highly recommend**-before you write functional code-** to first write unit tests for it. This serves two purposes.
+The logic engine project has a corresponding test project. I highly recommend **-before you write functional code-** to first write unit tests for it. This serves two purposes.
 
 The first purpose it so that you can write the unit test how you want the code to be used (how you want the code to read). This way, when you get to writing the code, you are can find the solution that fits the unit tests, and thus, find the solution that allows the code to be used in the simplest/most convenient way.
 
