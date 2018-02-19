@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace RSS_UI
 {
@@ -23,6 +24,7 @@ namespace RSS_UI
         public MainWindow()
         {
             InitializeComponent();
+            myMap.Mode = new AerialMode(true);
         }
     }
 }
