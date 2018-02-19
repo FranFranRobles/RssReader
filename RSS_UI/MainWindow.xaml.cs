@@ -24,6 +24,7 @@ namespace RSS_UI
         public MainWindow()
         {
             InitializeComponent();
+            myMap.Focus();
             myMap.Mode = new AerialMode(true);
         }
     }
