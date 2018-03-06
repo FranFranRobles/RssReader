@@ -104,5 +104,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RSS_LogicEngine\RSS_LogicEngine.csproj">
+      <Project>{cc3482f7-3cd0-4374-8ba1-9a2c2ab4b0ad}</Project>
+      <Name>RSS_LogicEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
