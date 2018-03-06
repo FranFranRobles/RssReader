@@ -10,5 +10,6 @@ namespace RSS_LogicEngine
 {
     class Article
     {
+
     }
 }
