@@ -6,27 +6,64 @@ using System.Threading.Tasks;
 
 namespace RSS_LogicEngine
 {
+    /*
+     * should  the class contain a keyword list?
+     * if so should the class contain a contains method?
+     */
     public class Article
     {
-        private string name;
-        private string date;
-
-        public Article(string name, string date) {
-            this.Name = name;
-            this.Date = date;
-        }       
-
-        // Standard getters/setters
-        public string Name
+        const string NOT_APPLICABLE = "N/A";
+        #region Article Atributes
+        
+        private string title; // name of the article
+        private string articleUrl; //location of full article
+        private string discription; // summary of the article
+        private string pubDate; // date published
+        #endregion
+        /// <summary>
+        /// Article object CTOR
+        /// </summary>
+        /// <param name="_title">name of the article</param>
+        /// <param name="_articleUrl">source of the complete article</param>
+        /// <param name="summary">short summary of the article</param>
+        /// <param name="_pubDate">date published</param>
+        /// <param name="_catagories">list of search keywords</param>
+        public Article(string _title, string _articleUrl, string summary = NOT_APPLICABLE, 
+            string _pubDate = NOT_APPLICABLE, List<string>_catagories = null)
         {
-            get { return name; }
-            set { name = value; }
+            title = _title;
+            articleUrl = _articleUrl;
+            discription = summary;
+            pubDate = _pubDate;
         }
-
-        public string Date
+        /// <summary>
+        /// function grabs the title of the article
+        /// </summary>
+        public string Title
         {
-            get { return date; }
-            set { date = value; }
+            get { return title; }
+        }
+        /// <summary>
+        /// function grabs the url of the full article
+        /// </summary>
+        public string ArticleUrl
+        {
+            get { return articleUrl; }
+        }
+        /// <summary>
+        /// function grabs the articles summary
+        /// </summary>
+        public string ArticleSummary
+        {
+            get { return discription; }
+
+        }
+        /// <summary>
+        /// function grabs the publication date fo the article
+        /// </summary>
+        public string PublicationDate
+        {
+            get { return pubDate; }
         }
 
     }
