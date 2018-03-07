@@ -65,5 +65,6 @@ namespace RSS_LogicEngine
         {
             get { return pubDate; }
         }
+
     }
 }

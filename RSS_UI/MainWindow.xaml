@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap"/>
+        <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap" Margin="0,0,0.4,160.8"/>
+        <WebBrowser Name ="webBrowser" HorizontalAlignment="Left" Height="155" Margin="2,164,0,0" VerticalAlignment="Top" Width="516"/>
     </Grid>
 </Window>
