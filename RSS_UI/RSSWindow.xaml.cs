@@ -53,5 +53,12 @@ namespace RSS_UI
                 textBox.Text = "Doug rules";
             }
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow newWindow = new RSS_UI.MainWindow();
+            newWindow.Show();
+            this.Close();
+        }
     }
 }

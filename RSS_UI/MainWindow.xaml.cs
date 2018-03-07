@@ -29,5 +29,12 @@ namespace RSS_UI
 
             webBrowser.Navigate("http://google.com");
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            RSSWindow newWindow = new RSS_UI.RSSWindow();
+            newWindow.Show();
+            this.Close();
+        }
     }
 }
