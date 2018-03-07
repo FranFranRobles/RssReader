@@ -7,6 +7,8 @@ using System.Net;
 using System.IO;
 using System.Xml.Linq;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Test_RSS_LogicEngine")]
+
 namespace RSS_LogicEngine
 {
     public class HasNoElements : Exception
