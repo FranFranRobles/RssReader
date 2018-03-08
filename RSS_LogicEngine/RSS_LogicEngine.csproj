@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\Feed_Update_Manager.cs" />
+    <Compile Include="Controllers\Update_Manager.cs" />
     <Compile Include="Entities\Channel.cs" />
     <Compile Include="Entities\Component.cs" />
     <Compile Include="Entities\Article.cs" />

@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace RSS_LogicEngine.Controllers
+namespace RSS_LogicEngine
 {
-    public class Feed_Update_Manager
+    public class Update_Manager
     {
         /***** Begin Singleton Code *****/
-        private static Feed_Update_Manager instance;
+        private static Update_Manager instance;
         // Private constructor.  We are the only class
         // allowed to construct a Feed_Update_manager.
-        private Feed_Update_Manager() => Initialize_Timer();
+        private Update_Manager() => Initialize_Timer();
         // Get_Instance() returns the singleton instance
-        public static Feed_Update_Manager Get_Instance()
+        public static Update_Manager Get_Instance()
         {
             if (instance == null)
-                instance = new Feed_Update_Manager();
+                instance = new Update_Manager();
             return instance;
         }
         /***** End Singleton Code *****/
