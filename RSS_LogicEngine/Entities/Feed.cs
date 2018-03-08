@@ -9,8 +9,10 @@ namespace RSS_LogicEngine
     class Feed : Component
     {
         private Queue<Article> articles;
-        public override void Add_Child(string name, Component c) { }
-        public override void Remove_Child(string comonent_name) { }
+        public override void Add_Child(string name, Component c)
+            => throw new Exception("a Feed cannot have a child component");
+        public override void Remove_Child(string comonent_name)
+            => throw new Exception("cannot remove child from Feed");
         public override bool Has_Children() => false;
         public override List<string> Get_Children() => new List<string>();
         public override Component Get_Child(string name) => null;

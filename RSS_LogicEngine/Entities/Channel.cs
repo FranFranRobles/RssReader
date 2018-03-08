@@ -8,6 +8,7 @@ namespace RSS_LogicEngine
 {
     class Channel : Component
     {
+        private Component parent;
         private Dictionary<string, Component> children;
         public override void Add_Child(string name, Component c) => children.Add(name, c);
         public override void Remove_Child(string name) => children.Remove(name);
