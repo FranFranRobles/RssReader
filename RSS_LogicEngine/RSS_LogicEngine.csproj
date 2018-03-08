@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Component_Tree.cs" />
     <Compile Include="Controllers\Update_Manager.cs" />
     <Compile Include="Entities\Channel.cs" />
     <Compile Include="Entities\Component.cs" />
