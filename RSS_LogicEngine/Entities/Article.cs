@@ -54,7 +54,6 @@ namespace RSS_LogicEngine
         public string ArticleSummary
         {
            get { return discription; }
-
         }
         /// <summary>
         /// function grabs the publication date fo the article
