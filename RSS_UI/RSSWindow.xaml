@@ -23,15 +23,10 @@
         <ToolBar HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" VerticalAlignment="Top" Width="415" Grid.ColumnSpan="2"/>
         <Button Name ="buttonAdd" Content="Add Feed" Grid.Column="1" HorizontalAlignment="Left" Margin="518,27,0,0" VerticalAlignment="Top" Width="75" Click ="buttonAdd_Click" Height="26"/>
         <TextBox Name ="urlBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="173,27,0,0" TextWrapping="Wrap" Text="RSS URL" TextAlignment="Center" VerticalAlignment="Top" Width="340" 
-                 KeyDown ="urlBox_KeyDown" MouseLeftButtonDown="urlBox_MouseLeftButtonDown"/>
+                 GotFocus="urlBox_GotFocus"/>
         <RichTextBox Name ="summaryBox" Grid.Column="1" HorizontalAlignment="Left" Height="98" Margin="10,179,0,0" VerticalAlignment="Top" Width="583">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="RichTextBox"/>
-                </Paragraph>
-            </FlowDocument>
         </RichTextBox>
-        <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158"/>
+        <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158" GotFocus="nameBox_GotFocus"/>
 
     </Grid>
 </Window>
