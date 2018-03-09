@@ -10,16 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace RSS_UI
 {
     /// <summary>
-    /// Interaction logic for RSSWindow.xaml
+    /// Interaction logic for RSS.xaml
     /// </summary>
-    public partial class RSSWindow : Window
+    public partial class RSS : UserControl
     {
-        public RSSWindow()
+        public RSS()
         {
             InitializeComponent();
 
@@ -55,9 +57,10 @@ namespace RSS_UI
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
-        {
-
+        {   
             this.Content = new MAP().Content;
+
+
             //MainWindow newWindow = new RSS_UI.MainWindow();
             //newWindow.Show();
             //this.Close();

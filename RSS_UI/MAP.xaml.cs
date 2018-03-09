@@ -14,14 +14,15 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
 
+
 namespace RSS_UI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MAP.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MAP : UserControl
     {
-        public MainWindow()
+        public MAP()
         {
             InitializeComponent();
             myMap.Focus();
@@ -30,9 +31,11 @@ namespace RSS_UI
             webBrowser.Navigate("http://google.com");
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Content = new RSS().Content;
+            
+
         }
     }
 }
