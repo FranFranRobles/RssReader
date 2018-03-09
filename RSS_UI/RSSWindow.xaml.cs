@@ -25,33 +25,54 @@ namespace RSS_UI
 
             var gridView = new GridView();
             this.articleList.View = gridView;
-            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title") });
             gridView.Columns.Add(new GridViewColumn { Header = "Date", DisplayMemberBinding = new Binding("Date") });
+            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title") });
 
             webBrowser.Navigate("https://google.com");
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            // Click event handler
-            // Should take the contents of the textbox, which is the RSS Feed url and add it to the tree view
-            // Should give the content to some creater to create the feed object appropriately
-
-            // Test for populating the articleList
-            //this.articleList.Items.Add(new Article("Test", "Dummy Date"));
-
             // Test for populating the treeView
             TreeViewItem newItem = new TreeViewItem();
             newItem.Header = "Test Header";
-            this.treeView.Items.Add(newItem);
+            newItem.MouseLeftButtonUp += component_MouseLeftButtonUp;
+            this.treeView.Items.Add(newItem);   
         }
 
-        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        private void urlBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                textBox.Text = "Doug rules";
+                urlBox.Text = "Doug rules";
             }
+        }
+
+        private void urlBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                urlBox.Text = "";
+            }
+            else
+                urlBox.Text = "False";
+        }
+
+        private void component_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ArticleListItem newArticle = new ArticleListItem();
+            newArticle.Title = "test";
+            newArticle.Date = "test date";
+            
+            articleList.Items.Add(newArticle);
+        }
+
+        public class ArticleListItem
+        {
+            public String Title { get; set; }
+            public String Date { get; set; }
+
+
         }
     }
 }
