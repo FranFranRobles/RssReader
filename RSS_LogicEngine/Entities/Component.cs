@@ -10,6 +10,12 @@ namespace RSS_LogicEngine
 {
     class Component
     {
+        protected Component parent;
+        public Component Parent
+        {
+            get => parent;
+            set => parent = value;
+        }
         public virtual void Add_Child(string name, Component c) { }
         public virtual void Remove_Child(string comonent_name) { }
         public virtual bool Has_Children() { return false; }
