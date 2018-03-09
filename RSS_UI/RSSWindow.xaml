@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RSS_UI"
         mc:Ignorable="d"
         Title="RSSWindow" Height="516.025" Width="753">
+    <Viewbox Stretch="Uniform">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="142*"/>
@@ -26,7 +27,7 @@
                  GotFocus="urlBox_GotFocus"/>
         <RichTextBox Name ="summaryBox" Grid.Column="1" HorizontalAlignment="Left" Height="98" Margin="10,179,0,0" VerticalAlignment="Top" Width="583">
         </RichTextBox>
-        <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158" GotFocus="nameBox_GotFocus"/>
-
-    </Grid>
+            <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158" GotFocus="nameBox_GotFocus"/>
+        </Grid>
+    </Viewbox>
 </Window>
