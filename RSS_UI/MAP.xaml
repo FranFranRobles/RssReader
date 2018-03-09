@@ -10,7 +10,7 @@
     <Grid>
         <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap" Margin="0,26,0,191"/>
         <WebBrowser Name ="webBrowser" Margin="0,392,1,0" IsManipulationEnabled="True" Height="181" VerticalAlignment="Top"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
+        <Button Content="RSS" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
 
 
     </Grid>

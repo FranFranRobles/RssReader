@@ -57,13 +57,10 @@ namespace RSS_UI
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
-        {   
-            this.Content = new MAP().Content;
-
-
-            //MainWindow newWindow = new RSS_UI.MainWindow();
-            //newWindow.Show();
-            //this.Close();
+        {
+            //this.contentControl.Content = new MAP().Content;
+            this.Content = new MAP();
+            
         }
     }
 }

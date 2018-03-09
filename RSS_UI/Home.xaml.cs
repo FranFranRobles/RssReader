@@ -22,7 +22,10 @@ namespace RSS_UI
         public Home()
         {
             InitializeComponent();
-            this.Content = new RSS();
+            this.myContent.Content = new RSS();
+            
         }
+
+
     }
 }
