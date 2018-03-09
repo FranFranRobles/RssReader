@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:RSS_UI"
         mc:Ignorable="d"
         Title="RSS Manager" Height="450" Width="800" SizeToContent="WidthAndHeight">
-    <Grid>
-       <ContentControl x:Name="myContent"/>       
-    </Grid> 
+    <Viewbox Stretch="Uniform">
+        <Grid>
+            <ContentControl x:Name="myContent"/>
+        </Grid>
+    </Viewbox>
 </Window>
