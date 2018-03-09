@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSS_LogicEngine
 {
-    class Feed : Component
+    public class Feed : Component
     {
         private Queue<Article> articles;
         public override void Add_Child(string name, Component c)

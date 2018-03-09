@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSS_LogicEngine
 {
-    class Channel : Component
+    public class Channel : Component
     {
         private Component parent;
         private Dictionary<string, Component> children;

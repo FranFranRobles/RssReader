@@ -11,9 +11,10 @@
             <ColumnDefinition Width="142*"/>
             <ColumnDefinition Width="603*"/>
         </Grid.ColumnDefinitions>
+        
         <TreeView Name ="treeView" HorizontalAlignment="Left" Height="448" Margin="10,27,0,0" VerticalAlignment="Top" Width="122"/>
         <WebBrowser Name ="webBrowser" Grid.Column="1" HorizontalAlignment="Left" Height="193" Margin="10,282,0,0" VerticalAlignment="Top" Width="583"/>
-        <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,58,0,0" VerticalAlignment="Top" Width="583">
+        <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,58,0,0" VerticalAlignment="Top" Width="583" SelectionChanged="articleList_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
