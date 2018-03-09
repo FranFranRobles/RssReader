@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boundary\Component_View.cs" />
+    <Compile Include="Controllers\Component_Factory.cs" />
     <Compile Include="Controllers\Component_Tree.cs" />
     <Compile Include="Controllers\Update_Manager.cs" />
     <Compile Include="Entities\Channel.cs" />
