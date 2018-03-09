@@ -51,7 +51,7 @@ namespace RSS_Console
         }
         static void Print_Tree()
         {
-            Print_Tree_Recursive("", 0);
+            Print_Tree_Recursive("/", 0);
         }
         static void Print_Tree_Recursive(string path, int depth)
         {

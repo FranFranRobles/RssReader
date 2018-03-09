@@ -31,14 +31,11 @@ namespace RSS_LogicEngine
         public Component Get_Component_At(string path)
         {
             Component curr = root;
-            Component temp;
-            string[] path_component = path.Split('/');
+            StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries;
+            char[] separator = new char[] { '/' };
+            string[] path_component = path.Split(separator, options);
             foreach (string s in path_component)
-            {
-                temp = curr.Get_Child(s);
-                if (temp == null)
-                    return curr;
-            }
+                curr = curr.Get_Child(s);
             return curr;
         }
         private class Pathname

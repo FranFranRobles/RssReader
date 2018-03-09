@@ -24,7 +24,17 @@ namespace Test_RSS_LogicEngine
             t.Insert_Component_At("/name", component_factory.Create_Channel());
             Assert.AreEqual(1, t.Get_Component_At("/").Get_Children().Count);
             Assert.AreNotEqual(null, t.Get_Component_At("/name"));
-            
+            Assert.AreEqual(0, t.Get_Component_At("/name").Get_Children().Count);
+        }
+        [TestMethod]
+        [TestCategory("Componet Tree Tests")]
+        public void Test_RemoveAfterInsert()
+        {
+            Component_Tree t = new Component_Tree(component_factory.Create_Channel());
+            t.Insert_Component_At("/name", component_factory.Create_Channel());
+            t.Remove_Component_At("/name");
+            Assert.AreNotEqual(null, t.Get_Component_At("/"));
+            Assert.AreEqual(0, t.Get_Component_At("/").Get_Children().Count);
         }
     }
 }
