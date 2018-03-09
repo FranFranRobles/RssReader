@@ -30,6 +30,8 @@ namespace RSS_UI
             gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 483});     
             articleList.SelectionChanged += articleList_SelectionChanged;  // Giving the articles an appropriate method to show in browser
 
+            summaryBox.IsReadOnly = true;   // Making sure the user can't edit the summary shown in UI
+
             webBrowser.Navigate("https://google.com");
         }
 
