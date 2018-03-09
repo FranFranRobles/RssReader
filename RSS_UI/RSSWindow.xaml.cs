@@ -84,5 +84,12 @@ namespace RSS_UI
             if (urlBox.Text == "RSS URL")
                 urlBox.Clear();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow newWindow = new RSS_UI.MainWindow();
+            newWindow.Show();
+            this.Close();
+        }
     }
 }

@@ -1,5 +1,14 @@
 # RepTeam8
 
+## Some ToDo Items:
+
+- Need to test Channel class
+- Create Componenet_Controller class
+- Create Componenet_Builder class
+- Once UI is implemented, need to fill in definition for event methods.
+	The event methods will call controller methods in the Component
+	controller and article controller classes.
+
 ## Your guide to this repository
 
 This repository contains three projects, *so far*. The RSS_LogicEngine project will contain all of our application's logic, while the RSS_UI project will implement our user interface.
