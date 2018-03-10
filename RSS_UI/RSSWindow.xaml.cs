@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RSS_LogicEngine;
 
 namespace RSS_UI
 {
@@ -19,9 +20,12 @@ namespace RSS_UI
     /// </summary>
     public partial class RSSWindow : Window
     {
+        private Component_View compView;    // Reference to the single Component View item that exists in the project
+
         public RSSWindow()
         {
             InitializeComponent();
+            compView = Component_View.Get_Instance();   // Get the reference to the Component View item
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
@@ -44,21 +48,18 @@ namespace RSS_UI
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            // Test for populating the treeView
-            TreeViewItem newItem = new TreeViewItem();
-            newItem.Header = "Test Header";
-            newItem.MouseLeftButtonUp += component_MouseLeftButtonUp;
-            this.treeView.Items.Add(newItem);
+            string rssURL = urlBox.Text;        // Get names listed in the textboxes
+            string feedName = nameBox.Text;
+            TreeViewItem newFeed = new TreeViewItem();  // Create item to be displayed in left hand menu
+            newFeed.Header = feedName;                  // Reflect the name in the menu properly 
+            newFeed.MouseLeftButtonUp += component_MouseLeftButtonUp;   // Link the event to the proper handler
 
-            // Need to send information from the Feed Name and RSS URL textboxes pass data to engine
-            // Get string from Feed Name
-            // Get string from RSS URL
-            // Receive the updated path that is reflected in TreeView
-            // Clear the textboxes and repopulate with Default names
-
-
+            // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
+            compView.Add_Feed("/" + feedName, rssURL);
+            this.treeView.Items.Add(newFeed);   // Show the new feed in the TreeView menu
+            urlBox.Text = "RSS URL";        // Restore default text values in the textboxes
+            nameBox.Text = "Feed Name";
         }
-
 
         private void component_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
