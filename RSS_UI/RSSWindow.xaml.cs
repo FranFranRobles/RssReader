@@ -48,7 +48,15 @@ namespace RSS_UI
             TreeViewItem newItem = new TreeViewItem();
             newItem.Header = "Test Header";
             newItem.MouseLeftButtonUp += component_MouseLeftButtonUp;
-            this.treeView.Items.Add(newItem);   
+            this.treeView.Items.Add(newItem);
+
+            // Need to send information from the Feed Name and RSS URL textboxes pass data to engine
+            // Get string from Feed Name
+            // Get string from RSS URL
+            // Receive the updated path that is reflected in TreeView
+            // Clear the textboxes and repopulate with Default names
+
+
         }
 
 
@@ -63,29 +71,29 @@ namespace RSS_UI
 
         private void articleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FlowDocument newContent = new FlowDocument();
-            Paragraph newP = new Paragraph();
-            Run newRun = new Run("EE451 was selected, RichTextBox is kind of weird!");
-            newP.Inlines.Add(newRun);
-            newContent.Blocks.Add(newP);
+            FlowDocument newContent = new FlowDocument();       // Keep
+            Paragraph newP = new Paragraph();                   // Keep
+            Run newRun = new Run("EE451 was selected, RichTextBox is kind of weird!");  // Change to description, string return from engine
+            newP.Inlines.Add(newRun);   // Keep
+            newContent.Blocks.Add(newP);    // Keep
 
-            webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html");
-            summaryBox.Document = newContent;
+            webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html"); // Change to article's url
+            summaryBox.Document = newContent;       // Keep
         }
 
         private void nameBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (nameBox.Text == "Feed Name")
+            if (nameBox.Text == "Feed Name")    // If we have default text when clicked, clear it
                 nameBox.Clear();
         }
 
         private void urlBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (urlBox.Text == "RSS URL")
+            if (urlBox.Text == "RSS URL")   // If we have default text when clicked, clear it
                 urlBox.Clear();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)     // Need this?
         {
             MainWindow newWindow = new RSS_UI.MainWindow();
             newWindow.Show();
