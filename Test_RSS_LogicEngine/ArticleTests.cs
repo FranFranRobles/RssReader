@@ -24,35 +24,35 @@ namespace RSS_LogicEngine.Tests
         const string INCORRECT_PUB_DATE_MSG = "Incorrect publication date found";
         #endregion
 
-        [TestMethod()]
-        [TestCategory(TEST_CATEGORY)]
-        public void TestDefaultCTOR()
-        {
-            Article myArticle = new Article(TEST_ARTCLE_TITLE,TEST_ARTCLE_URL);
-            Assert.AreEqual(TEST_ARTCLE_TITLE, myArticle.Title, INCORRECT_TITLE_MSG);
-            Assert.AreEqual(TEST_ARTCLE_URL, myArticle.ArticleUrl, INCORRECT_TITLE_MSG);
-            Assert.AreEqual(NOT_APPLICABLE, myArticle.ArticleSummary, INCORRECT_SUMMARY_MSG);
-            Assert.AreEqual(NOT_APPLICABLE, myArticle.PublicationDate, INCORRECT_PUB_DATE_MSG);
-        }
-        [TestMethod()]
-        [TestCategory(TEST_CATEGORY)]
-        public void TestCTORWithArticleSummary()
-        {
-            Article myArticle = new Article(TEST_ARTCLE_TITLE, TEST_ARTCLE_URL,TEST_ARTCLE_SUMMARY);
-            Assert.AreEqual(TEST_ARTCLE_TITLE, myArticle.Title, INCORRECT_TITLE_MSG);
-            Assert.AreEqual(TEST_ARTCLE_URL, myArticle.ArticleUrl, INCORRECT_TITLE_MSG);
-            Assert.AreEqual(TEST_ARTCLE_SUMMARY, myArticle.ArticleSummary, INCORRECT_SUMMARY_MSG);
-            Assert.AreEqual(NOT_APPLICABLE, myArticle.PublicationDate, INCORRECT_PUB_DATE_MSG);
-        }
-        [TestMethod()]
-        [TestCategory(TEST_CATEGORY)]
-        public void TestCTORWithPublicationDate()
-        {
-            Article myArticle = new Article(TEST_ARTCLE_TITLE, TEST_ARTCLE_URL, TEST_ARTCLE_SUMMARY, TEST_PUB_DATE);
-            Assert.AreEqual(TEST_ARTCLE_TITLE, myArticle.Title, INCORRECT_TITLE_MSG);
-            Assert.AreEqual(TEST_ARTCLE_URL, myArticle.ArticleUrl, INCORRECT_TITLE_MSG);
-            Assert.AreEqual(TEST_ARTCLE_SUMMARY, myArticle.ArticleSummary, INCORRECT_SUMMARY_MSG);
-            Assert.AreEqual(TEST_PUB_DATE, myArticle.PublicationDate, INCORRECT_PUB_DATE_MSG);
-        }
+        //[TestMethod()]
+        //[TestCategory(TEST_CATEGORY)]
+        //public void TestDefaultCTOR()
+        //{
+        //    Article myArticle = new Article(TEST_ARTCLE_TITLE,TEST_ARTCLE_URL);
+        //    Assert.AreEqual(TEST_ARTCLE_TITLE, myArticle.Title, INCORRECT_TITLE_MSG);
+        //    Assert.AreEqual(TEST_ARTCLE_URL, myArticle.ArticleUrl, INCORRECT_TITLE_MSG);
+        //    Assert.AreEqual(NOT_APPLICABLE, myArticle.ArticleSummary, INCORRECT_SUMMARY_MSG);
+        //    Assert.AreEqual(NOT_APPLICABLE, myArticle.PublicationDate, INCORRECT_PUB_DATE_MSG);
+        //}
+        //[TestMethod()]
+        //[TestCategory(TEST_CATEGORY)]
+        //public void TestCTORWithArticleSummary()
+        //{
+        //    Article myArticle = new Article(TEST_ARTCLE_TITLE, TEST_ARTCLE_URL,TEST_ARTCLE_SUMMARY);
+        //    Assert.AreEqual(TEST_ARTCLE_TITLE, myArticle.Title, INCORRECT_TITLE_MSG);
+        //    Assert.AreEqual(TEST_ARTCLE_URL, myArticle.ArticleUrl, INCORRECT_TITLE_MSG);
+        //    Assert.AreEqual(TEST_ARTCLE_SUMMARY, myArticle.ArticleSummary, INCORRECT_SUMMARY_MSG);
+        //    Assert.AreEqual(NOT_APPLICABLE, myArticle.PublicationDate, INCORRECT_PUB_DATE_MSG);
+        //}
+        //[TestMethod()]
+        //[TestCategory(TEST_CATEGORY)]
+        //public void TestCTORWithPublicationDate()
+        //{
+        //    Article myArticle = new Article(TEST_ARTCLE_TITLE, TEST_ARTCLE_URL, TEST_ARTCLE_SUMMARY, TEST_PUB_DATE);
+        //    Assert.AreEqual(TEST_ARTCLE_TITLE, myArticle.Title, INCORRECT_TITLE_MSG);
+        //    Assert.AreEqual(TEST_ARTCLE_URL, myArticle.ArticleUrl, INCORRECT_TITLE_MSG);
+        //    Assert.AreEqual(TEST_ARTCLE_SUMMARY, myArticle.ArticleSummary, INCORRECT_SUMMARY_MSG);
+        //    Assert.AreEqual(TEST_PUB_DATE, myArticle.PublicationDate, INCORRECT_PUB_DATE_MSG);
+        //}
     }
 }

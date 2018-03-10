@@ -19,6 +19,10 @@ namespace RSS_LogicEngine
         public Component Create_Channel()
             => new Channel();
         public Component Create_Feed(string uri)
-            => new Feed(uri);
+        {
+            Feed f = new Feed(uri);
+            Feed_Manager.Get_Instance().Add_Feed(f);
+            return f;
+        }
     }
 }
