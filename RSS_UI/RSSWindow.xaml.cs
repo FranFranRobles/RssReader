@@ -34,7 +34,7 @@ namespace RSS_UI
             gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 483});     
             articleList.SelectionChanged += articleList_SelectionChanged;  // Giving the articles an appropriate method to show in browser
 
-            summaryBox.IsReadOnly = true;   // Making sure the user can't edit the summary shown in UI
+            summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
 
             webBrowser.Navigate("https://google.com");
         }
@@ -48,30 +48,47 @@ namespace RSS_UI
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            string rssURL = urlBox.Text;        // Get names listed in the textboxes
+            string rssURL = urlBox.Text;                                // Get names listed in the textboxes
             string feedName = nameBox.Text;
-            TreeViewItem newFeed = new TreeViewItem();  // Create item to be displayed in left hand menu
-            newFeed.Header = feedName;                  // Reflect the name in the menu properly 
-            newFeed.MouseLeftButtonUp += component_MouseLeftButtonUp;   // Link the event to the proper handler
 
+            TreeViewItem newFeed = new TreeViewItem();                  // Create item to be displayed in left hand menu
+            newFeed.Header = feedName;                                  // Reflect the name in the menu properly 
+            newFeed.MouseLeftButtonUp += treeFeed_MouseLeftButtonUp;    // Link the event to the proper handler
+            newFeed.ContextMenu = new ContextMenu();                    // Create a right click menu for the TreeViewItem
+            newFeed.ContextMenu.StaysOpen = true;                       // Make sure that it doesn't close immediately
+
+            MenuItem addChannel = new MenuItem();                       // Creating options for the right click menu
+            MenuItem removeChannel = new MenuItem();
+            addChannel.Header = "Add to Channel";                       // Giving text to the options
+            removeChannel.Header = "Remove from Channel";
+            addChannel.MouseLeftButtonUp += addToChannel;               // Routing events to proper handlers
+            removeChannel.MouseLeftButtonUp += removeFromChannel;
+            newFeed.ContextMenu.Items.Add(addChannel);                  // Placing these items in the right click menu
+            newFeed.ContextMenu.Items.Add(removeChannel);
+            
             // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
             compView.Add_Feed("/" + feedName, rssURL);
-            this.treeView.Items.Add(newFeed);   // Show the new feed in the TreeView menu
-            urlBox.Text = "RSS URL";        // Restore default text values in the textboxes
+            this.treeView.Items.Add(newFeed);                           // Show the new feed in the TreeView menu
+            urlBox.Text = "RSS URL";                                    // Restore default text values in the textboxes
             nameBox.Text = "Feed Name";
         }
 
-        private void component_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void treeFeed_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            // Test logic
             ArticleListItem newArticle = new ArticleListItem();
             newArticle.Title = "test";
             newArticle.Date = "test date";
 
             articleList.Items.Add(newArticle);
+
+            // Need to be able to call some function that will return the articles stored in the selected feed
         }
 
         private void articleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Need to have function return string containing information from description tag in RSS XML
+
             FlowDocument newContent = new FlowDocument();       // Keep
             Paragraph newP = new Paragraph();                   // Keep
             Run newRun = new Run("EE451 was selected, RichTextBox is kind of weird!");  // Change to description, string return from engine
@@ -99,6 +116,17 @@ namespace RSS_UI
             MainWindow newWindow = new RSS_UI.MainWindow();
             newWindow.Show();
             this.Close();
+        }
+
+        private void addToChannel(object sender, MouseEventArgs e)
+        {
+            ;   // Needs some work
+            // Probably will need to create another window for the user to interact with
+        }
+
+        private void removeFromChannel(object sender, MouseEventArgs e)
+        {
+            ;   // Needs some work
         }
     }
 }
