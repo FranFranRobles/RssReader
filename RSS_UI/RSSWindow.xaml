@@ -7,28 +7,36 @@
         mc:Ignorable="d"
         Title="RSSWindow" Height="516.025" Width="753">
     <Viewbox Stretch="Uniform">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="142*"/>
-            <ColumnDefinition Width="603*"/>
-        </Grid.ColumnDefinitions>
-        <TreeView Name ="treeView" HorizontalAlignment="Left" Height="448" Margin="10,27,0,0" VerticalAlignment="Top" Width="122"/>
-        <WebBrowser Name ="webBrowser" Grid.Column="1" HorizontalAlignment="Left" Height="193" Margin="10,282,0,0" VerticalAlignment="Top" Width="583"/>
-        <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,58,0,0" VerticalAlignment="Top" Width="583">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ToolBar HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" VerticalAlignment="Top" Width="415" Grid.ColumnSpan="2">
-            <Button x:Name="button" Content="Map Interface" VerticalAlignment="Stretch" Width="92" Click="button_Click" Margin="0,0,0,-5"/>
-        </ToolBar>
-        <Button Name ="buttonAdd" Content="Add Feed" Grid.Column="1" HorizontalAlignment="Left" Margin="518,27,0,0" VerticalAlignment="Top" Width="75" Click ="buttonAdd_Click" Height="26"/>
-        <TextBox Name ="urlBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="173,27,0,0" TextWrapping="Wrap" Text="RSS URL" TextAlignment="Center" VerticalAlignment="Top" Width="340" 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="142*"/>
+                <ColumnDefinition Width="603*"/>
+            </Grid.ColumnDefinitions>
+            <TreeView Name ="treeView" HorizontalAlignment="Left" Height="448" Margin="10,27,0,0" VerticalAlignment="Top" Width="122">
+                <TreeView.ContextMenu>
+                    <ContextMenu StaysOpen="True">
+                        <MenuItem Header="Add Channel"></MenuItem>
+                        <MenuItem Header="Add Feed"></MenuItem>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+            </TreeView>
+
+            <WebBrowser Name ="webBrowser" Grid.Column="1" HorizontalAlignment="Left" Height="193" Margin="10,282,0,0" VerticalAlignment="Top" Width="583"/>
+            <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,58,0,0" VerticalAlignment="Top" Width="583">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ToolBar HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" VerticalAlignment="Top" Width="415" Grid.ColumnSpan="2">
+                <Button x:Name="button" Content="Map Interface" VerticalAlignment="Top" Width="92" Click="button_Click" Margin="0,0,0,-5" Height="22"/>
+            </ToolBar>
+            <Button Name ="buttonAdd" Content="Add Feed" Grid.Column="1" HorizontalAlignment="Left" Margin="518,27,0,0" VerticalAlignment="Top" Width="75" Click ="buttonAdd_Click" Height="26"/>
+            <TextBox Name ="urlBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="173,27,0,0" TextWrapping="Wrap" Text="RSS URL" TextAlignment="Center" VerticalAlignment="Top" Width="340" 
                  GotFocus="urlBox_GotFocus"/>
-        <RichTextBox Name ="summaryBox" Grid.Column="1" HorizontalAlignment="Left" Height="98" Margin="10,179,0,0" VerticalAlignment="Top" Width="583">
-        </RichTextBox>
+            <RichTextBox Name ="summaryBox" Grid.Column="1" HorizontalAlignment="Left" Height="98" Margin="10,179,0,0" VerticalAlignment="Top" Width="583">
+            </RichTextBox>
             <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158" GotFocus="nameBox_GotFocus"/>
         </Grid>
     </Viewbox>
