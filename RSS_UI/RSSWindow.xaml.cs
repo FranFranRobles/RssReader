@@ -28,26 +28,28 @@ namespace RSS_UI
             InitializeComponent();
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
             updateManager = Update_Manager.Get_Instance();
-            updateManager.Set_Update_Period(3600);      // Initialized to an hour update period
+            updateManager.Set_Update_Period(1);      // Initialized to an hour update period
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
             this.articleList.View = gridView;
             gridView.Columns.Add(new GridViewColumn { Header = "Date", DisplayMemberBinding = new Binding("Date"), Width = 100});
             gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 483});     
-            articleList.SelectionChanged += articleList_SelectionChanged;  // Giving the articles an appropriate method to show in browser
+            //articleList.SelectionChanged += articleList_SelectionChanged;  // Giving the articles an appropriate method to show in browser
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
 
             webBrowser.Navigate("https://google.com");
         }
 
-        public class ArticleListItem : ListViewItem
+        public class ArticleListItem
         {
             // Property definitions so that the articleList can bind to an ArticleListItem and organize properly
             public String Title { get; set; }
             public String Date { get; set; }
-
+            public String URL { get; set; }
+            public String Description { get; set; }
+            public MouseButtonEventHandler click;
         }
 
         private class ComponentTreeViewItem : TreeViewItem
@@ -88,30 +90,52 @@ namespace RSS_UI
         private void treeComp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             ComponentTreeViewItem senderComp = (ComponentTreeViewItem) sender;  // Typecast so we can figure out the sender
-            List<Article> articles = new List<Article>();                       // Create a new list of articles for the return
-            articles = compView.Get_Articles_Under(senderComp.Path);        // Get the list of articles below the current selection
+            List<Article> articles;                                             // Create a new list of articles for the return
+            articles = compView.Get_Articles_Under(senderComp.Path);            // Get the list of articles below the current selection
 
             foreach (Article i in articles)
             {
                 ArticleListItem articleListItem = new ArticleListItem();        // Create a new ArticleListItem to be displayed
                 articleListItem.Title = i.Title;                                // Get the correct title
                 articleListItem.Date = i.Publication_Date;                      // Get the correct date
-                //articleListItem.MouseLeftButtonUp += articleList_SelectionChanged;    This may not be necessary, ListView has event for selection being changed
+                articleListItem.URL = i.URL;
+                articleListItem.Description = i.Summary;
+
+                articleListItem.click += ArticleListItem_MouseLeftButtonUp; // Triggers event for actual item
+
                 articleList.Items.Add(articleListItem);                         // Place in the UI
             }
+        }
+
+        private void ArticleListItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // Need to have function return string containing information from description tag in RSS XML
+            ArticleListItem currentArticle = (ArticleListItem)sender;           // Typecase to get the functionality of an Article from sender obj
+
+            FlowDocument newContent = new FlowDocument();       // Keep
+            Paragraph newP = new Paragraph();                   // Keep
+            //Run newRun = new Run(currentArticle.Description);       // Getting the Summary attibute
+            Run newRun = new Run("Suck");       // Getting the Summary attibute
+            newP.Inlines.Add(newRun);   // Keep
+            newContent.Blocks.Add(newP);    // Keep
+
+            webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html"); // Navigate to the article's URL
+            summaryBox.Document = newContent;       // Keep
         }
 
         private void articleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Need to have function return string containing information from description tag in RSS XML
-            Article currentArticle = (Article)sender;           // Typecase to get the functionality of an Article from sender obj
+            ArticleListItem currentArticle = (ArticleListItem)sender;           // Typecase to get the functionality of an Article from sender obj
+
             FlowDocument newContent = new FlowDocument();       // Keep
             Paragraph newP = new Paragraph();                   // Keep
-            Run newRun = new Run(currentArticle.Summary);       // Getting the Summary attibute
+            //Run newRun = new Run(currentArticle.Description);       // Getting the Summary attibute
+            Run newRun = new Run("Suck");       // Getting the Summary attibute
             newP.Inlines.Add(newRun);   // Keep
             newContent.Blocks.Add(newP);    // Keep
 
-            webBrowser.Navigate(currentArticle.URL); // Navigate to the article's URL
+            webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html"); // Navigate to the article's URL
             summaryBox.Document = newContent;       // Keep
         }
 
