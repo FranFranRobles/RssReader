@@ -14,8 +14,8 @@ namespace RSS_LogicEngine.Tests
         [TestMethod()]
         public void ParseTest()
         {
-            RssParser.Parse("http://abcnews.go.com/abcnews/topstories", "test.xml");
-            Assert.Fail(); // tests are not written yet
+            Feed_Manager temp = Feed_Manager.Get_Instance();
+            temp.Update_Feed(new Feed("http://abcnews.go.com/abcnews/topstories"));
         }
     }
 }
