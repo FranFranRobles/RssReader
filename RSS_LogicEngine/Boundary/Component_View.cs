@@ -39,6 +39,7 @@ namespace RSS_LogicEngine
         }
         public List<string> Get_Children_Of(string path)
             => component_tree.Get_Component_At(path).Get_Children();
+
         public List<Article> Get_Articles_Under(string path)
             => component_tree.Get_Component_At(path).Get_Articles();
     }
