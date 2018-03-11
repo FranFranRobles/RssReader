@@ -37,35 +37,43 @@ namespace RSS_LogicEngine
         public bool Remove_Feed(Feed f) => feeds.Remove(f);
         public void Update_Feed(Feed f)
         {
-            const string ARTICLE = "item"; // search tag for Article Content
             string rss_filename = "rss_temp.xml";
+                (new WebClient()).DownloadFile(f.URI, rss_filename);
             (new WebClient()).DownloadFile(f.URI, rss_filename);
-
-            //XmlReaderSettings xml_reader_settings = new XmlReaderSettings();
-            //xml_reader_settings.DtdProcessing = DtdProcessing.Parse;
-            //XmlReader parser = XmlReader.Create(rss_filename, xml_reader_settings);
-
-            XElement xmlFile = XElement.Load(rss_filename);   //load file
-            f.Add_Articles(ParseArticles(xmlFile.Descendants(ARTICLE)));
+            f.Add_Articles(ParseArticles(rss_filename));
         }
         /// <summary>
         /// Parses the unparsed articles to create article objects
         /// </summary>
+        /// <remarks>
+        /// this function should be private but it is only public for testing purposes
+        /// </remarks>
         /// <param name="listOfUnparsedArticles"> list of articles to create objects out of</param>
         /// <returns>a list of article objects</returns>
-        private static List<Article> ParseArticles(IEnumerable<XElement> listOfUnparsedArticles)
+        public List<Article> ParseArticles(string rss_filename)
         {
+            const string ARTICLE = "item"; // search tag for Article Content
             const string TITLE = "title";
             const string URL = "link";
             const string DESCRIPTION = "description";
             const string PUB_DATE = "pubDate";
+
+            XElement xmlFile = XElement.Load(rss_filename); 
+
             List<Article> articleList = new List<Article>();
-            foreach (XElement item in listOfUnparsedArticles)
+            foreach (XElement article in xmlFile.Descendants(ARTICLE))
             {
-                string pubDate = null;
-                if ((pubDate = item.Element(PUB_DATE).Value) == null)
+                string pubDate = "";
+                try
+                {
+                    pubDate = article.Element(PUB_DATE).Value;
+                }
+                catch (NullReferenceException)
+                {
                     pubDate = "N/A";
-                articleList.Add(new Article(item.Element(TITLE).Value, item.Element(URL).Value, item.Element(DESCRIPTION).Value, pubDate));
+                    throw new XmlException();
+                }
+                articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
             }
             return articleList;
         }
