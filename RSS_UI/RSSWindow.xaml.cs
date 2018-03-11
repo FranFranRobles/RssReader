@@ -21,11 +21,14 @@ namespace RSS_UI
     public partial class RSSWindow : Window
     {
         private Component_View compView;    // Reference to the single Component View item that exists in the project
+        private Update_Manager updateManager;
 
         public RSSWindow()
         {
             InitializeComponent();
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
+            updateManager = Update_Manager.Get_Instance();
+            updateManager.Set_Update_Period(3600);      // Initialized to an hour update period
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
@@ -39,25 +42,34 @@ namespace RSS_UI
             webBrowser.Navigate("https://google.com");
         }
 
-        public class ArticleListItem
+        public class ArticleListItem : ListViewItem
         {
             // Property definitions so that the articleList can bind to an ArticleListItem and organize properly
             public String Title { get; set; }
             public String Date { get; set; }
+
+        }
+
+        private class ComponentTreeViewItem : TreeViewItem
+        {
+            public String Title { get; set; }
+            public String Path { get; set; }
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            string rssURL = urlBox.Text;                                // Get names listed in the textboxes
+            string rssURL = urlBox.Text;                                    // Get names listed in the textboxes
             string feedName = nameBox.Text;
 
-            TreeViewItem newFeed = new TreeViewItem();                  // Create item to be displayed in left hand menu
-            newFeed.Header = feedName;                                  // Reflect the name in the menu properly 
-            newFeed.MouseLeftButtonUp += treeFeed_MouseLeftButtonUp;    // Link the event to the proper handler
-            newFeed.ContextMenu = new ContextMenu();                    // Create a right click menu for the TreeViewItem
-            newFeed.ContextMenu.StaysOpen = true;                       // Make sure that it doesn't close immediately
+            ComponentTreeViewItem newFeed = new ComponentTreeViewItem();    // Create item to be displayed in left hand menu
+            newFeed.Header = feedName;                                      // Reflect the name in the menu properly 
+            newFeed.MouseLeftButtonUp += treeComp_MouseLeftButtonUp;        // Link the event to the proper handler
+            newFeed.ContextMenu = new ContextMenu();                        // Create a right click menu for the TreeViewItem
+            newFeed.ContextMenu.StaysOpen = true;                           // Make sure that it doesn't close immediately
+            newFeed.Title = feedName;                                       // Give the feed a title for the UI's use
+            newFeed.Path = "/" + feedName;                                  // Give the feed a proper path for the UI's use
 
-            MenuItem addChannel = new MenuItem();                       // Creating options for the right click menu
+            MenuItem addChannel = new MenuItem();                           // Creating options for the right click menu
             MenuItem removeChannel = new MenuItem();
             addChannel.Header = "Add to Channel";                       // Giving text to the options
             removeChannel.Header = "Remove from Channel";
@@ -73,29 +85,33 @@ namespace RSS_UI
             nameBox.Text = "Feed Name";
         }
 
-        private void treeFeed_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void treeComp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // Test logic
-            ArticleListItem newArticle = new ArticleListItem();
-            newArticle.Title = "test";
-            newArticle.Date = "test date";
+            ComponentTreeViewItem senderComp = (ComponentTreeViewItem) sender;  // Typecast so we can figure out the sender
+            List<Article> articles = new List<Article>();                       // Create a new list of articles for the return
+            articles = compView.Get_Articles_Under(senderComp.Path);        // Get the list of articles below the current selection
 
-            articleList.Items.Add(newArticle);
-
-            // Need to be able to call some function that will return the articles stored in the selected feed
+            foreach (Article i in articles)
+            {
+                ArticleListItem articleListItem = new ArticleListItem();        // Create a new ArticleListItem to be displayed
+                articleListItem.Title = i.Title;                                // Get the correct title
+                articleListItem.Date = i.Publication_Date;                      // Get the correct date
+                //articleListItem.MouseLeftButtonUp += articleList_SelectionChanged;    This may not be necessary, ListView has event for selection being changed
+                articleList.Items.Add(articleListItem);                         // Place in the UI
+            }
         }
 
         private void articleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Need to have function return string containing information from description tag in RSS XML
-
+            Article currentArticle = (Article)sender;           // Typecase to get the functionality of an Article from sender obj
             FlowDocument newContent = new FlowDocument();       // Keep
             Paragraph newP = new Paragraph();                   // Keep
-            Run newRun = new Run("EE451 was selected, RichTextBox is kind of weird!");  // Change to description, string return from engine
+            Run newRun = new Run(currentArticle.Summary);       // Getting the Summary attibute
             newP.Inlines.Add(newRun);   // Keep
             newContent.Blocks.Add(newP);    // Keep
 
-            webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html"); // Change to article's url
+            webBrowser.Navigate(currentArticle.URL); // Navigate to the article's URL
             summaryBox.Document = newContent;       // Keep
         }
 
