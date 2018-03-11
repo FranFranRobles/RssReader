@@ -33,6 +33,15 @@ namespace RSS_LogicEngine
         public override List<Article> Get_Articles() => articles.ToList<Article>();
         public override bool Is_Leaf() { return true; }
         public void Add_Article(Article a) => articles.Enqueue(a);
+        /// <summary>
+        /// Adds a group of articles to the feed
+        /// </summary>
+        /// <param name="articles">articles to add to feed</param>
+        public void Add_Articles(List<Article> articles)
+        {
+            foreach (Article article in articles)
+                Add_Article(article);
+        }
         public List<Article> Remove_Articles(int num_to_remove)
         {
             // The only reason this function returns a value is for testing
