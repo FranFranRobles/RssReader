@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Test_RSS_LogicEngine")]
 
@@ -34,42 +35,39 @@ namespace RSS_LogicEngine
         }
         public void Add_Feed(Feed f) => feeds.Add(f);
         public bool Remove_Feed(Feed f) => feeds.Remove(f);
-        public List<Article> Update_Feed(Feed f)
+        public void Update_Feed(Feed f)
         {
+            const string ARTICLE = "item"; // search tag for Article Content
             string rss_filename = "rss_temp.xml";
             (new WebClient()).DownloadFile(f.URI, rss_filename);
-            XmlReaderSettings xml_reader_settings = new XmlReaderSettings();
-            xml_reader_settings.DtdProcessing = DtdProcessing.Parse;
-            XmlReader parser = XmlReader.Create(rss_filename, xml_reader_settings);
 
-            return (List<Article>)null;
+            //XmlReaderSettings xml_reader_settings = new XmlReaderSettings();
+            //xml_reader_settings.DtdProcessing = DtdProcessing.Parse;
+            //XmlReader parser = XmlReader.Create(rss_filename, xml_reader_settings);
+
+            XElement xmlFile = XElement.Load(rss_filename);   //load file
+            f.Add_Articles(ParseArticles(xmlFile.Descendants(ARTICLE)));
         }
-        ///// <summary>
-        ///// function parses the list of items to create article object from
-        ///// </summary>
-        ///// <param name="listOfItems">list of unparsed articles</param>
-        ///// <returns>a list of article objects</returns>
-        //private static List<Article> ParseItems(List<XElement> listOfItems)
-        //{
-        //    const string TITLE = "title";
-        //    const string URL = "link";
-
-        //    List<Article> articleList = new List<Article>();
-        //    foreach (XElement item in listOfItems)
-        //    {
-        //        articleList.Add(new Article(GetData(item.Descendants(TITLE)), GetData(item.Descendants(URL))));
-        //    }
-        //    return articleList;
-        //}
-        ///// <summary>
-        ///// function outputs the inner data of the node 
-        ///// IEnumerable will always be size 1
-        ///// </summary>
-        ///// <param name="node">node to grab data from</param>
-        ///// <returns>the inner data from the input node</returns>
-        //private static string GetData(IEnumerable<XElement> node)
-        //{
-        //    return node.ToArray()[0].Value; // the value 0 is used since  the array size will always be of size 1
-        //}
+        /// <summary>
+        /// Parses the unparsed articles to create article objects
+        /// </summary>
+        /// <param name="listOfUnparsedArticles"> list of articles to create objects out of</param>
+        /// <returns>a list of article objects</returns>
+        private static List<Article> ParseArticles(IEnumerable<XElement> listOfUnparsedArticles)
+        {
+            const string TITLE = "title";
+            const string URL = "link";
+            const string DESCRIPTION = "description";
+            const string PUB_DATE = "pubDate";
+            List<Article> articleList = new List<Article>();
+            foreach (XElement item in listOfUnparsedArticles)
+            {
+                string pubDate = null;
+                if ((pubDate = item.Element(PUB_DATE).Value) == null)
+                    pubDate = "N/A";
+                articleList.Add(new Article(item.Element(TITLE).Value, item.Element(URL).Value, item.Element(DESCRIPTION).Value, pubDate));
+            }
+            return articleList;
+        }
     }
 }
