@@ -28,7 +28,7 @@ namespace RSS_UI
             InitializeComponent();
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
             updateManager = Update_Manager.Get_Instance();
-            updateManager.Set_Update_Period(1);      // Initialized to an hour update period
+            updateManager.Set_Update_Period(5);      // Initialized to an hour update period
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
