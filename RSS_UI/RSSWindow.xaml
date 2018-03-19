@@ -23,11 +23,6 @@
 
             <WebBrowser Name ="webBrowser" Grid.Column="1" HorizontalAlignment="Left" Height="193" Margin="10,282,0,0" VerticalAlignment="Top" Width="583"/>
             <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,58,0,0" VerticalAlignment="Top" Width="583">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
             </ListView>
             <ToolBar HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" VerticalAlignment="Top" Width="415" Grid.ColumnSpan="2">
                 <Button x:Name="button" Content="Map Interface" VerticalAlignment="Top" Width="92" Click="button_Click" Margin="0,0,0,-5" Height="22"/>
