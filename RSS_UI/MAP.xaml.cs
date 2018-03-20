@@ -27,8 +27,6 @@ namespace RSS_UI
             InitializeComponent();
             myMap.Focus();
             myMap.Mode = new AerialMode(true);
-
-            webBrowser.Navigate("http://google.com");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

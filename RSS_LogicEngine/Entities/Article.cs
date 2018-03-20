@@ -10,57 +10,57 @@ namespace RSS_LogicEngine
 {
     public class Article
     {
-        const string NOT_APPLICABLE = "N/A";
         #region Article Atributes
-        
         private string title; // name of the article
-        private string articleUrl; //location of full article
-        private string discription; // summary of the article
-        private string pubDate; // date published
+        private string url; //location of full article
+        private string summary; // summary of the article
+        private string publication_date; // date published
         #endregion
         /// <summary>
-       /// Article object CTOR
+        /// Article object CTOR
         /// </summary>
-        /// <param name="_title">name of the article</param>
-        /// <param name="_articleUrl">source of the complete article</param>
+        /// <param name="title">name of the article</param>
+        /// <param name="url">source of the complete article</param>
         /// <param name="summary">short summary of the article</param>
-        /// <param name="_pubDate">date published</param>
-        /// <param name="_catagories">list of search keywords</param>
-        public Article(string _title, string _articleUrl, string summary = NOT_APPLICABLE,
-            string _pubDate = NOT_APPLICABLE, List<string> _catagories = null)
+        /// <param name="publication_date">date published</param>
+        public Article(string title, string url, string summary, string publication_date)
         {
-            title = _title;
-            articleUrl = _articleUrl;
-            discription = summary;
-            pubDate = _pubDate;
+            Title = title;
+            URL = url;
+            Summary = summary;
+            Publication_Date = publication_date;
         }
         /// <summary>
-        /// function grabs the title of the article
+        /// Title of article
         /// </summary>
         public string Title
         {
-            get { return title; }
+            get => title;
+            private set => title = value;
         }
         /// <summary>
-        /// function grabs the url of the full article
+        /// URL where the article can be found
         /// </summary>
-        public string ArticleUrl
+        public string URL
         {
-            get { return articleUrl; }
+            get => url;
+            private set => url = value;
         }
         /// <summary>
-       /// function grabs the articles summary
+        /// Brief summary of article
         /// </summary>
-        public string ArticleSummary
+        public string Summary
         {
-           get { return discription; }
+            get => summary;
+            private set => summary = value;
         }
         /// <summary>
-        /// function grabs the publication date fo the article
+        /// Publication date of Article
         /// </summary>
-        public string PublicationDate
+        public string Publication_Date
         {
-            get { return pubDate; }
+            get => publication_date;
+            private set => publication_date = value;
         }
     }
 }
