@@ -148,11 +148,7 @@ namespace RSS_UI
             ;   // Needs some work
         }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new MAP();
-        }
+        
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

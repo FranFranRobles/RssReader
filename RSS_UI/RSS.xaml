@@ -32,8 +32,6 @@
         </RichTextBox>
         <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158" GotFocus="nameBox_GotFocus"/>
 
-        <Button Content="MAP" HorizontalAlignment="Left" Margin="72,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-
         
     </Grid>
 

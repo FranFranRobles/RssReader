@@ -28,7 +28,9 @@ namespace RSS_UI
 
         }
 
-
+        //
+        // Content Control Click Events
+        //
         private void mnuRSS_Click(object sender, RoutedEventArgs e)
         {
             this.myContent.Content = new RSS();
