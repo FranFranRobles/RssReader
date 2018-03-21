@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RSS_UI"
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+<<<<<<< HEAD
              mc:Ignorable="d" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -12,11 +13,21 @@
             <ColumnDefinition Width="59*"/>
         </Grid.ColumnDefinitions>
         <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap" Margin="10,28,0,10" HorizontalAlignment="Left" Width="766" Grid.ColumnSpan="2"/>
-        <Button Content="RSS" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="76" Click="Button_Click" RenderTransformOrigin="1.599,0.325" Margin="166,0,0,427"/>
-
+        
 
     </Grid>
 
 
 </UserControl>
 
+=======
+             mc:Ignorable="d" 
+             d:DesignHeight="583.207" d:DesignWidth="817.932">
+    <Grid>
+        <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap" Margin="0,26,0,10"/>
+        <Button Content="RSS" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
+
+
+    </Grid>
+</UserControl>
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8

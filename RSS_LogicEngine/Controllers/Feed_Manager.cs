@@ -38,7 +38,11 @@ namespace RSS_LogicEngine
         public void Update_Feed(Feed f)
         {
             string rss_filename = "rss_temp.xml";
+<<<<<<< HEAD
                 (new WebClient()).DownloadFile(f.URI, rss_filename);
+=======
+            (new WebClient()).DownloadFile(f.URI, rss_filename);
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
             (new WebClient()).DownloadFile(f.URI, rss_filename);
             f.Add_Articles(ParseArticles(rss_filename));
         }
@@ -58,7 +62,11 @@ namespace RSS_LogicEngine
             const string DESCRIPTION = "description";
             const string PUB_DATE = "pubDate";
 
+<<<<<<< HEAD
             XElement xmlFile = XElement.Load(rss_filename); 
+=======
+            XElement xmlFile = XElement.Load(rss_filename);
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
 
             List<Article> articleList = new List<Article>();
             foreach (XElement article in xmlFile.Descendants(ARTICLE))
@@ -71,10 +79,18 @@ namespace RSS_LogicEngine
                 catch (NullReferenceException)
                 {
                     pubDate = "N/A";
+<<<<<<< HEAD
+=======
+                    throw new XmlException();
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
                 }
                 articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
             }
             return articleList;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
