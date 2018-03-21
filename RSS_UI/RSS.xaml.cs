@@ -153,6 +153,11 @@ namespace RSS_UI
         {
             this.Content = new MAP();
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
 
