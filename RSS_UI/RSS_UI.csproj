@@ -69,9 +69,12 @@
     <Compile Include="RSS.xaml.cs">
       <DependentUpon>RSS.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="TOPIC.xaml.cs">
       <DependentUpon>TOPIC.xaml</DependentUpon>
     </Compile>
+=======
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
     <Page Include="Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,10 +88,13 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RSS.xaml">
+<<<<<<< HEAD
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TOPIC.xaml">
+=======
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

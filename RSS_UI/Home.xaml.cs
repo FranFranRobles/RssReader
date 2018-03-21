@@ -23,6 +23,7 @@ namespace RSS_UI
         {
             InitializeComponent();
             this.myContent.Content = new RSS();
+<<<<<<< HEAD
             //Content RSS_C = new RSS();
 
 
@@ -45,6 +46,11 @@ namespace RSS_UI
         {
             this.myContent.Content = new TOPIC();
         }
+=======
+            
+        }
+
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
 
     }
 }

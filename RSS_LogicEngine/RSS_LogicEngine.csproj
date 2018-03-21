@@ -43,16 +43,20 @@
     <Compile Include="Boundary\Component_View.cs" />
     <Compile Include="Controllers\Component_Factory.cs" />
     <Compile Include="Controllers\Component_Tree.cs" />
+    <Compile Include="Controllers\Feed_Manager.cs" />
     <Compile Include="Controllers\Update_Manager.cs" />
     <Compile Include="Entities\Channel.cs" />
     <Compile Include="Entities\Component.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Feed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\Feed_Manager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp_Data\" />
+=======
+>>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
