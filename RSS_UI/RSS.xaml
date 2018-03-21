@@ -6,11 +6,8 @@
              xmlns:local="clr-namespace:RSS_UI"
              mc:Ignorable="d" Height="507.211" Width="772.676">
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="142*"/>
@@ -28,12 +25,6 @@
         <WebBrowser Name ="webBrowser" Grid.Column="1" HorizontalAlignment="Left" Height="193" Margin="10,282,0,0" VerticalAlignment="Top" Width="583"/>
         <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,58,0,0" VerticalAlignment="Top" Width="583">
         </ListView>
-<<<<<<< HEAD
-=======
-        <ToolBar HorizontalAlignment="Left" Height="22" Margin="10,0,0,0" VerticalAlignment="Top" Width="415" Grid.ColumnSpan="2">
-            <Button x:Name="button" Content="Map Interface" VerticalAlignment="Top" Width="92" Click="button_Click" Margin="0,0,0,-5" Height="22"/>
-        </ToolBar>
->>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
         <Button Name ="buttonAdd" Content="Add Feed" Grid.Column="1" HorizontalAlignment="Left" Margin="518,27,0,0" VerticalAlignment="Top" Width="75" Click ="buttonAdd_Click" Height="26"/>
         <TextBox Name ="urlBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="173,27,0,0" TextWrapping="Wrap" Text="RSS URL" TextAlignment="Center" VerticalAlignment="Top" Width="340" 
                  GotFocus="urlBox_GotFocus"/>
@@ -41,11 +32,9 @@
         </RichTextBox>
         <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158" GotFocus="nameBox_GotFocus"/>
 
-<<<<<<< HEAD
+        <Button Content="MAP" HorizontalAlignment="Left" Margin="72,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+
         
-=======
-        <Button Content="MAP" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
->>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
     </Grid>
 
 

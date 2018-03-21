@@ -29,13 +29,10 @@ namespace RSS_UI
             myMap.Mode = new AerialMode(true);
         }
 
-<<<<<<< HEAD:RSS_UI/MAP.xaml.cs
-=======
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Content = new RSS();
         }
->>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8:RSS_UI/MAP.xaml.cs
     }
 }
 

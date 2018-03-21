@@ -17,7 +17,7 @@ namespace RSS_LogicEngine
         private string publication_date; // date published
         #endregion
         /// <summary>
-        /// Article object CTOR
+       /// Article object CTOR
         /// </summary>
         /// <param name="title">name of the article</param>
         /// <param name="url">source of the complete article</param>

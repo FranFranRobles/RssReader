@@ -25,8 +25,4 @@ namespace RSS_LogicEngine
             return f;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b8d0e55db8f2850e6109394585b2c243fa5399e8
