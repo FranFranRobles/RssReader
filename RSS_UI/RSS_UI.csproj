@@ -69,23 +69,15 @@
     <Compile Include="RSS.xaml.cs">
       <DependentUpon>RSS.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RSSWindow.xaml.cs">
-      <DependentUpon>RSSWindow.xaml</DependentUpon>
+    <Compile Include="TOPIC.xaml.cs">
+      <DependentUpon>TOPIC.xaml</DependentUpon>
     </Compile>
     <Page Include="Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MAP.xaml">
@@ -96,7 +88,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RSSWindow.xaml">
+    <Page Include="TOPIC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
