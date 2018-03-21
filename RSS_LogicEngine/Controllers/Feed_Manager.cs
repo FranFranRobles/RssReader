@@ -71,7 +71,6 @@ namespace RSS_LogicEngine
                 catch (NullReferenceException)
                 {
                     pubDate = "N/A";
-                    throw new XmlException();
                 }
                 articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
             }
