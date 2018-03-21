@@ -27,6 +27,7 @@
                 <ContentControl x:Name="myContent" Grid.ColumnSpan="2"/>
             </Grid>
         </Viewbox>
+
     </DockPanel>
 
 
