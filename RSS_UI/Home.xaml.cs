@@ -23,9 +23,12 @@ namespace RSS_UI
         {
             InitializeComponent();
             this.myContent.Content = new RSS();
+
         }
 
-
+        //
+        // Content Control Click Events
+        //
         private void mnuRSS_Click(object sender, RoutedEventArgs e)
         {
             this.myContent.Content = new RSS();
@@ -40,6 +43,9 @@ namespace RSS_UI
         {
             this.myContent.Content = new TOPIC();
         }
+
+            
+
 
     }
 }
