@@ -10,20 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RSS_LogicEngine;
+
+
 
 namespace RSS_UI
 {
     /// <summary>
-    /// Interaction logic for RSSWindow.xaml
+    /// Interaction logic for RSS.xaml
     /// </summary>
-    public partial class RSSWindow : Window
+    public partial class RSS : UserControl
     {
         private Component_View compView;    // Reference to the single Component View item that exists in the project
         private Update_Manager updateManager;
 
-        public RSSWindow()
+        public RSS()
         {
             InitializeComponent();
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
@@ -32,8 +35,8 @@ namespace RSS_UI
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
-            gridView.Columns.Add(new GridViewColumn { Header = "Date", DisplayMemberBinding = new Binding("Date"), Width = 100});
-            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 483});
+            gridView.Columns.Add(new GridViewColumn { Header = "Date", DisplayMemberBinding = new Binding("Date"), Width = 100 });
+            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 483 });
             this.articleList.View = gridView;
             articleList.SelectionChanged += ArticleListItem_Clicked;    // Maps the list view being clicked to a handler
 
@@ -78,7 +81,7 @@ namespace RSS_UI
             removeChannel.MouseLeftButtonUp += removeFromChannel;
             newFeed.ContextMenu.Items.Add(addChannel);                      // Placing these items in the right click menu
             newFeed.ContextMenu.Items.Add(removeChannel);
-            
+
             // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
             compView.Add_Feed("/" + feedName, rssURL);
             this.treeView.Items.Add(newFeed);                           // Show the new feed in the TreeView menu
@@ -88,7 +91,7 @@ namespace RSS_UI
 
         private void treeComp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            ComponentTreeViewItem senderComp = (ComponentTreeViewItem) sender;  // Typecast so we can figure out the sender
+            ComponentTreeViewItem senderComp = (ComponentTreeViewItem)sender;  // Typecast so we can figure out the sender
             List<Article> articles;                                             // Create a new list of articles for the return
             articles = compView.Get_Articles_Under(senderComp.Path);            // Get the list of articles below the current selection
 
@@ -110,10 +113,10 @@ namespace RSS_UI
             ArticleListItem currentArticle = (ArticleListItem)currentList.SelectedItem;
 
             // Need to have function return string containing information from description tag in RSS XML
-            FlowDocument newContent = new FlowDocument();       
-            Paragraph newP = new Paragraph();                   
+            FlowDocument newContent = new FlowDocument();
+            Paragraph newP = new Paragraph();
             Run newRun = new Run(currentArticle.Description);       // Getting the Summary attibute
-            newP.Inlines.Add(newRun);   
+            newP.Inlines.Add(newRun);
             newContent.Blocks.Add(newP);    // Placing the summary into the newContent which will be displayed in the summaryBox
 
             webBrowser.Navigate(currentArticle.URL); // Navigate to the article's URL
@@ -132,12 +135,7 @@ namespace RSS_UI
                 urlBox.Clear();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)     // Need this?
-        {
-            MainWindow newWindow = new RSS_UI.MainWindow();
-            newWindow.Show();
-            this.Close();
-        }
+
 
         private void addToChannel(object sender, MouseEventArgs e)
         {
@@ -149,5 +147,18 @@ namespace RSS_UI
         {
             ;   // Needs some work
         }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new MAP();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
+
+

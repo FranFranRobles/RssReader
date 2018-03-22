@@ -14,27 +14,25 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
 
+
 namespace RSS_UI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MAP.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MAP : UserControl
     {
-        public MainWindow()
+        public MAP()
         {
             InitializeComponent();
             myMap.Focus();
             myMap.Mode = new AerialMode(true);
-
-            webBrowser.Navigate("http://google.com");
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RSSWindow newWindow = new RSS_UI.RSSWindow();
-            newWindow.Show();
-            this.Close();
+            this.Content = new RSS();
         }
     }
 }
+
