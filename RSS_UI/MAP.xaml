@@ -5,15 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RSS_UI"
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-             mc:Ignorable="d" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="141*"/>
-            <ColumnDefinition Width="59*"/>
-        </Grid.ColumnDefinitions>
-        <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap" Margin="10,28,0,10" HorizontalAlignment="Left" Width="766" Grid.ColumnSpan="2"/>
-       
-
+             mc:Ignorable="d" d:DesignHeight="594" d:DesignWidth="694">
+    <Grid Margin="0,0,0,0">
+        <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap" Margin="10" Width="Auto" Height="Auto" />
     </Grid>
 
 
