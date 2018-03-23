@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:RSS_UI"
              mc:Ignorable="d" Height="507.211" Width="772.676">
 
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="142*"/>

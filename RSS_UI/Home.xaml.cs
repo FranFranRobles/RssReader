@@ -23,9 +23,26 @@ namespace RSS_UI
         {
             InitializeComponent();
             this.myContent.Content = new RSS();
+            //Content RSS_C = new RSS();
+
 
         }
 
+
+        private void mnuRSS_Click(object sender, RoutedEventArgs e)
+        {
+            this.myContent.Content = new RSS();
+        }
+
+        private void mnuMAP_Click(object sender, RoutedEventArgs e)
+        {
+            this.myContent.Content = new MAP();
+        }
+
+        private void mnuTOPIC_Click(object sender, RoutedEventArgs e)
+        {
+            this.myContent.Content = new TOPIC();
+        }
 
     }
 }
