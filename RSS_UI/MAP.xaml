@@ -5,9 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RSS_UI"
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-             mc:Ignorable="d" d:DesignHeight="594" d:DesignWidth="694">
+             mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="1024">
     <Grid Margin="0,0,0,0">
-        <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" x:Name="myMap" Margin="10" Width="Auto" Height="Auto" />
+        <m:Map CredentialsProvider="AlUiWXlzy3twSAeC8jwXQTrEKXRsFoTVrcrHInu7MXviL8vnl9GjCcKNRurJqu7R" 
+               x:Name="myMap" 
+               Width="Auto" 
+               Height="Auto" 
+               ZoomLevel="4.00" 
+               Center="39.3683,-95.2734,0.0000"
+               Mode="AerialWithLabels"/>
+               
     </Grid>
 
 

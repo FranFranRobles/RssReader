@@ -10,7 +10,7 @@
         VerticalContentAlignment="Stretch"
         HorizontalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
-        SizeToContent ="Height" Height="Auto" Width="Auto">
+        Height="768" Width="1024">
 
 
     <DockPanel Margin="0,0,0,0" Height="Auto">

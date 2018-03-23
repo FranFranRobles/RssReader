@@ -4,17 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RSS_UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700">
+             mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="1024">
 
 
-    <Viewbox Stretch="UniformToFill" Margin="20,20,20,20">
+    <Viewbox Stretch="UniformToFill" Margin="15,15,15,15">
         <Grid Height="Auto" Width="Auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="142*"/>
-                <ColumnDefinition Width="603*"/>
-            </Grid.ColumnDefinitions>
-            <TreeView Name ="treeView" HorizontalAlignment="Left" MinHeight="200" Margin="5,10,0,0" VerticalAlignment="Top" Width="122" Height="216">
+            <TreeView Name ="treeView" HorizontalAlignment="Left" Margin="2,23,0,0" Width="76"  >
                 <TreeView.ContextMenu>
                     <ContextMenu StaysOpen="True">
                         <MenuItem Header="Add Channel"></MenuItem>
@@ -22,14 +17,12 @@
                     </ContextMenu>
                 </TreeView.ContextMenu>
             </TreeView>
-            <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,41,0,0" VerticalAlignment="Top" Width="437">
-            </ListView>
-            <Button Name ="buttonAdd" Content="Add Feed" Grid.Column="1" HorizontalAlignment="Left" Margin="376,10,0,0" VerticalAlignment="Top" Width="71" Click ="buttonAdd_Click" Height="26" RenderTransformOrigin="-0.395,0.591"/>
-            <TextBox Name ="urlBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="134,10,0,0" TextWrapping="Wrap" Text="RSS URL" TextAlignment="Center" VerticalAlignment="Top" Width="237" 
+            <ListView Name ="articleList" HorizontalAlignment="Left" Height="94" Margin="83,23,0,0" VerticalAlignment="Top" Width="188" RenderTransformOrigin="0.504,0.074"/>
+            <Button Name ="buttonAdd" Content="Add Feed" HorizontalAlignment="Left" Margin="212,0,0,0" VerticalAlignment="Top" Width="59" Click ="buttonAdd_Click" Height="18" RenderTransformOrigin="-0.395,0.591"/>
+            <TextBox Name ="urlBox" HorizontalAlignment="Left" Height="18" Margin="83,0,0,0" TextWrapping="Wrap" Text="RSS URL" TextAlignment="Center" VerticalAlignment="Top" Width="124" 
                      GotFocus="urlBox_GotFocus"/>
-            <RichTextBox Name ="summaryBox" Grid.Column="1" HorizontalAlignment="Left" MinHeight="60" Margin="10,162,0,0" VerticalAlignment="Top" Width="437" Height="51">
-            </RichTextBox>
-            <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,10,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="119" GotFocus="nameBox_GotFocus"/>
+            <RichTextBox Name ="summaryBox" MinHeight="30" Margin="83,122,2,0" VerticalAlignment="Top" Height="79"/>
+            <TextBox Name ="nameBox" HorizontalAlignment="left" Height="18" Margin="2,0,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="76" GotFocus="nameBox_GotFocus" TextChanged="nameBox_TextChanged"/>
         </Grid>
     </Viewbox>
 </UserControl>
