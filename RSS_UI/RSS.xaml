@@ -9,26 +9,29 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="305*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="90" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="5*" />
+            <RowDefinition Height="5" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
+        <Label Grid.Column="0">Feed Name:</Label>       
+        <TextBox Name ="nameBox" BorderThickness="3" BorderBrush="DarkSlateGray" Grid.Column="0" TextWrapping="NoWrap" TextBlock.FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="nameBox_GotFocus" TextChanged="nameBox_TextChanged" Margin="71,2,5,2" />
+        
 
-        <Label Grid.Column="0">Feed Name:</Label>
-        <TextBox Name ="nameBox"   Grid.Column="0" TextWrapping="NoWrap" TextBlock.FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="nameBox_GotFocus" TextChanged="nameBox_TextChanged" Margin="71,2,5,2" />
-        <Label Grid.Column="1">Feed URL:</Label>
-        <TextBox Name ="urlBox"    Grid.Column="1" TextWrapping="NoWrap" TextBlock.FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="urlBox_GotFocus" Margin="61,2,5,2"    />
-        <Button  Name ="buttonAdd" Grid.Column="2"  Content="Add Feed"   TextBlock.FontSize="8"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click ="buttonAdd_Click"   Margin="2,2,2,2" />
+        <Label Grid.Column="2">Feed URL:</Label>
+        <TextBox Name ="urlBox"    Grid.Column="2" TextWrapping="NoWrap" TextBlock.FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="urlBox_GotFocus" Margin="61,2,5,2"    />
+        <Button  Name ="buttonAdd" Grid.Column="3"  Content="Add Feed"   TextBlock.FontSize="14"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click ="buttonAdd_Click"   Margin="2,2,2,2" />
 
 
-        <TreeView Name ="treeView" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,5,5,2"  >
+        <TreeView Name ="treeView" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,5,5,2"  >
             <TreeView.ContextMenu>
                 <ContextMenu StaysOpen="True">
                     <MenuItem Header="Add Channel"></MenuItem>
@@ -38,8 +41,8 @@
         </TreeView>
 
 
-        <ListView    Name ="articleList" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,5,2,2" />
-        <RichTextBox Name ="summaryBox"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,5,2,2"  TextBlock.FontSize="8"  />
+        <ListView    Name ="articleList" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,5,2,2" />
+        <RichTextBox Name ="summaryBox"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,5,2,2"  TextBlock.FontSize="8"  />
 
 
 
