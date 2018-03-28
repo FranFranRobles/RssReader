@@ -25,7 +25,6 @@ namespace RSS_UI
             this.myContent.Content = new RSS();
             //Content RSS_C = new RSS();
 
-
         }
 
 

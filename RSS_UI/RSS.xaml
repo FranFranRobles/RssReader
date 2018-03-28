@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RSS_UI"
-             mc:Ignorable="d" Height="507.211" Width="772.676">
-
+             mc:Ignorable="d" 
+             Height="507.211"
+             Width="772.676">
+             
 
 
     <Grid>
@@ -16,8 +18,8 @@
         <TreeView Name ="treeView" HorizontalAlignment="Left" Height="448" Margin="10,27,0,0" VerticalAlignment="Top" Width="122">
             <TreeView.ContextMenu>
                 <ContextMenu StaysOpen="True">
-                    <MenuItem Header="Add Channel"></MenuItem>
-                    <MenuItem Header="Add Feed"></MenuItem>
+                    <MenuItem Header="Add Channel" Click="addToChannel"></MenuItem>
+                    <MenuItem Header="Add Feed" Click="removeFromChannel"></MenuItem>
                 </ContextMenu>
             </TreeView.ContextMenu>
         </TreeView>

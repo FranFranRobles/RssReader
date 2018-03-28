@@ -31,7 +31,7 @@ namespace RSS_UI
             InitializeComponent();
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
             updateManager = Update_Manager.Get_Instance();
-            updateManager.Set_Update_Period(5);      // Initialized to an hour update period
+            updateManager.Set_Update_Period(5);      // Initialized to 5 sec refresh rate
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
@@ -43,6 +43,8 @@ namespace RSS_UI
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
 
             webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html"); // Default here cause there is no JS on this website
+
+            this.UpdateLayout();
         }
 
         public class ArticleListItem
@@ -137,13 +139,13 @@ namespace RSS_UI
 
 
 
-        private void addToChannel(object sender, MouseEventArgs e)
+        private void addToChannel(object sender, RoutedEventArgs e)
         {
             ;   // Needs some work
             // Probably will need to create another window for the user to interact with
         }
 
-        private void removeFromChannel(object sender, MouseEventArgs e)
+        private void removeFromChannel(object sender, RoutedEventArgs e)
         {
             ;   // Needs some work
         }
