@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RSS_UI"
         mc:Ignorable="d"
-        Title="RSS Manager" Height="255" Width="600" SizeToContent ="WidthAndHeight">
+        Title="RSS Manager" 
+        VerticalAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Stretch"
+        Height="768" Width="1024">
 
 
-    <DockPanel Margin="0,0,0,198">
+    <DockPanel Margin="0,0,0,0" Height="Auto">
         <Menu DockPanel.Dock="Top" Margin="0,0,0,195">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open"/>
@@ -22,14 +27,18 @@
                 <MenuItem Header="_Topic Manager" Click="mnuTOPIC_Click" />
             </MenuItem>
         </Menu>
-        <Viewbox Stretch="Uniform">
-            <Grid>               
-                <ContentControl x:Name="myContent" Grid.ColumnSpan="2"/>
-            </Grid>
-        </Viewbox>
+        <Grid Margin="0,-190,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ContentControl x:Name="myContent"></ContentControl>
+        </Grid>
+
 
     </DockPanel>
 
-
-
 </Window>
+    
