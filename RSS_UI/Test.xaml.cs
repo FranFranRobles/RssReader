@@ -12,29 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Maps.MapControl.WPF;
-
 
 namespace RSS_UI
 {
     /// <summary>
-    /// Interaction logic for MAP.xaml
+    /// Interaction logic for Test.xaml
     /// </summary>
-    public partial class MAP : UserControl
+    public partial class Test : UserControl
     {
-        public MAP()
+        public Test()
         {
             InitializeComponent();
-            myMap.Focus();
-            myMap.Mode = new AerialMode(true);
         }
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new RSS();
-        }
-
     }
 }
-

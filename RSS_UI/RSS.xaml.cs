@@ -41,10 +41,24 @@ namespace RSS_UI
             articleList.SelectionChanged += ArticleListItem_Clicked;    // Maps the list view being clicked to a handler
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
-
-            this.UpdateLayout();
             
         }
+
+        public void SetTextSize_Up()
+        {
+            treeView.FontSize++;
+            articleList.FontSize++;
+            summaryBox.FontSize++;
+
+        }
+
+        public void SetTextSize_Down()
+        {
+            treeView.FontSize--;
+            articleList.FontSize--;
+            summaryBox.FontSize--;
+        }
+
 
         public class ArticleListItem
         {
@@ -65,6 +79,7 @@ namespace RSS_UI
         {
             string rssURL = urlBox.Text;                                    // Get names listed in the textboxes
             string feedName = nameBox.Text;
+            //nameBox.FontSize = 2;
 
             ComponentTreeViewItem newFeed = new ComponentTreeViewItem();    // Create item to be displayed in left hand menu
             newFeed.Header = feedName;                                      // Reflect the name in the menu properly 
@@ -86,8 +101,8 @@ namespace RSS_UI
             // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
             compView.Add_Feed("/" + feedName, rssURL);
             this.treeView.Items.Add(newFeed);                           // Show the new feed in the TreeView menu
-            urlBox.Text = "RSS URL";                                    // Restore default text values in the textboxes
-            nameBox.Text = "Feed Name";
+            urlBox.Text = "";                                    // Restore default text values in the textboxes
+            nameBox.Text = "";
         }
 
         private void treeComp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -135,7 +150,7 @@ namespace RSS_UI
                 urlBox.Clear();
         }
 
-
+        
 
         private void addToChannel(object sender, RoutedEventArgs e)
         {
@@ -149,16 +164,25 @@ namespace RSS_UI
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new MAP();
-        }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new MAP();
+
+        }
+
+        private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
     }
 }
+
+
 
 
