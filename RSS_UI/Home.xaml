@@ -12,6 +12,9 @@
         HorizontalContentAlignment="Stretch"
         Height="768" Width="1024">
 
+   
+        
+    
 
     <DockPanel Margin="0,0,0,0" Height="Auto">
         <Menu DockPanel.Dock="Top" Margin="0,0,0,195">
@@ -26,8 +29,14 @@
                 <MenuItem Header="_Map Manager"   Click="mnuMAP_Click" />
                 <MenuItem Header="_Topic Manager" Click="mnuTOPIC_Click" />
             </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Font Size "/>
+                <Separator/>
+                <MenuItem Header="_Increase"   Click="mnuIncrease_Click" />
+                <MenuItem Header="_Decrease"   Click="mnuDecrease_Click" />
+            </MenuItem>
         </Menu>
-        <Grid Margin="0,-190,0,0">
+        <Grid Margin="0,-190,0,0">            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -36,11 +45,5 @@
             </Grid.ColumnDefinitions>
             <ContentControl x:Name="myContent"></ContentControl>         
         </Grid>
-        
-
     </DockPanel>
-    
-
-
-
 </Window>
