@@ -24,9 +24,9 @@ namespace RSS_UI
 
     public partial class Home : Window
     {
-        private UserControl myMap   = new MAP();
-        private UserControl myRSS   = new RSS();
-        private UserControl myTopic = new TOPIC();
+        private MAP myMap   = new MAP();
+        private RSS myRSS   = new RSS();
+        private TOPIC myTopic = new TOPIC();
 
         public Home()
         {
@@ -55,15 +55,14 @@ namespace RSS_UI
 
         private void mnuIncrease_Click(object sender, RoutedEventArgs e)
         {
-
-            //myRSS.SetTextSize_Up();
             myContent.FontSize++;
-
+            myRSS.SetTextSize_Up();
         }
 
         private void mnuDecrease_Click(object sender, RoutedEventArgs e)
         {
             myContent.FontSize--;
+            myRSS.SetTextSize_Down();
         }
 
 

@@ -41,7 +41,7 @@ namespace RSS_UI
             articleList.SelectionChanged += ArticleListItem_Clicked;    // Maps the list view being clicked to a handler
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
-            
+               
         }
 
         public void SetTextSize_Up()
@@ -49,7 +49,6 @@ namespace RSS_UI
             treeView.FontSize++;
             articleList.FontSize++;
             summaryBox.FontSize++;
-
         }
 
         public void SetTextSize_Down()
