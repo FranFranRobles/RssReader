@@ -42,9 +42,6 @@ namespace RSS_UI
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
 
-
-            webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html"); // Default here cause there is no JS on this website
-
             this.UpdateLayout();
             
         }
