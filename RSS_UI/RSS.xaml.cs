@@ -42,9 +42,11 @@ namespace RSS_UI
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
 
+
             webBrowser.Navigate("http://www.eecs.wsu.edu/~fischer/ee451year2018.html"); // Default here cause there is no JS on this website
 
             this.UpdateLayout();
+            
         }
 
         public class ArticleListItem
@@ -120,8 +122,7 @@ namespace RSS_UI
             Run newRun = new Run(currentArticle.Description);       // Getting the Summary attibute
             newP.Inlines.Add(newRun);
             newContent.Blocks.Add(newP);    // Placing the summary into the newContent which will be displayed in the summaryBox
-
-            webBrowser.Navigate(currentArticle.URL); // Navigate to the article's URL
+            
             summaryBox.Document = newContent;       // Display summary
         }
 
