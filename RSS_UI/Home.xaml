@@ -11,11 +11,13 @@
     <DockPanel Margin="0,0,0,198">
         <Menu DockPanel.Dock="Top" Margin="0,0,0,195">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open"/>
-                <MenuItem Header="_Save"/>
+                
+                <MenuItem Header="_Open" Click=" mnu_LOAD"/>
+                <MenuItem Header="_Save" Click="mnu_SAVE"/>
                 <Separator/>
                 <MenuItem Header="_Exit"/>
             </MenuItem>
+
             <MenuItem Header="_Content">
                 <MenuItem Header="_RSS Manager"   Click="mnuRSS_Click" />
                 <MenuItem Header="_Map Manager"   Click="mnuMAP_Click" />
@@ -27,9 +29,10 @@
                 <ContentControl x:Name="myContent" Grid.ColumnSpan="2"/>
             </Grid>
         </Viewbox>
+        <TextBox Name="txtEditor" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
 
     </DockPanel>
+    
 
 
-
-</Window>
+    </Window>

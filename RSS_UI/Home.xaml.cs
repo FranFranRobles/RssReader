@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace RSS_UI
 {
@@ -24,8 +26,6 @@ namespace RSS_UI
             InitializeComponent();
             this.myContent.Content = new RSS();
             //Content RSS_C = new RSS();
-
-
         }
 
 
@@ -43,6 +43,27 @@ namespace RSS_UI
         {
             this.myContent.Content = new TOPIC();
         }
+
+        private void mnu_SAVE(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if(saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
+            }
+        }
+
+        private void mnu_LOAD(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".txt";
+
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            string fileName = openFileDialog.FileName;
+
+        }
+
 
     }
 }
