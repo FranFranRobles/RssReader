@@ -39,6 +39,8 @@ namespace RSS_UI
             gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 483 });
             this.articleList.View = gridView;
             articleList.SelectionChanged += ArticleListItem_Clicked;    // Maps the list view being clicked to a handler
+            treeView.AllowDrop = true;
+            
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
                
@@ -178,6 +180,43 @@ namespace RSS_UI
         private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             
+        }
+
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string rssURL = urlBox.Text;                                    // Get names listed in the textboxes
+                string feedName = nameBox.Text;
+
+                ComponentTreeViewItem newFeed = new ComponentTreeViewItem();    // Create item to be displayed in left hand menu
+                newFeed.Header = feedName;                                      // Reflect the name in the menu properly 
+                newFeed.MouseLeftButtonUp += treeComp_MouseLeftButtonUp;        // Link the event to the proper handler
+                newFeed.ContextMenu = new ContextMenu();                        // Create a right click menu for the TreeViewItem
+                newFeed.ContextMenu.StaysOpen = true;                           // Make sure that it doesn't close immediately
+                newFeed.Title = feedName;                                       // Give the feed a title for the UI's use
+                newFeed.Path = "/" + feedName;                                  // Give the feed a proper path for the UI's use
+
+                MenuItem addChannel = new MenuItem();                           // Creating options for the right click menu
+                MenuItem removeChannel = new MenuItem();
+                addChannel.Header = "Add to Channel";                           // Giving text to the options
+                removeChannel.Header = "Remove from Channel";
+                addChannel.MouseLeftButtonUp += addToChannel;                   // Routing events to proper handlers
+                removeChannel.MouseLeftButtonUp += removeFromChannel;
+                newFeed.ContextMenu.Items.Add(addChannel);                      // Placing these items in the right click menu
+                newFeed.ContextMenu.Items.Add(removeChannel);
+
+                // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
+                compView.Add_Feed("/" + feedName, rssURL);
+                this.treeView.Items.Add(newFeed);                           // Show the new feed in the TreeView menu
+                urlBox.Text = "";                                    // Restore default text values in the textboxes
+                nameBox.Text = "";
+            }
+        }
+
+        private void treeView_Drop(object sender, DragEventArgs e)
+        {
+            ;   // Testing drop features
         }
     }
 }

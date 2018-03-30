@@ -33,10 +33,10 @@
         <Label Grid.Column="0">Feed Name:</Label>
         <Label Grid.Column="2">Feed URL:</Label>
 
-        <TextBox Name ="nameBox"   Grid.Column="0" TextWrapping="NoWrap" TextBlock.FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="nameBox_GotFocus" TextChanged="nameBox_TextChanged" Margin="71,3,5,5" />       
-        <TextBox Name ="urlBox"    Grid.Column="2" TextWrapping="NoWrap" TextBlock.FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="urlBox_GotFocus" Margin="61,3,5,5" />
-        <Button  Name ="buttonAdd" Grid.Column="3"  Content="Add Feed"   TextBlock.FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click ="buttonAdd_Click"   Margin="5,3,16,5" BorderThickness="1" BorderBrush="DarkSlateGray"/>
-        <TreeView Name ="treeView" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,5,5,15" TextBlock.FontSize="14" >
+        <TextBox Name ="nameBox"   Grid.Column="0" TextWrapping="NoWrap" TextBlock.FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="nameBox_GotFocus" TextChanged="nameBox_TextChanged" KeyDown="textBox_KeyDown" Margin="71,3,5,5" />       
+        <TextBox Name ="urlBox"    Grid.Column="2" TextWrapping="NoWrap" TextBlock.FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="urlBox_GotFocus" KeyDown="textBox_KeyDown" Margin="61,3,5,5" />
+        <Button  Name ="buttonAdd" Grid.Column="3"  Content="Add Feed"   TextBlock.FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click ="buttonAdd_Click"  Margin="5,3,16,5" BorderThickness="1" BorderBrush="DarkSlateGray"/>
+        <TreeView Name ="treeView" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,5,5,15" TextBlock.FontSize="14" Drop="treeView_Drop" >
             <TreeView.ContextMenu>
                 <ContextMenu StaysOpen="True">
                     <MenuItem Header="Add Channel" Click="addToChannel"></MenuItem>
