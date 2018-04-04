@@ -42,7 +42,7 @@ namespace RSS_LogicEngine
             foreach (Article article in articles)
                 Add_Article(article);
         }
-        public List<Article> Remove_Articles(int num_to_remove)
+        public List<Article> Remove_Article(int num_to_remove)
         {
             // The only reason this function returns a value is for testing
             // See Test_RSS_LogicEngine project, Test_Feed.cs for details
@@ -50,6 +50,10 @@ namespace RSS_LogicEngine
             for (int n = 0; n < num_to_remove; n++)
                 removed_articles.Add(articles.Dequeue());
             return removed_articles;
+        }
+        public void Clear_Articles()
+        {
+            articles.Clear();
         }
     }
 }

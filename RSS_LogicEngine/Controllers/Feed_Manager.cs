@@ -38,8 +38,8 @@ namespace RSS_LogicEngine
         public void Update_Feed(Feed f)
         {
             string rss_filename = "rss_temp.xml";
-                (new WebClient()).DownloadFile(f.URI, rss_filename);
             (new WebClient()).DownloadFile(f.URI, rss_filename);
+            f.Clear_Articles();
             f.Add_Articles(ParseArticles(rss_filename));
         }
         /// <summary>
