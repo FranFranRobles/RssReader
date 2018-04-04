@@ -12,29 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Maps.MapControl.WPF;
 
 namespace RSS_UI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TOPIC.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TOPIC : UserControl
     {
-        public MainWindow()
+        public TOPIC()
         {
             InitializeComponent();
-            myMap.Focus();
-            myMap.Mode = new AerialMode(true);
-
-            webBrowser.Navigate("http://google.com");
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            RSSWindow newWindow = new RSS_UI.RSSWindow();
-            newWindow.Show();
-            this.Close();
         }
     }
 }

@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boundary\Component_View.cs" />
+    <Compile Include="Controllers\Component_Factory.cs" />
     <Compile Include="Controllers\Component_Tree.cs" />
     <Compile Include="Controllers\Update_Manager.cs" />
     <Compile Include="Entities\Channel.cs" />
@@ -47,8 +49,10 @@
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Feed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\RssParser.cs" />
+    <Compile Include="Controllers\Feed_Manager.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Temp_Data\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

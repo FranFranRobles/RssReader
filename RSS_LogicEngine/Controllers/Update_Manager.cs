@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace RSS_LogicEngine
 {
-    class Update_Manager
+    public class Update_Manager
     {
         /***** Begin Singleton Code *****/
         private static Update_Manager instance;

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RSS_LogicEngine.Controllers
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Test_RSS_LogicEngine")]
+
+namespace RSS_LogicEngine
 {
     class Component_Tree
     {
@@ -29,13 +31,11 @@ namespace RSS_LogicEngine.Controllers
         public Component Get_Component_At(string path)
         {
             Component curr = root;
-            string[] path_component = path.Split('/');
+            StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries;
+            char[] separator = new char[] { '/' };
+            string[] path_component = path.Split(separator, options);
             foreach (string s in path_component)
-            {
                 curr = curr.Get_Child(s);
-                if (curr == null)
-                    throw new Exception("not a valid pathname");
-            }
             return curr;
         }
         private class Pathname

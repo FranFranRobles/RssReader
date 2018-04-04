@@ -8,13 +8,16 @@ namespace RSS_LogicEngine
 {
     public class Channel : Component
     {
-        private Component parent;
         private Dictionary<string, Component> children;
         public override void Add_Child(string name, Component c) => children.Add(name, c);
         public override void Remove_Child(string name) => children.Remove(name);
         public override bool Has_Children() => (children.Count > 0);
         public override List<string> Get_Children() => children.Keys.ToList<string>();
-        public override Component Get_Child(string name) => children[name];
+        public override Component Get_Child(string name)
+        {
+            if (name == "") return null;
+            return children[name];
+        }
         public override List<Article> Get_Articles()
         {
             List<Article> ret = new List<Article>();
@@ -25,7 +28,6 @@ namespace RSS_LogicEngine
             return ret;
         }
         public override bool Is_Leaf() => false;
-        public Channel() : this(new Dictionary<string, Component>()) { }
-        public Channel(Dictionary<string, Component> children) => this.children = children;
+        public Channel() => children = new Dictionary<string, Component>();
     }
 }
