@@ -4,16 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RSS_UI"
-             mc:Ignorable="d" Height="507.211" Width="772.676">
-
-
+             mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="1024">
 
     <Grid>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="142*"/>
-            <ColumnDefinition Width="603*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="305*" />
+            <ColumnDefinition Width="90" />
         </Grid.ColumnDefinitions>
-        <TreeView Name ="treeView" HorizontalAlignment="Left" Height="448" Margin="10,27,0,0" VerticalAlignment="Top" Width="122">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+
+        <GridSplitter Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Height="5" Margin="65,0,75,0"
+                      Background="LightGray" 
+                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Width="5" Margin="0,65,0,75"
+                      Background="LightGray"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
+
+        <Label Grid.Column="0">Feed Name:</Label>
+        <Label Grid.Column="2">Feed URL:</Label>
+
+        <TextBox Name ="nameBox"   Grid.Column="0" TextWrapping="NoWrap" TextBlock.FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="nameBox_GotFocus" TextChanged="nameBox_TextChanged" Margin="71,3,5,5" KeyDown="textBox_KeyDown" />
+        <TextBox Name ="urlBox"    Grid.Column="2" TextWrapping="NoWrap" TextBlock.FontSize="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="urlBox_GotFocus" Margin="61,3,5,5" KeyDown="textBox_KeyDown"/>
+        <Button  Name ="buttonAdd" Grid.Column="3"  Content="Add Feed"   TextBlock.FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click ="buttonAdd_Click"   Margin="5,3,16,5" BorderThickness="1" BorderBrush="DarkSlateGray"/>
+        <TreeView Name ="treeView" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,5,5,15" TextBlock.FontSize="14" >
             <TreeView.ContextMenu>
                 <ContextMenu StaysOpen="True">
                     <MenuItem Header="Add Channel"></MenuItem>
@@ -21,22 +44,9 @@
                 </ContextMenu>
             </TreeView.ContextMenu>
         </TreeView>
-
-        <WebBrowser Name ="webBrowser" Grid.Column="1" HorizontalAlignment="Left" Height="193" Margin="10,282,0,0" VerticalAlignment="Top" Width="583"/>
-        <ListView Name ="articleList" Grid.Column="1" HorizontalAlignment="Left" Height="116" Margin="10,58,0,0" VerticalAlignment="Top" Width="583">
-        </ListView>
-        <Button Name ="buttonAdd" Content="Add Feed" Grid.Column="1" HorizontalAlignment="Left" Margin="518,27,0,0" VerticalAlignment="Top" Width="75" Click ="buttonAdd_Click" Height="26"/>
-        <TextBox Name ="urlBox" Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="173,27,0,0" TextWrapping="Wrap" Text="RSS URL" TextAlignment="Center" VerticalAlignment="Top" Width="340" 
-                 GotFocus="urlBox_GotFocus"/>
-        <RichTextBox Name ="summaryBox" Grid.Column="1" HorizontalAlignment="Left" Height="98" Margin="10,179,0,0" VerticalAlignment="Top" Width="583">
-        </RichTextBox>
-        <TextBox Name ="nameBox" Grid.Column="1" HorizontalAlignment="left" Height="26" Margin="10,27,0,0" TextWrapping="Wrap" Text="Feed Name" TextAlignment="Center" VerticalAlignment="Top" Width="158" GotFocus="nameBox_GotFocus"/>
-
-        <Button Content="MAP" HorizontalAlignment="Left" Margin="72,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-
-        
+        <ListView    Name ="articleList" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,15,5"   TextBlock.FontSize="14"/>
+        <RichTextBox Name ="summaryBox"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" 
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,15,15" 
+                     />
     </Grid>
-
-
-
 </UserControl>
