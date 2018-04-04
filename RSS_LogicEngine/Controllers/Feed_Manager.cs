@@ -38,8 +38,8 @@ namespace RSS_LogicEngine
         public void Update_Feed(Feed f)
         {
             string rss_filename = "rss_temp.xml";
-                (new WebClient()).DownloadFile(f.URI, rss_filename);
             (new WebClient()).DownloadFile(f.URI, rss_filename);
+            f.Clear_Articles();
             f.Add_Articles(ParseArticles(rss_filename));
         }
         /// <summary>
@@ -58,22 +58,28 @@ namespace RSS_LogicEngine
             const string DESCRIPTION = "description";
             const string PUB_DATE = "pubDate";
 
+            List<Article> articleList = new List<Article>();
+            using (XmlReader temp = XmlReader.Create(rss_filename))
+            {
+                var file = XDocument.Load(temp);
+                foreach (var article in file.Descendants(ARTICLE))
+                {
+                    string pubDate = "";
+                    try
+                    {
+                        pubDate = article.Element(PUB_DATE).Value;
+                    }
+                    catch (NullReferenceException)
+                    {
+                        pubDate = "N/A";
+                    }
+                    articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
+                }
+               
+
+            }
             XElement xmlFile = XElement.Load(rss_filename); 
 
-            List<Article> articleList = new List<Article>();
-            foreach (XElement article in xmlFile.Descendants(ARTICLE))
-            {
-                string pubDate = "";
-                try
-                {
-                    pubDate = article.Element(PUB_DATE).Value;
-                }
-                catch (NullReferenceException)
-                {
-                    pubDate = "N/A";
-                }
-                articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
-            }
             return articleList;
         }
     }
