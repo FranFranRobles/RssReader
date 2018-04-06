@@ -29,10 +29,6 @@ namespace RSS_UI
             myMap.Mode = new AerialMode(true);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new RSS();
-        }
     }
 }
 
