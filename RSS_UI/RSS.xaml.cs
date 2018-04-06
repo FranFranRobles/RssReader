@@ -146,6 +146,7 @@ namespace RSS_UI
 
         private void treeComp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            articleList.Items.Clear();
             ComponentTreeViewItem senderComp = (ComponentTreeViewItem)sender;  // Typecast so we can figure out the sender
             List<Article> articles;                                             // Create a new list of articles for the return
             articles = compView.Get_Articles_Under(senderComp.Path);            // Get the list of articles below the current selection
