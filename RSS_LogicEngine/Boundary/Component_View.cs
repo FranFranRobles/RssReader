@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Xml;
 
 namespace RSS_LogicEngine
 {
@@ -42,5 +44,17 @@ namespace RSS_LogicEngine
 
         public List<Article> Get_Articles_Under(string path)
             => component_tree.Get_Component_At(path).Get_Articles();
+        public void Save_Components(Stream stream)
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            XmlWriter writer = XmlWriter.Create(stream, settings);
+            component_tree.Save_Tree(writer);
+        }
+        public void Load_Components(Stream stream)
+        {
+            XmlReader reader = XmlReader.Create(stream);
+            component_tree.Load_Tree(reader);
+        }
     }
 }
