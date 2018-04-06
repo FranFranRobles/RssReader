@@ -44,10 +44,23 @@ namespace RSS_UI
         // Save File Dialog 
         private void mnu_SAVE(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            if (saveFileDialog.ShowDialog() == true)
+            //configure save file dialog box
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "config"; //default file name
+            dlg.DefaultExt = ".xml"; //default file extension
+            dlg.Filter = "XML documents (.xml)|*.xml"; //filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
             {
-                File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
+                Stream save_stream = dlg.OpenFile();
+                RSS_LogicEngine.Component_View component_view;
+                component_view = RSS_LogicEngine.Component_View.Get_Instance();
+                component_view.Save_Components(save_stream);
+                save_stream.Close();
             }
         }
 
