@@ -51,6 +51,8 @@ namespace RSS_LogicEngine
             XmlWriter writer = XmlWriter.Create(stream, settings);
             component_tree.Save_Tree(writer);
         }
+        public bool Is_Channel(string path)
+            => component_tree.Get_Component_At(path).Is_Leaf();
         public void Load_Components(Stream stream)
         {
             XmlReader reader = XmlReader.Create(stream);

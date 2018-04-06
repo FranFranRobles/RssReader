@@ -54,8 +54,10 @@ namespace RSS_LogicEngine
         public void Save_Tree(XmlWriter writer)
         {
             writer.WriteStartDocument();
+            writer.WriteStartElement("root");
             foreach (string s in root.Get_Children())
                 Save_Component(writer, root.Get_Child(s), s);
+            writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Flush();
         }
@@ -72,6 +74,7 @@ namespace RSS_LogicEngine
             foreach (string s in c.Get_Children())
                 Save_Component(writer, c.Get_Child(s), s);
             writer.WriteEndElement();
+            writer.Flush();
         }
         public void Load_Tree(XmlReader reader)
         {
