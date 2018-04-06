@@ -12,7 +12,6 @@ using System.Xml.Linq;
 
 namespace RSS_LogicEngine
 {
-
     class Feed_Manager
     {
         private static Feed_Manager instance;
@@ -44,7 +43,6 @@ namespace RSS_LogicEngine
                 f.Clear_Articles();
                 f.Add_Articles(ParseArticles(rss_filename));
             }
-
         }
         /// <summary>
         /// Parses the unparsed articles to create article objects
