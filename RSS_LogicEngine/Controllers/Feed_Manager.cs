@@ -37,10 +37,14 @@ namespace RSS_LogicEngine
         public bool Remove_Feed(Feed f) => feeds.Remove(f);
         public void Update_Feed(Feed f)
         {
-            string rss_filename = "rss_temp.xml";
-            (new WebClient()).DownloadFile(f.URI, rss_filename);
-            f.Clear_Articles();
-            f.Add_Articles(ParseArticles(rss_filename));
+            lock (this)
+            {
+                string rss_filename = "rss_temp.xml";
+                (new WebClient()).DownloadFile(f.URI, rss_filename);
+                f.Clear_Articles();
+                f.Add_Articles(ParseArticles(rss_filename));
+            }
+
         }
         /// <summary>
         /// Parses the unparsed articles to create article objects
