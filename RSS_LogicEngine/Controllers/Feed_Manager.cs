@@ -82,7 +82,7 @@ namespace RSS_LogicEngine
                
 
             }
-            XElement xmlFile = XElement.Load(rss_filename); 
+           
 
             return articleList;
         }
