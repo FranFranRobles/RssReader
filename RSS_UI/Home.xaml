@@ -23,15 +23,30 @@
 
     </Window.CommandBindings>
 
-
+    <Window.Resources>
+        <Style TargetType="RichTextBox">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="TreeView">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
+    
     <DockPanel Margin="0,0,0,0" Height="Auto">
         <Menu DockPanel.Dock="Top" Margin="0,0,0,195">
             <MenuItem Header="_File">
+<<<<<<< HEAD
 
                 <MenuItem Header="_Open" Click=" mnu_LOAD"/>
+=======
+                <MenuItem Header="_Open" Click="mnu_LOAD"/>
+>>>>>>> 9a837e419060a68e59b3ee04482e383af0ba9328
                 <MenuItem Header="_Save" Click="mnu_SAVE"/>
                 <Separator/>
-                <MenuItem Header="_Exit"/>
+                <MenuItem Header="_Exit" Click="mnu_EXIT"/>
             </MenuItem>
 
             <MenuItem Header="_Content">
@@ -47,7 +62,10 @@
             </MenuItem> >
         </Menu>
         <TextBox Name="txtEditor" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+<<<<<<< HEAD
 ]
+=======
+>>>>>>> 9a837e419060a68e59b3ee04482e383af0ba9328
         <Grid Margin="0,-190,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

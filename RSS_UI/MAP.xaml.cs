@@ -42,6 +42,7 @@ namespace RSS_UI
             
         }
 
+<<<<<<< HEAD
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Content = new RSS();
@@ -54,6 +55,8 @@ namespace RSS_UI
             this.myMap.Children.Add(pin);
         }
 
+=======
+>>>>>>> 9a837e419060a68e59b3ee04482e383af0ba9328
     }
 }
 

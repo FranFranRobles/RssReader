@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using RSS_UI;
+using Microsoft.Win32;
 
 namespace RSS_UI
 {
@@ -37,39 +38,42 @@ namespace RSS_UI
         }
 
         //
-        // Content Control Click Events
+        // Menu/Control Functions
         //
 
-        // Set current content to myRSS 
-        private void mnuRSS_Click(object sender, RoutedEventArgs e)
+        // Save File Dialog 
+        private void mnu_SAVE(object sender, RoutedEventArgs e)
         {
-            this.myContent.Content = myRSS;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
+            }
         }
 
 
-        // Set current content to myMap
-        private void mnuMAP_Click(object sender, RoutedEventArgs e)
+        // Load File Dialog
+        private void mnu_LOAD(object sender, RoutedEventArgs e)
         {
-            this.myContent.Content = myMap;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".txt";
+
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            string fileName = openFileDialog.FileName;
         }
 
-        // Set current content to myTopic
-        private void mnuTOPIC_Click(object sender, RoutedEventArgs e)
+        // Exit Program
+        private void mnu_EXIT(object sender, RoutedEventArgs e)
         {
-            this.myContent.Content = myTopic;
+            Application.Current.Shutdown();
         }
 
-        // Increase Text size of Text Windows
-        private void mnuIncrease_Click(object sender, RoutedEventArgs e)
-        {
-            myRSS.SetTextSize_Up();         // Call RSS Text Window increase text size function
-        }
 
-        // Dexrease Text size of Text Windows 
-        private void mnuDecrease_Click(object sender, RoutedEventArgs e)
-        {
-            myRSS.SetTextSize_Down();       // Call RSS Text Window decrease text size function
-        }
+
+        //
+        // Content Control Click Events
+        //
 
 
         //
@@ -117,7 +121,7 @@ namespace RSS_UI
             myContent.Content = myMap;
         }
 
-        // Open RSS interface Personal Command
+        // Open Topic interface Personal Command
         private void TOPICCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
