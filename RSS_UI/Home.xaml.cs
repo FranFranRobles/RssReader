@@ -40,39 +40,55 @@ namespace RSS_UI
         }
 
         //
-        // Content Control Click Events
+        // Menu/Control Functions
         //
 
-        // Set current content to myRSS 
-        private void mnuRSS_Click(object sender, RoutedEventArgs e)
+        // Save File Dialog 
+        private void mnu_SAVE(object sender, RoutedEventArgs e)
         {
-            this.myContent.Content = myRSS;
+            //configure save file dialog box
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "config"; //default file name
+            dlg.DefaultExt = ".xml"; //default file extension
+            dlg.Filter = "XML documents (.xml)|*.xml"; //filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                Stream save_stream = dlg.OpenFile();
+                RSS_LogicEngine.Component_View component_view;
+                component_view = RSS_LogicEngine.Component_View.Get_Instance();
+                component_view.Save_Components(save_stream);
+                save_stream.Close();
+            }
         }
 
 
-        // Set current content to myMap
-        private void mnuMAP_Click(object sender, RoutedEventArgs e)
+        // Load File Dialog
+        private void mnu_LOAD(object sender, RoutedEventArgs e)
         {
-            this.myContent.Content = myMap;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".txt";
+
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            string fileName = openFileDialog.FileName;
         }
 
-        // Set current content to myTopic
-        private void mnuTOPIC_Click(object sender, RoutedEventArgs e)
+        // Exit Program
+        private void mnu_EXIT(object sender, RoutedEventArgs e)
         {
-            this.myContent.Content = myTopic;
+            Application.Current.Shutdown();
         }
 
-        // Increase Text size of Text Windows
-        private void mnuIncrease_Click(object sender, RoutedEventArgs e)
-        {
-            myRSS.SetTextSize_Up();         // Call RSS Text Window increase text size function
-        }
 
-        // Dexrease Text size of Text Windows 
-        private void mnuDecrease_Click(object sender, RoutedEventArgs e)
-        {
-            myRSS.SetTextSize_Down();       // Call RSS Text Window decrease text size function
-        }
+
+        //
+        // Content Control Click Events
+        //
 
 
         //
@@ -120,7 +136,7 @@ namespace RSS_UI
             myContent.Content = myMap;
         }
 
-        // Open RSS interface Personal Command
+        // Open Topic interface Personal Command
         private void TOPICCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
