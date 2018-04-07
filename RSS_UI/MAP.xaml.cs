@@ -26,13 +26,37 @@ namespace RSS_UI
         {
             InitializeComponent();
             myMap.Focus();
+            //47.97898 -122.20208   Everett, Wa
+           
+            //addPin(47.97898, - 122.20208);
+
+            for(double i = 47.97898; i < 100; i = i +5)
+            {
+                for(double j = -122.20208; j < 0; j = j + 5)
+                {
+                    addPin(i, j);
+                }
+            }
+
             myMap.Mode = new AerialMode(true);
+            
         }
 
+<<<<<<< HEAD
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Content = new RSS();
         }
+
+        private void addPin(Double latitude, Double longitude)
+        {
+            Pushpin pin = new Pushpin();
+            pin.Location = new Location(latitude, longitude);
+            this.myMap.Children.Add(pin);
+        }
+
+=======
+>>>>>>> 3daa44d3a1fad6b46d7a264d25a1826c1c4687de
     }
 }
 

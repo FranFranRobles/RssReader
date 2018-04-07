@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Test_RSS_LogicEngine")]
 
@@ -49,5 +50,47 @@ namespace RSS_LogicEngine
                 Parent = pathname.Remove(last_slash);
             }
         }
+        /********** Begin Tree Saving Functions **********/
+        public void Save_Tree(XmlWriter writer)
+        {
+            writer.WriteStartDocument();
+            writer.WriteStartElement("root");
+            foreach (string s in root.Get_Children())
+                Save_Component(writer, root.Get_Child(s), s);
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+            writer.Flush();
+        }
+        private void Save_Component(XmlWriter writer, Component c, string name)
+        {
+            string component_type = c.Is_Leaf() ? "feed" : "channel";
+            writer.WriteStartElement(component_type);
+            writer.WriteAttributeString("name", name);
+            if (c.Is_Leaf())
+            {
+                Feed f = (Feed)c;
+                writer.WriteValue(f.URI);
+            }
+            foreach (string s in c.Get_Children())
+                Save_Component(writer, c.Get_Child(s), s);
+            writer.WriteEndElement();
+            writer.Flush();
+        }
+        public void Load_Tree(XmlReader reader)
+        {
+            Component_Factory cf = Component_Factory.Get_Instance();
+            Component c;
+            while (reader.Read())
+            {
+                if (reader.Name == "feed")
+                {
+                    string name = reader.GetAttribute("name");
+                    string URI = reader.ReadElementContentAsString();
+                    c = cf.Create_Feed(URI);
+                    root.Add_Child(name, c);
+                }
+            }
+        }
+        /********** End Tree Saving Functions **********/
     }
 }

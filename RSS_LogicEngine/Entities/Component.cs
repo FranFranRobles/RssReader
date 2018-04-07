@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSS_LogicEngine
 {
-    class Component
+    public class Component
     {
         protected Component parent;
         public Component Parent
