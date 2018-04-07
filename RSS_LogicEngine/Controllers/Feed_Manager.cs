@@ -12,7 +12,6 @@ using System.Xml.Linq;
 
 namespace RSS_LogicEngine
 {
-
     class Feed_Manager
     {
         private static Feed_Manager instance;
@@ -37,10 +36,13 @@ namespace RSS_LogicEngine
         public bool Remove_Feed(Feed f) => feeds.Remove(f);
         public void Update_Feed(Feed f)
         {
-            string rss_filename = "rss_temp.xml";
+            lock (this)
+            {
+                string rss_filename = "rss_temp.xml";
                 (new WebClient()).DownloadFile(f.URI, rss_filename);
-            (new WebClient()).DownloadFile(f.URI, rss_filename);
-            f.Add_Articles(ParseArticles(rss_filename));
+                f.Clear_Articles();
+                f.Add_Articles(ParseArticles(rss_filename));
+            }
         }
         /// <summary>
         /// Parses the unparsed articles to create article objects
@@ -58,22 +60,28 @@ namespace RSS_LogicEngine
             const string DESCRIPTION = "description";
             const string PUB_DATE = "pubDate";
 
-            XElement xmlFile = XElement.Load(rss_filename); 
-
             List<Article> articleList = new List<Article>();
-            foreach (XElement article in xmlFile.Descendants(ARTICLE))
+            using (XmlReader temp = XmlReader.Create(rss_filename))
             {
-                string pubDate = "";
-                try
+                var file = XDocument.Load(temp);
+                foreach (var article in file.Descendants(ARTICLE))
                 {
-                    pubDate = article.Element(PUB_DATE).Value;
+                    string pubDate = "";
+                    try
+                    {
+                        pubDate = article.Element(PUB_DATE).Value;
+                    }
+                    catch (NullReferenceException)
+                    {
+                        pubDate = "N/A";
+                    }
+                    articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
                 }
-                catch (NullReferenceException)
-                {
-                    pubDate = "N/A";
-                }
-                articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
+               
+
             }
+           
+
             return articleList;
         }
     }

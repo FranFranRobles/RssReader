@@ -25,6 +25,8 @@ namespace RSS_UI
     {
         private Component_View compView;    // Reference to the single Component View item that exists in the project
         private Update_Manager updateManager;
+        private int unnamedFeeds = 1;
+
 
         public RSS()
         {
@@ -45,11 +47,112 @@ namespace RSS_UI
                
         }
 
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                add();
+            }
+
+        }
+
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            add();
+        }
+
+        private void add()
+        {
+            string rssURL = urlBox.Text;                                  // Get user provided URL
+            string feedName = nameBox.Text;                                 // Get user provided name            
+
+            if (!IsValidURL(rssURL))                                         // Check if URL is valid web address and contains .rss or .xml
+            {
+                InvalidURL();                                                   // If not valid, reset input box and pop error 
+                return;                                                         // Exit add function
+            }
+
+            if (feedName.Equals(""))                                        // If user doesn't provide a name provide a default.
+            {
+                feedName = "New Feed" + unnamedFeeds.ToString();                // Default base name is New FeedX   
+                unnamedFeeds++;                                                 // Increment 'X'
+            }
+
+            ComponentTreeViewItem newFeed = new ComponentTreeViewItem();    // Create item to be displayed in left hand menu
+            newFeed.Header = feedName;                                      // Reflect the name in the menu properly 
+            newFeed.MouseLeftButtonUp += treeComp_MouseLeftButtonUp;        // Link the event to the proper handler
+            newFeed.ContextMenu = new ContextMenu();                        // Create a right click menu for the TreeViewItem
+            newFeed.ContextMenu.StaysOpen = true;                           // Make sure that it doesn't close immediately
+            newFeed.Title = feedName;                                       // Give the feed a title for the UI's use
+            newFeed.Path = "/" + feedName;                                  // Give the feed a proper path for the UI's use
+
+
+
+            //
+            // Manage Right Click Menu Options
+            //
+            MenuItem addChannel = new MenuItem();                        // Creating options for the right click menu
+            MenuItem removeChannel = new MenuItem();
+            MenuItem renameFeed = new MenuItem();
+
+            addChannel.Header = "Add to Channel";                      // Giving text to the options
+            removeChannel.Header = "Remove from Channel";
+            renameFeed.Header = "Rename Channel";
+
+            addChannel.MouseLeftButtonUp += addToChannel;                // Routing events to proper handlers
+            removeChannel.MouseLeftButtonUp += removeFromChannel;
+            renameFeed.MouseLeftButtonUp += renameChannel;
+
+            newFeed.ContextMenu.Items.Add(addChannel);                      // Placing these items in the right click menu
+            newFeed.ContextMenu.Items.Add(removeChannel);
+            newFeed.ContextMenu.Items.Add(renameFeed);
+
+            // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
+            compView.Add_Feed("/" + feedName, rssURL);
+            this.treeView.Items.Add(newFeed);                               // Show the new feed in the TreeView menu
+            urlBox.Text = "";                                               // Restore default text values in the textboxes
+            nameBox.Text = "";
+
+        }
+
+
+        // Check if the url string is valid
+        private bool IsValidURL(string url)
+        {
+            bool valid = true;
+            Uri uri = null;                                                  // Create U.niform r.esouce i.dentifier 
+
+            if (!Uri.TryCreate(url, UriKind.Absolute, out uri) || null == uri)  // Check if the string is a valid web address
+            {
+                valid = false;                                                  // if not set valid to false
+            }
+
+
+            string validURL = url.ToLower();                                    // Cast to lower to ensure .XmL, .rsS, etc... == true                          
+            if (!validURL.Contains(".xml") && !validURL.Contains(".rss"))       // If user provided address doesn't contain .rss or .xml
+            {
+                valid = false;                                                  // if not set valid to false
+            }
+
+            return valid;                                                       // return boolean 'valid'
+        }
+
+        // Function to display Invalid URL Message Box
+        private void InvalidURL()
+        {
+            MessageBox.Show("Invalid URL Entered", "URL Entry", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            urlBox.Text = "";
+            return;
+        }
+
         public void SetTextSize_Up()
         {
+
+
             treeView.FontSize++;
             articleList.FontSize++;
             summaryBox.FontSize++;
+
         }
 
         public void SetTextSize_Down()
@@ -67,6 +170,7 @@ namespace RSS_UI
             public String Title { get; set; }       // Allows the user to see the title of the article in the UI, binding property
             public String URL { get; set; }         // Allows the UI to navigate to the appropriate page in the browser 
             public String Description { get; set; } // Allows the user to see the summary of the article in the UI
+
         }
 
         private class ComponentTreeViewItem : TreeViewItem
@@ -75,38 +179,10 @@ namespace RSS_UI
             public String Path { get; set; }
         }
 
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
-        {
-            string rssURL = urlBox.Text;                                    // Get names listed in the textboxes
-            string feedName = nameBox.Text;
-            //nameBox.FontSize = 2;
-
-            ComponentTreeViewItem newFeed = new ComponentTreeViewItem();    // Create item to be displayed in left hand menu
-            newFeed.Header = feedName;                                      // Reflect the name in the menu properly 
-            newFeed.MouseLeftButtonUp += treeComp_MouseLeftButtonUp;        // Link the event to the proper handler
-            newFeed.ContextMenu = new ContextMenu();                        // Create a right click menu for the TreeViewItem
-            newFeed.ContextMenu.StaysOpen = true;                           // Make sure that it doesn't close immediately
-            newFeed.Title = feedName;                                       // Give the feed a title for the UI's use
-            newFeed.Path = "/" + feedName;                                  // Give the feed a proper path for the UI's use
-
-            MenuItem addChannel = new MenuItem();                           // Creating options for the right click menu
-            MenuItem removeChannel = new MenuItem();
-            addChannel.Header = "Add to Channel";                           // Giving text to the options
-            removeChannel.Header = "Remove from Channel";
-            addChannel.MouseLeftButtonUp += addToChannel;                   // Routing events to proper handlers
-            removeChannel.MouseLeftButtonUp += removeFromChannel;
-            newFeed.ContextMenu.Items.Add(addChannel);                      // Placing these items in the right click menu
-            newFeed.ContextMenu.Items.Add(removeChannel);
-
-            // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
-            compView.Add_Feed("/" + feedName, rssURL);
-            this.treeView.Items.Add(newFeed);                           // Show the new feed in the TreeView menu
-            urlBox.Text = "";                                    // Restore default text values in the textboxes
-            nameBox.Text = "";
-        }
-
+    
         private void treeComp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            articleList.Items.Clear();
             ComponentTreeViewItem senderComp = (ComponentTreeViewItem)sender;  // Typecast so we can figure out the sender
             List<Article> articles;                                             // Create a new list of articles for the return
             articles = compView.Get_Articles_Under(senderComp.Path);            // Get the list of articles below the current selection
@@ -128,13 +204,21 @@ namespace RSS_UI
             ListView currentList = (ListView)sender;
             ArticleListItem currentArticle = (ArticleListItem)currentList.SelectedItem;
 
+            // Verify if the selection has articles
+            if (currentArticle == null)
+            {
+                return;
+            }
+
             // Need to have function return string containing information from description tag in RSS XML
             FlowDocument newContent = new FlowDocument();
             Paragraph newP = new Paragraph();
+
             Run newRun = new Run(currentArticle.Description);       // Getting the Summary attibute
             newP.Inlines.Add(newRun);
-            newContent.Blocks.Add(newP);    // Placing the summary into the newContent which will be displayed in the summaryBox
-            
+            newContent.Blocks.Add(newP);                            // Placing the summary into the newContent which will be displayed in the summaryBox
+
+
             summaryBox.Document = newContent;       // Display summary
         }
 
@@ -163,17 +247,15 @@ namespace RSS_UI
             ;   // Needs some work
         }
 
-
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void renameChannel(object sender, MouseEventArgs e)
         {
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new MAP();
-
+            //compView.Add_Feed("/" + feedName, rssURL);
+            //this.treeView.Items.R;                               // Show the new feed in the TreeView menu
+            //this.
+            //this.Header = "test";
+            bool test = false;
+            test = true;
         }
 
         private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -213,11 +295,10 @@ namespace RSS_UI
             }
         }
 
-        private void treeView_Drop(object sender, DragEventArgs e)
+        private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ;   // Testing drop features
-        }
 
+        }
     }
 }
 
