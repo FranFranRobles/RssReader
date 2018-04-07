@@ -40,7 +40,6 @@ namespace RSS_UI
             this.articleList.View = gridView;
             articleList.SelectionChanged += ArticleListItem_Clicked;    // Maps the list view being clicked to a handler
             treeView.AllowDrop = true;
-            
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
                
@@ -218,6 +217,7 @@ namespace RSS_UI
         {
             ;   // Testing drop features
         }
+
     }
 }
 
