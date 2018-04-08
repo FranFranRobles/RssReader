@@ -42,7 +42,6 @@ namespace RSS_UI
             
         }
 
-<<<<<<< HEAD
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Content = new RSS();
@@ -54,9 +53,6 @@ namespace RSS_UI
             pin.Location = new Location(latitude, longitude);
             this.myMap.Children.Add(pin);
         }
-
-=======
->>>>>>> 3daa44d3a1fad6b46d7a264d25a1826c1c4687de
     }
 }
 

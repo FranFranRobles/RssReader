@@ -79,14 +79,14 @@ namespace RSS_LogicEngine
         public void Load_Tree(XmlReader reader)
         {
             Component_Factory cf = Component_Factory.Get_Instance();
-            Component c;
+            root = cf.Create_Channel();
             while (reader.Read())
             {
                 if (reader.Name == "feed")
                 {
                     string name = reader.GetAttribute("name");
                     string URI = reader.ReadElementContentAsString();
-                    c = cf.Create_Feed(URI);
+                    Component c = cf.Create_Feed(URI);
                     root.Add_Child(name, c);
                 }
             }

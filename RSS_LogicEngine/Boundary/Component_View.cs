@@ -52,7 +52,7 @@ namespace RSS_LogicEngine
             component_tree.Save_Tree(writer);
         }
         public bool Is_Channel(string path)
-            => component_tree.Get_Component_At(path).Is_Leaf();
+            => !component_tree.Get_Component_At(path).Is_Leaf();
         public void Load_Components(Stream stream)
         {
             XmlReader reader = XmlReader.Create(stream);

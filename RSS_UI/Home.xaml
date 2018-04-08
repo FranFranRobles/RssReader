@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:self="clr-namespace:RSS_UI"
         mc:Ignorable="d"
-        
-        
+
         Title="RSS Manager" 
         VerticalAlignment="Stretch"
         VerticalContentAlignment="Stretch"
@@ -38,12 +37,7 @@
     <DockPanel Margin="0,0,0,0" Height="Auto">
         <Menu DockPanel.Dock="Top" Margin="0,0,0,195">
             <MenuItem Header="_File">
-<<<<<<< HEAD
-                
-                <MenuItem Header="_Open" Click=" mnu_LOAD"/>
-=======
                 <MenuItem Header="_Open" Click="mnu_LOAD"/>
->>>>>>> 3daa44d3a1fad6b46d7a264d25a1826c1c4687de
                 <MenuItem Header="_Save" Click="mnu_SAVE"/>
                 <Separator/>
                 <MenuItem Header="_Exit" Click="mnu_EXIT"/>
@@ -61,11 +55,7 @@
                 </MenuItem>
             </MenuItem> >
         </Menu>
-<<<<<<< HEAD
-
-=======
         <TextBox Name="txtEditor" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
->>>>>>> 3daa44d3a1fad6b46d7a264d25a1826c1c4687de
         <Grid Margin="0,-190,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -75,10 +65,5 @@
             </Grid.ColumnDefinitions>
             <ContentControl x:Name="myContent"></ContentControl>
         </Grid>
-
-
     </DockPanel>
-
 </Window>
-    
-

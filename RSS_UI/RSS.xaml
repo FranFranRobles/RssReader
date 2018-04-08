@@ -39,8 +39,8 @@
         <TreeView Name ="treeView" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15,5,5,15" TextBlock.FontSize="14" >
             <TreeView.ContextMenu>
                 <ContextMenu StaysOpen="True">
-                    <MenuItem Header="Add Channel"></MenuItem>
-                    <MenuItem Header="Add Feed"></MenuItem>
+                    <MenuItem Header="Add Channel" Click="addToChannel"></MenuItem>
+                    <MenuItem Header="Add Feed" Click="removeFromChannel"></MenuItem>
                 </ContextMenu>
             </TreeView.ContextMenu>
         </TreeView>
