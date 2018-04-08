@@ -15,20 +15,23 @@ namespace RSS_LogicEngine
         private string url; //location of full article
         private string summary; // summary of the article
         private string publication_date; // date published
+        private bool read; // True if article has been read, false otherwise
         #endregion
         /// <summary>
-       /// Article object CTOR
+        /// Article object CTOR
         /// </summary>
         /// <param name="title">name of the article</param>
         /// <param name="url">source of the complete article</param>
         /// <param name="summary">short summary of the article</param>
         /// <param name="publication_date">date published</param>
+        /// <param name="read">True if article has been read, false otherwise</param>
         public Article(string title, string url, string summary, string publication_date)
         {
             Title = title;
             URL = url;
             Summary = summary;
             Publication_Date = publication_date;
+            Read = false;
         }
         /// <summary>
         /// Title of article
@@ -61,6 +64,11 @@ namespace RSS_LogicEngine
         {
             get => publication_date;
             private set => publication_date = value;
+        }
+        public bool Read
+        {
+            get => read;
+            set => read = value;
         }
     }
 }
