@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSS_LogicEngine
 {
-    class Feed : Component
+    public class Feed : Component
     {
         private string uri;
         public string URI

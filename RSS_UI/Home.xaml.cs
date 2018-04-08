@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 using RSS_UI;
 using Microsoft.Win32;
 
@@ -33,6 +34,7 @@ namespace RSS_UI
         public Home()
         {
             InitializeComponent();
+
             this.myContent.Content = myRSS;     // Load RSS User Control by default
 
         }
@@ -44,10 +46,23 @@ namespace RSS_UI
         // Save File Dialog 
         private void mnu_SAVE(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            if (saveFileDialog.ShowDialog() == true)
+            //configure save file dialog box
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "config"; //default file name
+            dlg.DefaultExt = ".xml"; //default file extension
+            dlg.Filter = "XML documents (.xml)|*.xml"; //filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
             {
-                File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
+                Stream save_stream = dlg.OpenFile();
+                RSS_LogicEngine.Component_View component_view;
+                component_view = RSS_LogicEngine.Component_View.Get_Instance();
+                component_view.Save_Components(save_stream);
+                save_stream.Close();
             }
         }
 
@@ -129,6 +144,27 @@ namespace RSS_UI
         private void TOPICCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             myContent.Content = myTopic;
+        }
+
+
+        private void mnu_SAVE(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if(saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
+            }
+        }
+
+        private void mnu_LOAD(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".txt";
+
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            string fileName = openFileDialog.FileName;
+
         }
 
 

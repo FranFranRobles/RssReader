@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSS_LogicEngine
 {
-    class Channel : Component
+    public class Channel : Component
     {
         private Dictionary<string, Component> children;
         public override void Add_Child(string name, Component c) => children.Add(name, c);
