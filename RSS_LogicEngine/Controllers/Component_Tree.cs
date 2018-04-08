@@ -80,6 +80,7 @@ namespace RSS_LogicEngine
         {
             Component_Factory cf = Component_Factory.Get_Instance();
             Component c;
+            root = new Channel();
             while (reader.Read())
             {
                 if (reader.Name == "feed")

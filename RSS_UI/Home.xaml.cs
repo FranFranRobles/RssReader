@@ -13,9 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using RSS_UI;
-
-using RSS_UI;
 using Microsoft.Win32;
+using System.Xml;
 
 namespace RSS_UI
 {
@@ -35,7 +34,6 @@ namespace RSS_UI
         {
             InitializeComponent();
             this.myContent.Content = myRSS;     // Load RSS User Control by default
-
         }
 
         //
@@ -75,6 +73,10 @@ namespace RSS_UI
             Nullable<bool> result = openFileDialog.ShowDialog();
 
             string fileName = openFileDialog.FileName;
+
+            FileStream fileStream = new FileStream(fileName, FileMode.Open);
+
+            myRSS.Load(fileStream);         // Need to have this function implemented for all window types
         }
 
         // Exit Program
@@ -143,29 +145,6 @@ namespace RSS_UI
         {
             myContent.Content = myTopic;
         }
-
-
-        private void mnu_SAVE(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            if(saveFileDialog.ShowDialog() == true)
-            {
-                File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
-            }
-        }
-
-        private void mnu_LOAD(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = ".txt";
-
-            Nullable<bool> result = openFileDialog.ShowDialog();
-
-            string fileName = openFileDialog.FileName;
-
-        }
-
-
     }
 
     public static class CCs
