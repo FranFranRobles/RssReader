@@ -62,12 +62,14 @@ namespace RSS_UI
             {
                 if (compView.Is_Channel(i)) // Buggy?
                 {
-                    ComponentTreeViewItem newFeed = new ComponentTreeViewItem(i, this);    // Create item to be displayed in left hand menu
-                    treeView.Items.Add(newFeed);
+                    ;
                 }
 
                 else
-                    treeView.Items.Add(i); // We have a feed that we can place into the TreeView
+                {
+                    ComponentTreeViewItem newFeed = new ComponentTreeViewItem(i, this);    // Create item to be displayed in left hand menu
+                    treeView.Items.Add(newFeed);
+                }
             }
         }
 
