@@ -1,19 +1,12 @@
-﻿using System;
+﻿using RSS_LogicEngine;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using RSS_LogicEngine;
 
 
 
@@ -38,8 +31,9 @@ namespace RSS_UI
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
-            gridView.Columns.Add(new GridViewColumn { Header = "Date", DisplayMemberBinding = new Binding("Date"), Width = 100 });
-            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 483 });
+            gridView.Columns.Add(new GridViewColumn { Header = "Read", DisplayMemberBinding = new Binding("Read"), Width = 25 });
+            gridView.Columns.Add(new GridViewColumn { Header = "Date", DisplayMemberBinding = new Binding("Date"), Width = 125 });
+            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 433 });
             this.articleList.View = gridView;
             articleList.SelectionChanged += ArticleListItem_Clicked;    // Maps the list view being clicked to a handler
             treeView.AllowDrop = true;
@@ -57,12 +51,17 @@ namespace RSS_UI
 
             compView.Load_Components(stream);
             List<String> newTree = compView.Get_Children_Of("/");   // Returns name of Channels or Feeds below the root
+            PopulateOnLoad(newTree);
+        }
 
+        private void PopulateOnLoad(List<String> newTree)
+        {
             foreach (String i in newTree)
             {
-                if (compView.Is_Channel(i)) // Buggy?
+                if (compView.Is_Channel(i)) // We know there are either more channels or feeds internal, need to recursively call
                 {
-                    ;
+                    List<String> components = compView.Get_Children_Of(i);
+                    PopulateOnLoad(components);
                 }
 
                 else
@@ -166,7 +165,7 @@ namespace RSS_UI
             public String Title { get; set; }       // Allows the user to see the title of the article in the UI, binding property
             public String URL { get; set; }         // Allows the UI to navigate to the appropriate page in the browser 
             public String Description { get; set; } // Allows the user to see the summary of the article in the UI
-
+            public String Read { get; set; }          // Allows the user to see if articles has been read or not
         }
 
         private class ComponentTreeViewItem : TreeViewItem
