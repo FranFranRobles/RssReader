@@ -67,16 +67,24 @@ namespace RSS_UI
         // Load File Dialog
         private void mnu_LOAD(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = ".txt";
+            //configure save file dialog box
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "config"; //default file name
+            dlg.DefaultExt = ".xml"; //default file extension
+            dlg.Filter = "XML documents (.xml)|*.xml"; //filter files by extension
 
-            Nullable<bool> result = openFileDialog.ShowDialog();
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
 
-            string fileName = openFileDialog.FileName;
-
-            FileStream fileStream = new FileStream(fileName, FileMode.Open);
-
-            myRSS.Load(fileStream);         // Need to have this function implemented for all window types
+            // Process save file dialog box results
+            if (result == true)
+            {
+                Stream load_stream = dlg.OpenFile();
+                RSS_LogicEngine.Component_View component_view;
+                component_view = RSS_LogicEngine.Component_View.Get_Instance();
+                component_view.Load_Components(load_stream);
+                load_stream.Close();
+            }
         }
 
         // Exit Program
