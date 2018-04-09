@@ -21,7 +21,14 @@ namespace RSS_LogicEngine.Controllers.Tests
         {
             Assert.IsNotNull(LocationsManager.GetInstance(), "locations Manager Object is set to a null reference");
         }
-
+        [TestMethod()]
+        [TestCategory(LOCATIONS_MGR_TESTS)]
+        public void GetSecondInstanceTest()
+        {
+            LocationsManager myLocations = LocationsManager.GetInstance();
+            Assert.IsNotNull(myLocations, "locations Manager Object is set to a null reference");
+            Assert.AreEqual(myLocations, LocationsManager.GetInstance(), "the objects be identical");
+        }
         [TestMethod()]
         [TestCategory(LOCATIONS_MGR_TESTS)]
         public void HasCordinatesTest()

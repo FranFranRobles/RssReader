@@ -14,6 +14,7 @@ namespace RSS_Console
         static Component_View cv = Component_View.Get_Instance();
         static void Main(string[] args)
         {
+
             while (true)
             {
                 Console.WriteLine("0. Exit Program");
