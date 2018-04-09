@@ -47,7 +47,7 @@ namespace RSS_UI
         {
             if (e.Key == Key.Enter)
             {
-                this.newPath = this.TextBox.Text;
+                this.newPath = "/" + this.TextBox.Text;
                 compView.Move_Component(this.oldPath, this.newPath);
                 this.Hide();   // Close the window if the addition was done correctly
             }
@@ -56,7 +56,7 @@ namespace RSS_UI
 
         private void AddClicked(object sender, RoutedEventArgs e)
         {
-            this.newPath = this.TextBox.Text;
+            this.newPath = "/" + this.TextBox.Text;
             compView.Move_Component(this.oldPath, this.newPath);
             this.Hide();   // Close the window if the addition was done correctly
         }
