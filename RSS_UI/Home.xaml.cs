@@ -145,6 +145,11 @@ namespace RSS_UI
         {
             myContent.Content = myTopic;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            myRSS.OnClosed();   // Trying to resolve the issue of the program continuing to run after window is closed
+        }
     }
 
     public static class CCs

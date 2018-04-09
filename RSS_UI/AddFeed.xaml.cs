@@ -15,13 +15,27 @@ using System.Windows.Shapes;
 namespace RSS_UI
 {
     /// <summary>
-    /// Interaction logic for Component.xaml
+    /// Interaction logic for AddFeed.xaml
     /// </summary>
-    public partial class Component : Window
+    public partial class AddFeed : Window
     {
-        public Component()
+        RSS parent;
+        public AddFeed(RSS instance)
         {
+            parent = instance;
             InitializeComponent();
+            this.Hide();
+        }
+
+        public void OpenWindow()
+        {
+            this.Show();
+        }
+
+        private void AddClick(object sender, RoutedEventArgs e)
+        {
+            parent.add(this.FeedName.Text, this.RSSURL.Text);
+            this.Hide();
         }
     }
 }

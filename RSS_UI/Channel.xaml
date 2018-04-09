@@ -1,0 +1,15 @@
+﻿<Window x:Class="RSS_UI.Channel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RSS_UI"
+        mc:Ignorable="d"
+        Title="Add Channel" Height="85" Width="350">
+    <Grid>
+        <Label Content="Name of New Feed:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="TextBox" HorizontalAlignment="Left" Height="23" Margin="127,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyDown="EnterPress"/>
+        <Button Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="252,14,-4,0" VerticalAlignment="Top" Width="75" Click="AddClick"/>
+
+    </Grid>
+</Window>

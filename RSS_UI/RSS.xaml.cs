@@ -19,6 +19,10 @@ namespace RSS_UI
     {
         private Component_View compView;    // Reference to the single Component View item that exists in the project
         private Update_Manager updateManager;
+        private AddToChannel addToChannelWindow;
+        private Channel channelWindow;
+        private AddFeed addFeedWindow;
+        private ComponentTreeViewItem selectedItem;
         private int unnamedFeeds = 1;
 
 
@@ -27,6 +31,9 @@ namespace RSS_UI
             InitializeComponent();
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
             updateManager = Update_Manager.Get_Instance();
+            addToChannelWindow = AddToChannel.GetInstance();
+            channelWindow = new Channel(this);
+            addFeedWindow = new AddFeed(this);
             updateManager.Set_Update_Period(5);      // Initialized to 5 sec refresh rate
 
             // Format the list of articles that come from the feed selected in the tree menu
@@ -111,7 +118,29 @@ namespace RSS_UI
             this.treeView.Items.Add(newFeed);                               // Show the new feed in the TreeView menu
             urlBox.Text = "";                                               // Restore default text values in the textboxes
             nameBox.Text = "";
+        }
 
+        public void add(string feedName, string rssURL)
+        {
+            if (!IsValidURL(rssURL))                                         // Check if URL is valid web address and contains .rss or .xml
+            {
+                InvalidURL();                                                   // If not valid, reset input box and pop error 
+                return;                                                         // Exit add function
+            }
+
+            if (feedName.Equals(""))                                        // If user doesn't provide a name provide a default.
+            {
+                feedName = "New Feed" + unnamedFeeds.ToString();                // Default base name is New FeedX   
+                unnamedFeeds++;                                                 // Increment 'X'
+            }
+
+            ComponentTreeViewItem newFeed = new ComponentTreeViewItem(feedName, this);    // Create item to be displayed in left hand menu
+
+            // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
+            compView.Add_Feed("/" + feedName, rssURL);
+            this.treeView.Items.Add(newFeed);                               // Show the new feed in the TreeView menu
+            urlBox.Text = "";                                               // Restore default text values in the textboxes
+            nameBox.Text = "";
         }
 
         // Check if the url string is valid
@@ -168,13 +197,14 @@ namespace RSS_UI
             public String Read { get; set; }          // Allows the user to see if articles has been read or not
         }
 
-        private class ComponentTreeViewItem : TreeViewItem
+        public class ComponentTreeViewItem : TreeViewItem
         {
             // Constructor was added because it was being used in multiple places
             public ComponentTreeViewItem(string feedName, RSS parent)   // parent parameter allows the events to be mapped
             {
                 this.Header = feedName;                                      // Reflect the name in the menu properly 
                 this.MouseLeftButtonUp += parent.treeComp_MouseLeftButtonUp;        // Link the event to the proper handler
+                this.PreviewMouseRightButtonDown += parent.treeView_PreviewMouseRightButtonDown;
                 this.ContextMenu = new ContextMenu();                        // Create a right click menu for the TreeViewItem
                 this.ContextMenu.StaysOpen = true;                           // Make sure that it doesn't close immediately
                 this.Title = feedName;                                       // Give the feed a title for the UI's use
@@ -191,7 +221,7 @@ namespace RSS_UI
                 removeChannel.Header = "Remove from Channel";
                 renameFeed.Header = "Rename Channel";
 
-                addChannel.MouseLeftButtonUp += parent.addToChannel;                // Routing events to proper handlers
+                addChannel.Click += parent.AddComponentToChannel;                // Routing events to proper handlers
                 removeChannel.MouseLeftButtonUp += parent.removeFromChannel;
                 renameFeed.MouseLeftButtonUp += parent.renameChannel;
 
@@ -204,7 +234,6 @@ namespace RSS_UI
             public String Path { get; set; }
         }
 
-    
         private void treeComp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             articleList.Items.Clear();
@@ -219,6 +248,7 @@ namespace RSS_UI
                 articleListItem.Date = i.Publication_Date;                      // Get the correct date
                 articleListItem.URL = i.URL;
                 articleListItem.Description = i.Summary;
+                articleListItem.Read = "";                                      // Setting default to unread
 
                 articleList.Items.Add(articleListItem);                         // Place in the UI
             }
@@ -239,12 +269,11 @@ namespace RSS_UI
             FlowDocument newContent = new FlowDocument();
             Paragraph newP = new Paragraph();
 
-            Run newRun = new Run(currentArticle.Description);       // Getting the Summary attibute
+            Run newRun = new Run(currentArticle.Description);   // Getting the Summary attibute
             newP.Inlines.Add(newRun);
-            newContent.Blocks.Add(newP);                            // Placing the summary into the newContent which will be displayed in the summaryBox
-
-
-            summaryBox.Document = newContent;       // Display summary
+            newContent.Blocks.Add(newP);                        // Placing the summary into the newContent which will be displayed in the summaryBox
+            summaryBox.Document = newContent;                   // Display summary
+            currentArticle.Read = "X";                          // Reflecting that the article has been read
         }
 
         private void nameBox_GotFocus(object sender, RoutedEventArgs e)
@@ -259,17 +288,26 @@ namespace RSS_UI
                 urlBox.Clear();
         }
 
-        private void addToChannel(object sender, RoutedEventArgs e)
+        private void AddComponentToChannel(object sender, RoutedEventArgs e)
         {
-            ;   // Needs some work
-            // Probably will need to create another window for the user to interact with
+            ComponentTreeViewItem movingComp = (ComponentTreeViewItem)treeView.SelectedItem;
+            addToChannelWindow.OpenWindow(movingComp);
         }
 
         private void removeFromChannel(object sender, RoutedEventArgs e)
         {
-            ;   // Needs some work
+            ;
         }
 
+        private void AddFeed(object sender, RoutedEventArgs e)
+        {
+            addFeedWindow.OpenWindow();   // Jenky, I do not like this implementation
+        }
+
+        private void CreateChannel(object sender, RoutedEventArgs e)
+        {
+            channelWindow.Show();
+        }
         private void renameChannel(object sender, MouseEventArgs e)
         {
 
@@ -284,6 +322,18 @@ namespace RSS_UI
         private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             
+        }
+
+        public void OnClosed()      // Trying to resolve the issue of the program running after window is closed
+        {
+            this.addToChannelWindow.Close();
+            this.channelWindow.Close();
+            this.addFeedWindow.Close();
+        }
+
+        private void treeView_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            selectedItem = (ComponentTreeViewItem)sender;
         }
     }
 }

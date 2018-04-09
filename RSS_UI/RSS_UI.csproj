@@ -60,8 +60,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Component.xaml.cs">
-      <DependentUpon>Component.xaml</DependentUpon>
+    <Compile Include="AddFeed.xaml.cs">
+      <DependentUpon>AddFeed.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddToChannel.xaml.cs">
+      <DependentUpon>AddToChannel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Channel.xaml.cs">
+      <DependentUpon>Channel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
@@ -78,7 +84,15 @@
     <Compile Include="TOPIC.xaml.cs">
       <DependentUpon>TOPIC.xaml</DependentUpon>
     </Compile>
-    <Page Include="Component.xaml">
+    <Page Include="AddFeed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddToChannel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Channel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
