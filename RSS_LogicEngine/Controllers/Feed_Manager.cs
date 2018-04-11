@@ -64,7 +64,7 @@ namespace RSS_LogicEngine
             using (XmlReader temp = XmlReader.Create(rss_filename))
             {
                 var file = XDocument.Load(temp);
-                foreach (var article in file.Descendants(ARTICLE))
+                foreach (XElement article in file.Descendants(ARTICLE))
                 {
                     string pubDate = "";
                     try
