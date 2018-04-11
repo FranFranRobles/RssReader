@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace RSS_LogicEngine.Controllers
 {
@@ -34,7 +35,7 @@ namespace RSS_LogicEngine.Controllers
             public string GetLongitude() => Longitude;
         }
         static private LocationsManager instance = null;
-        private Dictionary<string, Word> locationsDictionary;
+        private Dictionary<string, Word> myDictionary;
         private string latidude = "";
         private string longitude = "";
         private LocationsManager()
@@ -63,53 +64,124 @@ namespace RSS_LogicEngine.Controllers
         /// </summary>
         /// <returns></returns>
         public string Longitude() => longitude;
+        /// <summary>
+        /// function returns a bool indicating whether the input text has a posiible cordinates
+        ///         If true is return the latitude & longitude properties will be set to the last
+        ///         searched text
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public bool HasCordinates(string text)
         {
-            string[] parsedWords = Parse(text);
+            string[] parsedWords = ParseFile(text);
             int currWord = 0;   // count on current index in parsedWords
-            bool foundInDictionary = false;     //indicates whether the parsed word is found within the dictionary
             Word tempWord = null;               
             bool hasCordinates = false; // need to add code for it to work  //
             while (hasCordinates == false && currWord < parsedWords.Length)
             {
-                foundInDictionary = locationsDictionary.TryGetValue(parsedWords[currWord], out tempWord);
-                // currently only search for one word needs to be able to chain words together
-                if (foundInDictionary == false) // single word not found  in the dictionary
+                hasCordinates = SearchWord(parsedWords[currWord], out tempWord);
+                if (hasCordinates == false && currWord + 1 != parsedWords.Length) // check for a two word city
                 {
-                    tempWord = SearchDataBase(parsedWords[currWord]);
-                    AddToDictionary(tempWord);
-                    hasCordinates = tempWord.IsACity();
+                    hasCordinates = SearchWord(parsedWords[currWord] + " " + parsedWords[currWord + 1], out tempWord);
                 }
                 currWord++;
             }
             latidude = tempWord.GetLatidude();
             longitude = tempWord.GetLongitude();
             return hasCordinates;
-
-            throw new NotImplementedException();
         }
+
+        private bool SearchWord(string currWord, out Word tempWord)
+        {
+             bool foundInDictionary = myDictionary.TryGetValue(currWord, out tempWord);
+            // currently only search for one word needs to be able to chain words together
+            if (foundInDictionary == false) // single word not found  in the dictionary
+            {
+                tempWord = SearchDataBase(currWord);
+                myDictionary.Add(currWord, tempWord); // add word with it city information
+
+            }
+
+            return tempWord.IsACity();
+        }
+
         private Word SearchDataBase(string word)
         {
-            //var atemp = SearchDictionary(parsedWords[currWord]);
-            //var foundInDictionary = temp.Item1;
-            //AddToDictionary(parsedWords[currWord], temp);
-            throw new NotImplementedException();
+            const string LOCATIONS_FILE = @"..\..\..\RSS_LogicEngine\USLocationsFile\uslocations.csv";
+            const int HEADER = 1;
+            IOrderedEnumerable<string[]> myQuery = CreateQuery(File.ReadLines(LOCATIONS_FILE).Skip(HEADER), word);
+            Word searchedWord = VerifyResults(myQuery, word);
+            return searchedWord;
         }
-        private string[] Parse(string Text)
+
+        private Word VerifyResults(IOrderedEnumerable<string[]> myQuery, string word)
         {
-            throw new NotImplementedException();
+            bool verifiedWord = false;
+            int curr = 0;
+            Word myWord = null;
+            while (verifiedWord == false && curr < myQuery.Count())
+            {
+                if ((word.Length < myQuery.ElementAt(curr)[0].Length))
+                {
+                    break;
+                }
+                if (word == myQuery.ElementAt(curr)[0])
+                {
+                    myWord = new Word(myQuery.ElementAt(curr)[0], true, myQuery.ElementAt(curr)[1], myQuery.ElementAt(curr)[2]);
+                    verifiedWord = true;
+                }
+                curr++;
+            }
+            if (verifiedWord == false)
+            {
+                myWord = new Word(word, false, "", "");
+            }
+            return myWord;
         }
-        private void AddToDictionary(Word details)
+
+        private string[] ParseCity(string unparsedText)
         {
-            throw new NotImplementedException();
+            const int CITY_NAME = 3;
+            const int LATITUDE = 5;
+            const int LONGITUDE = 6;
+            List<string> myCity = new List<string>();
+            const char separator = ',';
+            string[] parsedText = unparsedText.Split(separator);
+            myCity.Add(parsedText[CITY_NAME].ToLower());
+            myCity.Add(parsedText[LATITUDE]);
+            myCity.Add(parsedText[LONGITUDE]);
+            return myCity.ToArray();
         }
-        private Word SearchForCity(string word)
+
+        private IOrderedEnumerable<string[]> CreateQuery(IEnumerable<string> unparsedCities,string searchWord)
         {
-            throw new NotImplementedException();
+            IEnumerable<string[]> cityList = ParseCities(unparsedCities);
+            IOrderedEnumerable<string[]> query = from item in cityList
+                        where item[0].Contains(searchWord)
+                        orderby item[0].Length ascending
+                        select item;
+            return query;
+        }
+
+        private IEnumerable<string[]> ParseCities(IEnumerable<string> unparsedCities)
+        {
+            List<string[]> parsedCities = new List<string[]>();
+            foreach (var city in unparsedCities)
+            {
+                parsedCities.Add(ParseCity(city));
+            }
+            return parsedCities.AsEnumerable();
+        }
+
+        private string[] ParseFile(string text)
+        {
+            char[] parserTokens = { ' ', ',', '.', '!', '?' };
+            text = text.ToLower();
+            return text.Split(parserTokens);
         }
         private void LoadCities()
         {
-            locationsDictionary = new Dictionary<string, Word>();
+            myDictionary = new Dictionary<string, Word>();
             // will be reimplented later with acutal load save functionality
         }
 

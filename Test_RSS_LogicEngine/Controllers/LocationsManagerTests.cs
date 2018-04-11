@@ -13,6 +13,7 @@ namespace RSS_LogicEngine.Controllers.Tests
     {
         const string LOCATIONS_MGR_TESTS = "Locations Manager Tests";
         const string INVALID_CORDINATE = "";
+        const int TEST_TIMEOUT = 10000; // 10 seconds in milliseconds
 
 
         [TestMethod()]
@@ -30,6 +31,7 @@ namespace RSS_LogicEngine.Controllers.Tests
             Assert.AreEqual(myLocations, LocationsManager.GetInstance(), "the objects be identical");
         }
         [TestMethod()]
+        [Timeout(TEST_TIMEOUT)]
         [TestCategory(LOCATIONS_MGR_TESTS)]
         public void HasCordinatesTest()
         {
@@ -43,10 +45,11 @@ namespace RSS_LogicEngine.Controllers.Tests
             }
         }
         [TestMethod()]
+        [Timeout(TEST_TIMEOUT)]
         [TestCategory(LOCATIONS_MGR_TESTS)]
         public void NoCordinatesTest()
         {
-            string[] notACity = { "blah", "sjsj blah in", "the in F a"};
+            string[] notACity = {"a", "blah", "sjsj blah in", "the in F a"};
             LocationsManager myLocations = LocationsManager.GetInstance();
             foreach (string text in notACity)
             {
