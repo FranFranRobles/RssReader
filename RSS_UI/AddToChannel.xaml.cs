@@ -22,8 +22,11 @@ namespace RSS_UI
     {
         private static AddToChannel instance;
         private Component_View compView;
+
+        private ComponentTreeViewItem sourceComponent;
         private string oldPath;
         private string newPath;
+        public event EventHandler OnComponentMoved;
 
         public static AddToChannel GetInstance()
         {
@@ -37,9 +40,10 @@ namespace RSS_UI
 
         private AddToChannel() => InitializeComponent();
 
-        public void OpenWindow(RSS.ComponentTreeViewItem movedComp)
+        public void OpenWindow(ComponentTreeViewItem movedComp)
         {
-            this.oldPath = movedComp.Path;
+            sourceComponent = movedComp;
+            this.oldPath = sourceComponent.Path;
             instance.Show();
         }
 
@@ -47,18 +51,22 @@ namespace RSS_UI
         {
             if (e.Key == Key.Enter)
             {
-                this.newPath = "/" + this.TextBox.Text;
+                this.newPath = "/" + this.TextBox.Text + "/";
+                sourceComponent.Path = "/" + this.TextBox.Text + this.oldPath;
                 compView.Move_Component(this.oldPath, this.newPath);
                 this.Hide();   // Close the window if the addition was done correctly
+                OnComponentMoved(sourceComponent, new EventArgs());
             }
 
         }
 
         private void AddClicked(object sender, RoutedEventArgs e)
         {
-            this.newPath = "/" + this.TextBox.Text;
+            this.newPath = "/" + this.TextBox.Text + "/";
+            sourceComponent.Path = "/" + this.TextBox.Text + this.oldPath;
             compView.Move_Component(this.oldPath, this.newPath);
             this.Hide();   // Close the window if the addition was done correctly
+            OnComponentMoved(sourceComponent, new EventArgs());
         }
     }
 }

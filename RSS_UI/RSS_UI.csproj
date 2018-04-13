@@ -66,9 +66,11 @@
     <Compile Include="AddToChannel.xaml.cs">
       <DependentUpon>AddToChannel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ArticleListItem.cs" />
     <Compile Include="Channel.xaml.cs">
       <DependentUpon>Channel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ComponentTreeViewItem.cs" />
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>

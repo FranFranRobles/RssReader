@@ -40,7 +40,7 @@ namespace RSS_UI
             if (e.Key == Key.Enter)
             { 
                 compView.Add_Channel("/" + this.TextBox.Text);
-                RSS.ComponentTreeViewItem newChannel = new RSS.ComponentTreeViewItem(this.TextBox.Text, parent);
+                ComponentTreeViewItem newChannel = new ComponentTreeViewItem(this.TextBox.Text, parent);
                 parent.treeView.Items.Add(newChannel);
                 this.Hide();
             }
@@ -49,7 +49,7 @@ namespace RSS_UI
         private void AddClick(object sender, RoutedEventArgs e)
         {
             compView.Add_Channel("/" + this.TextBox.Text);
-            RSS.ComponentTreeViewItem newChannel = new RSS.ComponentTreeViewItem(this.TextBox.Text, parent);
+            ComponentTreeViewItem newChannel = new ComponentTreeViewItem(this.TextBox.Text, parent);
             parent.treeView.Items.Add(newChannel);
             this.Hide();
         }

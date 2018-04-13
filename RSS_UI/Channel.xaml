@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Add Channel" Height="85" Width="350">
     <Grid>
-        <Label Content="Name of New Feed:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Name of New Channel:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox Name="TextBox" HorizontalAlignment="Left" Height="23" Margin="127,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyDown="EnterPress"/>
         <Button Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="252,14,-4,0" VerticalAlignment="Top" Width="75" Click="AddClick"/>
 
