@@ -41,8 +41,30 @@ namespace RSS_LogicEngine
                 string rss_filename = "rss_temp.xml";
                 (new WebClient()).DownloadFile(f.URI, rss_filename);
                 f.Clear_Articles();
-                f.Add_Articles(ParseArticles(rss_filename));
+                f.Add_Articles(FindCordinates(ParseArticles(rss_filename)));
             }
+        }
+        /// <summary>
+        /// attempts to find and set a possible location origin to the article
+        /// </summary>
+        /// <param name="articles"></param>
+        /// <returns></returns>
+        private List<Article> FindCordinates(List<Article> articles)
+        {
+            string latitude = "";
+            string longitude = "";
+            Controllers.LocationsManager myManager = Controllers.LocationsManager.GetInstance();
+            foreach (Article article in articles)
+            {
+                latitude = myManager.SearchCordinates(article.Title, out longitude);
+                if (latitude == "" && longitude == "")
+                {
+                    latitude = myManager.SearchCordinates(article.Summary, out longitude);
+                }
+                article.Latitude = latitude;
+                article.Longitude = longitude;
+            }
+            return articles;
         }
         /// <summary>
         /// Parses the unparsed articles to create article objects
@@ -81,8 +103,8 @@ namespace RSS_LogicEngine
 
             }
            
-
             return articleList;
         }
+
     }
 }

@@ -11,11 +11,13 @@ namespace RSS_LogicEngine
     public class Article
     {
         #region Article Atributes
-        private string title; // name of the article
-        private string url; //location of full article
-        private string summary; // summary of the article
-        private string publication_date; // date published
-        private bool read; // True if article has been read, false otherwise
+        private string title;                // name of the article
+        private string url;                  //location of full article
+        private string summary;              // summary of the article
+        private string publication_date;     // date published
+        private bool read;                   // True if article has been read, false otherwise
+        private string latitude;             // latidude cordinate of most probable location of origin
+        private string longitude;            // longitude cordinate of the most probable location of origin
         #endregion
         /// <summary>
         /// Article object CTOR
@@ -32,6 +34,8 @@ namespace RSS_LogicEngine
             Summary = summary;
             Publication_Date = publication_date;
             Read = false;
+            latitude = "";
+            longitude = "";
         }
         /// <summary>
         /// Title of article
@@ -69,6 +73,16 @@ namespace RSS_LogicEngine
         {
             get => read;
             set => read = value;
+        }
+        public string Latitude
+        {
+            get => latitude;
+            set => latitude = value;
+        }
+        public string Longitude
+        {
+            get => longitude;
+            set => longitude = value;
         }
     }
 }
