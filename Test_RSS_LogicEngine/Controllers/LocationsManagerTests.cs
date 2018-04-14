@@ -39,9 +39,11 @@ namespace RSS_LogicEngine.Controllers.Tests
             LocationsManager myLocations = LocationsManager.GetInstance();
             foreach (string city in validCities)
             {
-                Assert.IsTrue(myLocations.HasCordinates(city));
-                Assert.AreNotEqual(INVALID_CORDINATE, myLocations.Latidude(), "search should return a latidude cordinate");
-                Assert.AreNotEqual(INVALID_CORDINATE, myLocations.Longitude(), "search should return a longitude cordinate");
+                string latitude = "";
+                string longitude = "";
+                latitude = myLocations.SearchCordinates(city, out longitude);
+                Assert.AreNotEqual("", latitude, "Search should have found a latidude cordinate");
+                Assert.AreNotEqual("", longitude, "Search should have found a longitude cordinate");
             }
         }
         [TestMethod()]
@@ -53,9 +55,11 @@ namespace RSS_LogicEngine.Controllers.Tests
             LocationsManager myLocations = LocationsManager.GetInstance();
             foreach (string text in notACity)
             {
-                Assert.IsFalse(myLocations.HasCordinates(text));
-                Assert.AreEqual(INVALID_CORDINATE, myLocations.Latidude(), "search should not return a latidude cordinate");
-                Assert.AreEqual(INVALID_CORDINATE, myLocations.Longitude(), "search should not return a longitude cordinate");
+                string latitude = "";
+                string longitude = "";
+                latitude = myLocations.SearchCordinates(text, out longitude);
+                Assert.AreEqual("", latitude, "Search should have found a latidude cordinate");
+                Assert.AreEqual("", longitude, "Search should have found a longitude cordinate");
             }
         }
     }
