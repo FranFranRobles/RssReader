@@ -17,14 +17,16 @@ namespace RSS_UI
     /// <summary>
     /// Interaction logic for AddFeed.xaml
     /// </summary>
-    public partial class AddFeed : Window
+    public partial class AddFeedWindow : Window
     {
-        RSS parent;
-        public AddFeed(RSS instance)
+        //RSS parent;
+        public event EventHandler OnFeedCreated;
+
+        public AddFeedWindow()  // Previous parameter was "RSS instance"
         {
-            parent = instance;
+            //parent = instance;
             InitializeComponent();
-            this.Hide();
+            //this.Hide();
         }
 
         public void OpenWindow()
@@ -34,8 +36,8 @@ namespace RSS_UI
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            parent.add(this.FeedName.Text, this.RSSURL.Text);
-            this.Hide();
+            //parent.add(this.FeedName.Text, this.RSSURL.Text);
+            //this.Hide();
         }
     }
 }

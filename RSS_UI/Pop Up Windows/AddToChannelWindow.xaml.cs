@@ -18,43 +18,41 @@ namespace RSS_UI
     /// <summary>
     /// Interaction logic for AddToChannel.xaml
     /// </summary>
-    public partial class AddToChannel : Window
+    public partial class AddToChannelWindow : Window
     {
-        private static AddToChannel instance;
-        private Component_View compView;
+        private Component_View compView = Component_View.Get_Instance();
 
         private ComponentTreeViewItem sourceComponent;
         private string oldPath;
         private string newPath;
         public event EventHandler OnComponentMoved;
 
-        public static AddToChannel GetInstance()
-        {
-            if (instance == null)
-            {
-                instance = new AddToChannel();
-                instance.compView = Component_View.Get_Instance();
-            }
-            return instance;
-        }
-
-        private AddToChannel() => InitializeComponent();
+        public AddToChannelWindow() => InitializeComponent();
 
         public void OpenWindow(ComponentTreeViewItem movedComp)
         {
             sourceComponent = movedComp;
             this.oldPath = sourceComponent.Path;
-            instance.Show();
         }
 
         private void EnterPressed(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                this.newPath = "/" + this.TextBox.Text + "/";
-                sourceComponent.Path = "/" + this.TextBox.Text + this.oldPath;
+                string childPath;
+                this.newPath = "/" + this.TextBox.Text + sourceComponent.Path;  
+                sourceComponent.Path = this.newPath;
+
+                // Need to iterate through each path to find proper level
+
+                foreach (ComponentTreeViewItem c in sourceComponent.Items)
+                {
+                    childPath = c.Path;
+                    c.Path = "/" + this.TextBox.Text + c.Path;
+                }
+
                 compView.Move_Component(this.oldPath, this.newPath);
-                this.Hide();   // Close the window if the addition was done correctly
+                this.Close();
                 OnComponentMoved(sourceComponent, new EventArgs());
             }
 
@@ -62,10 +60,18 @@ namespace RSS_UI
 
         private void AddClicked(object sender, RoutedEventArgs e)
         {
+            string childPath;
             this.newPath = "/" + this.TextBox.Text + "/";
-            sourceComponent.Path = "/" + this.TextBox.Text + this.oldPath;
+            sourceComponent.Path = this.newPath;
+
+            foreach (ComponentTreeViewItem c in sourceComponent.Items)
+            {
+                childPath = c.Path;
+                c.Path = "/" + this.TextBox.Text + c.Path;
+            }
+
             compView.Move_Component(this.oldPath, this.newPath);
-            this.Hide();   // Close the window if the addition was done correctly
+            this.Close();
             OnComponentMoved(sourceComponent, new EventArgs());
         }
     }

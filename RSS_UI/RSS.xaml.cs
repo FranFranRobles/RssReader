@@ -18,9 +18,9 @@ namespace RSS_UI
     {
         private Component_View compView;    // Reference to the single Component View item that exists in the project
         private Update_Manager updateManager;
-        private AddToChannel addToChannelWindow;
-        private Channel channelWindow;
-        private AddFeed addFeedWindow;
+        private AddToChannelWindow addToChannelWindow;
+        private CreateChannelWindow createChannelWindow;
+        private AddFeedWindow addFeedWindow;
         private ComponentTreeViewItem selectedItem;
         private int unnamedFeeds = 1;
 
@@ -29,9 +29,9 @@ namespace RSS_UI
             InitializeComponent();
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
             updateManager = Update_Manager.Get_Instance();
-            addToChannelWindow = AddToChannel.GetInstance();
-            channelWindow = new Channel(this);
-            addFeedWindow = new AddFeed(this);
+            //addToChannelWindow = AddToChannel.GetInstance();
+            //channelWindow = new CreateChannelWindow();
+            //addFeedWindow = new AddFeedWindow();
             updateManager.Set_Update_Period(5);      // Initialized to 5 sec refresh rate
 
             // Format the list of articles that come from the feed selected in the tree menu
@@ -44,8 +44,7 @@ namespace RSS_UI
             treeView.AllowDrop = true;
 
             summaryBox.IsReadOnly = true;               // Making sure the user can't edit the summary shown in UI
-            addToChannelWindow.OnComponentMoved += this.OnAddToChannelWindowClose;
-
+            //addToChannelWindow.OnComponentMoved += this.OnAddToChannelWindowClose;
         }
 
         public void Load(FileStream stream)
@@ -236,7 +235,10 @@ namespace RSS_UI
         private void AddComponentToChannel(object sender, RoutedEventArgs e)
         {
             ComponentTreeViewItem movingComp = (ComponentTreeViewItem)treeView.SelectedItem;
+            addToChannelWindow = new AddToChannelWindow();
+            addToChannelWindow.Show();
             addToChannelWindow.OpenWindow(movingComp);
+            addToChannelWindow.OnComponentMoved += this.OnAddToChannelWindowClose;
         }
 
         private void removeFromChannel(object sender, RoutedEventArgs e)
@@ -244,14 +246,17 @@ namespace RSS_UI
             ;
         }
 
-        private void AddFeed(object sender, RoutedEventArgs e)
+        private void OpenAddFeedWindow(object sender, RoutedEventArgs e)
         {
-            addFeedWindow.OpenWindow();   // Jenky, I do not like this implementation
+            addFeedWindow = new AddFeedWindow();
+            addFeedWindow.OpenWindow();
         }
 
-        private void CreateChannel(object sender, RoutedEventArgs e)
+        private void OpenCreateChannelWindow(object sender, RoutedEventArgs e)
         {
-            channelWindow.Show();
+            createChannelWindow = new CreateChannelWindow();
+            createChannelWindow.Show();
+            createChannelWindow.OnChannelCreated += this.OnCreateChannelWindowClose;
         }
 
         private void renameChannel(object sender, MouseEventArgs e)
@@ -270,23 +275,25 @@ namespace RSS_UI
             ;
         }
 
-        public void OnClosed()      // Trying to resolve the issue of the program running after window is closed
+        public void OnClosed()      // Do we still need this? Used in Home.xaml.cs Line 151
         {
             this.addToChannelWindow.Close();
-            this.channelWindow.Close();
+            this.createChannelWindow.Close();
             this.addFeedWindow.Close();
         }
 
+        // Ensures that we do not have a null value when using Context Menus
         private void treeView_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             selectedItem = (ComponentTreeViewItem)sender;
         }
 
-        private void OnAddToChannelWindowClose(object sender, EventArgs e)
+        private void OnAddToChannelWindowClose(object sender, EventArgs e)  // Handler for when adding Component to a Channel
         {
             ComponentTreeViewItem movedComponent = (ComponentTreeViewItem)sender;
             this.treeView.Items.Remove(movedComponent);  // Remove the moved component from the UI
             string childPath = movedComponent.Path;    // Need to figure out container
+
             int childSlash = childPath.LastIndexOf('/');
             int parentSlash = childPath.LastIndexOf("/", childSlash-1);
             string parentPath = childPath.Substring(parentSlash, childSlash - parentSlash);
@@ -301,6 +308,20 @@ namespace RSS_UI
                     break;
                 }
             }
+        }
+
+        private void OnCreateChannelWindowClose(object sender, EventArgs e) // Handler for when Creating a new Channel
+        {
+            // Need to have channel have the same click properties as the other feeds in base
+            CreateChannelWindow source = (CreateChannelWindow)sender;
+            string channelName = source.TextBox.Text;
+            ComponentTreeViewItem newChannel = new ComponentTreeViewItem(channelName, this);    // Create item to be displayed in left hand 
+
+            newChannel.PreviewMouseRightButtonDown += treeView_PreviewMouseRightButtonDown;
+            newChannel.addChannel.Click += AddComponentToChannel;                // Routing events to proper handlers
+            newChannel.removeChannel.MouseLeftButtonUp += removeFromChannel;
+            newChannel.renameFeed.MouseLeftButtonUp += renameChannel;
+            this.treeView.Items.Add(newChannel);
         }
     }
 }

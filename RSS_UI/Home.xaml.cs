@@ -148,7 +148,7 @@ namespace RSS_UI
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            myRSS.OnClosed();   // Trying to resolve the issue of the program continuing to run after window is closed
+            myRSS.OnClosed();   // Still need this?
         }
     }
 

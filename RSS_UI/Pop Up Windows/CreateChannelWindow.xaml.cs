@@ -18,40 +18,30 @@ namespace RSS_UI
     /// <summary>
     /// Interaction logic for Channel.xaml
     /// </summary>
-    public partial class Channel : Window
+    public partial class CreateChannelWindow : Window
     {
-        private RSS parent;
         private Component_View compView = Component_View.Get_Instance();
+        public event EventHandler OnChannelCreated;
 
-        public Channel(RSS instance)
-        {
-            parent = instance;
-            InitializeComponent();
-            this.Hide();
-        }
+        public CreateChannelWindow() => InitializeComponent();
 
-        public void OpenWindow()
-        {
-            this.Show();
-        }
+        public void OpenWindow() => this.Show();
 
         private void EnterPress(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             { 
                 compView.Add_Channel("/" + this.TextBox.Text);
-                ComponentTreeViewItem newChannel = new ComponentTreeViewItem(this.TextBox.Text, parent);
-                parent.treeView.Items.Add(newChannel);
                 this.Hide();
+                OnChannelCreated(this, new EventArgs());
             }
         }
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
             compView.Add_Channel("/" + this.TextBox.Text);
-            ComponentTreeViewItem newChannel = new ComponentTreeViewItem(this.TextBox.Text, parent);
-            parent.treeView.Items.Add(newChannel);
             this.Hide();
+            OnChannelCreated(this, new EventArgs());
         }
     }
 }
