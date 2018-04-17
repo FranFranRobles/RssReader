@@ -44,6 +44,8 @@ namespace RSS_UI
                 sourceComponent.Path = this.newPath;
 
                 // Need to iterate through each path to find proper level
+                // Using raw string value from the textbox is a weak methodology
+                compView.Get_Children_Of("/");
 
                 foreach (ComponentTreeViewItem c in sourceComponent.Items)
                 {
@@ -74,5 +76,17 @@ namespace RSS_UI
             this.Close();
             OnComponentMoved(sourceComponent, new EventArgs());
         }
+
+        // This function returns the component's path name separated from it's entire path
+        private string GetLowestLevel(string pathName)
+        {
+            string lowestLevel;
+            int lastSlash;
+
+            lastSlash = pathName.LastIndexOf("/");
+            lowestLevel = pathName.Substring(lastSlash);
+
+            return lowestLevel;
+        } 
     }
 }
