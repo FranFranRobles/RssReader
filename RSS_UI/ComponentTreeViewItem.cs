@@ -43,5 +43,6 @@ namespace RSS_UI
         }
         public String Title { get; set; }
         public String Path { get; set; }
+
     }
 }

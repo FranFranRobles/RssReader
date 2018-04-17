@@ -62,13 +62,14 @@ namespace RSS_UI
 
         private void AddClicked(object sender, RoutedEventArgs e)
         {
-            string childPath;
-            this.newPath = "/" + this.TextBox.Text + "/";
+            string desiredChannel = this.TextBox.Text;
+            string movedComponent = this.GetLowestLevel(sourceComponent.Path);
+            this.newPath = this.FindChannelPath("/", desiredChannel) + movedComponent;
             sourceComponent.Path = this.newPath;
 
             foreach (ComponentTreeViewItem c in sourceComponent.Items)
             {
-                childPath = c.Path;
+                string childPath = c.Path;
                 c.Path = "/" + this.TextBox.Text + c.Path;
             }
 
@@ -80,13 +81,30 @@ namespace RSS_UI
         // This function returns the component's path name separated from it's entire path
         private string GetLowestLevel(string pathName)
         {
-            string lowestLevel;
-            int lastSlash;
-
-            lastSlash = pathName.LastIndexOf("/");
-            lowestLevel = pathName.Substring(lastSlash);
+            int lastSlash = pathName.LastIndexOf("/");
+            string lowestLevel = pathName.Substring(lastSlash);
 
             return lowestLevel;
-        } 
+        }
+        
+        private string FindChannelPath(string currentPath, string channelName)
+        {
+            string channelPath = currentPath;    // Temp
+
+            List<string> children = compView.Get_Children_Of(currentPath);
+
+            foreach (string s in children)
+            {
+                if (compView.Is_Channel(channelPath + s))
+                {
+                    if (s == channelName) // We found the matching channel
+                        return channelPath + s;
+                    else
+                        return this.FindChannelPath(channelPath + s + "/", channelName);
+                }
+            }
+
+            return channelPath;
+        }
     }
 }

@@ -292,11 +292,13 @@ namespace RSS_UI
         {
             ComponentTreeViewItem movedComponent = (ComponentTreeViewItem)sender;
             this.treeView.Items.Remove(movedComponent);  // Remove the moved component from the UI
-            string childPath = movedComponent.Path;    // Need to figure out container
 
+            string childPath = movedComponent.Path;    // Need to figure out container
             int childSlash = childPath.LastIndexOf('/');
+
             int parentSlash = childPath.LastIndexOf("/", childSlash-1);
-            string parentPath = childPath.Substring(parentSlash, childSlash - parentSlash);
+            //string parentPath = childPath.Substring(parentSlash, childSlash - parentSlash);
+            string parentPath = childPath.Substring(0, childSlash);
             parentPath = parentPath.Substring(1);
 
             for (int i = 0; i < this.treeView.Items.Count; i++)
@@ -308,6 +310,34 @@ namespace RSS_UI
                     break;
                 }
             }
+        }
+
+        private void MoveComponentTreeViewItem(string path, ComponentTreeViewItem currentComponent, ComponentTreeViewItem movedComponent)
+        {
+            // Need to find second slash
+            int highestLevelSlash = path.Substring(0).IndexOf("/");
+            string highestLevel = path.Substring(0, highestLevelSlash); // Should be highest level in path
+
+            int movedSlash = path.LastIndexOf("/");
+            int parentSlash = path.LastIndexOf("/", movedSlash);
+            string parent = path.Substring(parentSlash, movedSlash);
+            
+            if (parent == (string)currentComponent.Header)
+            {
+                currentComponent.Items.Add(movedComponent);
+            }
+
+            else if (currentComponent.HasItems)
+            {
+                // Recurse downward
+                foreach (ComponentTreeViewItem c in currentComponent.Items)
+                {
+                    if (highestLevel == (string)c.Header)
+                        MoveComponentTreeViewItem(path.Substring(highestLevelSlash), c, movedComponent);
+                }
+            }
+
+            return;
         }
 
         private void OnCreateChannelWindowClose(object sender, EventArgs e) // Handler for when Creating a new Channel
