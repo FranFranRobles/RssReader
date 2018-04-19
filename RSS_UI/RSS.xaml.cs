@@ -36,9 +36,9 @@ namespace RSS_UI
 
             // Format the list of articles that come from the feed selected in the tree menu
             var gridView = new GridView();
-            gridView.Columns.Add(new GridViewColumn { Header = "Read", DisplayMemberBinding = new Binding("Read"), Width = 25 });
+            gridView.Columns.Add(new GridViewColumn { Header = "Read", DisplayMemberBinding = new Binding("Read"), Width = 50 });
             gridView.Columns.Add(new GridViewColumn { Header = "Date", DisplayMemberBinding = new Binding("Date"), Width = 125 });
-            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 433 });
+            gridView.Columns.Add(new GridViewColumn { Header = "Title", DisplayMemberBinding = new Binding("Title"), Width = 600 });
             this.articleList.View = gridView;
             articleList.SelectionChanged += ArticleListItem_Clicked;    // Maps the list view being clicked to a handler
             treeView.AllowDrop = true;
@@ -114,8 +114,8 @@ namespace RSS_UI
             newFeed.MouseLeftButtonUp += treeComp_MouseLeftButtonUp;        // Link the event to the proper handler
             newFeed.PreviewMouseRightButtonDown += treeView_PreviewMouseRightButtonDown;
             newFeed.addChannel.Click += AddComponentToChannel;                // Routing events to proper handlers
-            newFeed.removeChannel.MouseLeftButtonUp += removeFromChannel;
-            newFeed.renameFeed.MouseLeftButtonUp += renameChannel;
+            newFeed.removeChannel.Click += removeFromChannel;
+            newFeed.renameFeed.Click += renameChannel;
 
             // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
             compView.Add_Feed("/" + feedName, rssURL);
@@ -259,15 +259,9 @@ namespace RSS_UI
             createChannelWindow.OnChannelCreated += this.OnCreateChannelWindowClose;
         }
 
-        private void renameChannel(object sender, MouseEventArgs e)
+        private void renameChannel(object sender, RoutedEventArgs e)
         {
-
-            //compView.Add_Feed("/" + feedName, rssURL);
-            //this.treeView.Items.R;                               // Show the new feed in the TreeView menu
-            //this.
-            //this.Header = "test";
-            bool test = false;
-            test = true;
+            ;
         }
 
         private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -277,9 +271,9 @@ namespace RSS_UI
 
         public void OnClosed()      // Do we still need this? Used in Home.xaml.cs Line 151
         {
-            this.addToChannelWindow.Close();
-            this.createChannelWindow.Close();
-            this.addFeedWindow.Close();
+            //this.addtochannelwindow.close();
+            //this.createchannelwindow.close();
+            //this.addfeedwindow.close();
         }
 
         // Ensures that we do not have a null value when using Context Menus
@@ -293,38 +287,31 @@ namespace RSS_UI
             ComponentTreeViewItem movedComponent = (ComponentTreeViewItem)sender;
             this.treeView.Items.Remove(movedComponent);  // Remove the moved component from the UI
 
-            string childPath = movedComponent.Path;    // Need to figure out container
-            int childSlash = childPath.LastIndexOf('/');
-
-            int parentSlash = childPath.LastIndexOf("/", childSlash-1);
-            //string parentPath = childPath.Substring(parentSlash, childSlash - parentSlash);
-            string parentPath = childPath.Substring(0, childSlash);
-            parentPath = parentPath.Substring(1);
-
-            for (int i = 0; i < this.treeView.Items.Count; i++)
+            foreach (ComponentTreeViewItem c in treeView.Items)
             {
-                ComponentTreeViewItem currentItem = (ComponentTreeViewItem)this.treeView.Items.GetItemAt(i);
-                if (parentPath == (string)currentItem.Header)
-                {
-                    currentItem.Items.Add(movedComponent);
+                if (MoveComponentTreeViewItem(movedComponent.Path, c, movedComponent))
                     break;
-                }
             }
         }
 
-        private void MoveComponentTreeViewItem(string path, ComponentTreeViewItem currentComponent, ComponentTreeViewItem movedComponent)
+        private bool MoveComponentTreeViewItem(string path, ComponentTreeViewItem currentComponent, ComponentTreeViewItem movedComponent)
         {
             // Need to find second slash
-            int highestLevelSlash = path.Substring(0).IndexOf("/");
-            string highestLevel = path.Substring(0, highestLevelSlash); // Should be highest level in path
+            int highestLevelSlash = path.IndexOf("/", 1);
+            string highestLevel = path.Substring(1, highestLevelSlash - 1); // Should be highest level in path
 
             int movedSlash = path.LastIndexOf("/");
-            int parentSlash = path.LastIndexOf("/", movedSlash);
-            string parent = path.Substring(parentSlash, movedSlash);
+            // Uhhhh shit
+            int secondLevelSlash = path.IndexOf("/", highestLevelSlash + 1);
+            string secondLevel = path.Substring(secondLevelSlash + 1, (movedSlash - secondLevelSlash) - 1);
+
+            int parentSlash = path.LastIndexOf("/", movedSlash - 1);
+            string parent = path.Substring(parentSlash + 1, (movedSlash - parentSlash) - 1);
             
             if (parent == (string)currentComponent.Header)
             {
                 currentComponent.Items.Add(movedComponent);
+                return true;
             }
 
             else if (currentComponent.HasItems)
@@ -332,12 +319,12 @@ namespace RSS_UI
                 // Recurse downward
                 foreach (ComponentTreeViewItem c in currentComponent.Items)
                 {
-                    if (highestLevel == (string)c.Header)
-                        MoveComponentTreeViewItem(path.Substring(highestLevelSlash), c, movedComponent);
+                    if (secondLevel == (string)c.Header)
+                        MoveComponentTreeViewItem(path.Substring(highestLevelSlash + 1), c, movedComponent);
                 }
             }
 
-            return;
+            return false;
         }
 
         private void OnCreateChannelWindowClose(object sender, EventArgs e) // Handler for when Creating a new Channel
@@ -349,8 +336,8 @@ namespace RSS_UI
 
             newChannel.PreviewMouseRightButtonDown += treeView_PreviewMouseRightButtonDown;
             newChannel.addChannel.Click += AddComponentToChannel;                // Routing events to proper handlers
-            newChannel.removeChannel.MouseLeftButtonUp += removeFromChannel;
-            newChannel.renameFeed.MouseLeftButtonUp += renameChannel;
+            newChannel.removeChannel.Click += removeFromChannel;
+            newChannel.renameFeed.Click += renameChannel;
             this.treeView.Items.Add(newChannel);
         }
     }

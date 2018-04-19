@@ -1,0 +1,15 @@
+﻿<Window x:Class="RSS_UI.Pop_Up_Windows.AddTopicWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RSS_UI.Pop_Up_Windows"
+        mc:Ignorable="d"
+        Title="Add Topic" Height="81" Width="349.5">
+    <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="257,16,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="55,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197"/>
+        <Label Content="Topic:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
