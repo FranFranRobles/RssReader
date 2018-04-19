@@ -89,6 +89,7 @@
     <Compile Include="TOPIC.xaml.cs">
       <DependentUpon>TOPIC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TopicTreeViewItem.cs" />
     <Page Include="Pop Up Windows\AddFeedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

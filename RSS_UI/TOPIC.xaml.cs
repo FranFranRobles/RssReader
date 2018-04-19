@@ -24,10 +24,13 @@ namespace RSS_UI
         private Component_View compView;
         private Update_Manager updateManager;
         private ComponentTreeViewItem selectedItem;
+        private List<TopicItem> topics;
 
         public TOPIC()
         {
             InitializeComponent();
+
+            topics = new List<TopicItem>();
 
             compView = Component_View.Get_Instance();   // Get the reference to the Component View item
             updateManager = Update_Manager.Get_Instance();
@@ -68,19 +71,71 @@ namespace RSS_UI
             currentArticle.Read = "X";                          // Reflecting that the article has been read
         }
 
-        private void TopicBox_KeyDown(object sender, KeyEventArgs e)
+        private void TopicButton_Click(object sender, EventArgs e)
         {
             // Add new topic
+            string newTopicName = topicBox.Text;
+            List<Article> allArticles = compView.Get_Articles_Under("/");
+            List<Article> topicArticleList = new List<Article>();
+
+            foreach (Article a in allArticles)
+            {
+                if (a.Title.Contains(newTopicName) || a.Summary.Contains(newTopicName))
+                    topicArticleList.Add(a);
+            }
+            // Need to have some catch for a topic that doesn't contain any articles
+            TopicItem newTopic = new TopicItem(newTopicName, topicArticleList);
+            this.topics.Add(newTopic);
+            AddToTreeView(newTopic);
+            topicBox.Clear();
         }
 
-        private void AddTopicButton_Click(object sender, RoutedEventArgs e)
+        private void TopicBox_Enter(object sender, EventArgs e)
         {
-            // Add new topic
+            KeyEventArgs pressed = (KeyEventArgs)e;
+            if (pressed.Key == Key.Enter)
+                TopicButton_Click(sender, e);
         }
 
         private void Open_AddTopicWindow(object sender, RoutedEventArgs e)
         {
             // Open the Popup window
+        }
+
+        private void AddToTreeView(TopicItem newTopic)
+        {
+            // Need to map the click functions for the newly added items 
+            TopicTreeViewItem newItem = new TopicTreeViewItem(newTopic.name);
+            newItem.MouseLeftButtonUp += TopicClicked;
+            treeView.Items.Add(newItem);
+        }
+
+        private void TopicClicked(object sender, EventArgs e)
+        {
+            // Show all articles contained in the topic
+            TopicTreeViewItem selectedTopic = (TopicTreeViewItem)sender;
+            List<Article> articles = new List<Article>();
+
+            foreach (TopicItem t in topics)
+            {
+                if (t.name == (string)selectedTopic.Header)
+                    articles = t.articleList;
+            }
+
+            articleList.Items.Clear();
+            
+
+            foreach (Article i in articles)
+            {
+                ArticleListItem articleListItem = new ArticleListItem();        // Create a new ArticleListItem to be displayed
+                articleListItem.Title = i.Title;                                // Get the correct title
+                articleListItem.Date = i.Publication_Date;                      // Get the correct date
+                articleListItem.URL = i.URL;
+                articleListItem.Description = i.Summary;
+                articleListItem.Read = "";                                      // Setting default to unread
+
+                articleList.Items.Add(articleListItem);                         // Place in the UI
+            }
         }
     }
 }

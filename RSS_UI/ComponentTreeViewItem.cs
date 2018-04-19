@@ -15,7 +15,7 @@ namespace RSS_UI
         public MenuItem renameFeed;
 
         // Constructor was added because it was being used in multiple places
-        public ComponentTreeViewItem(string feedName, RSS parent)   // parent parameter allows the events to be mapped
+        public ComponentTreeViewItem(string feedName)   // parent parameter allows the events to be mapped
         {
             this.Header = feedName;                                      // Reflect the name in the menu properly 
             //this.MouseLeftButtonUp += parent.treeComp_MouseLeftButtonUp;        // Link the event to the proper handler

@@ -72,7 +72,7 @@ namespace RSS_UI
 
                 else
                 {
-                    ComponentTreeViewItem newFeed = new ComponentTreeViewItem(i, this);    // Create item to be displayed in left hand menu
+                    ComponentTreeViewItem newFeed = new ComponentTreeViewItem(i);    // Create item to be displayed in left hand menu
                     treeView.Items.Add(newFeed);
                 }
             }
@@ -110,7 +110,7 @@ namespace RSS_UI
                 unnamedFeeds++;                                                 // Increment 'X'
             }
 
-            ComponentTreeViewItem newFeed = new ComponentTreeViewItem(feedName, this);    // Create item to be displayed in left hand 
+            ComponentTreeViewItem newFeed = new ComponentTreeViewItem(feedName);    // Create item to be displayed in left hand 
             newFeed.MouseLeftButtonUp += treeComp_MouseLeftButtonUp;        // Link the event to the proper handler
             newFeed.PreviewMouseRightButtonDown += treeView_PreviewMouseRightButtonDown;
             newFeed.addChannel.Click += AddComponentToChannel;                // Routing events to proper handlers
@@ -138,7 +138,7 @@ namespace RSS_UI
                 unnamedFeeds++;                                                 // Increment 'X'
             }
 
-            ComponentTreeViewItem newFeed = new ComponentTreeViewItem(feedName, this);    // Create item to be displayed in left hand menu
+            ComponentTreeViewItem newFeed = new ComponentTreeViewItem(feedName);    // Create item to be displayed in left hand menu
 
             // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
             compView.Add_Feed("/" + feedName, rssURL);
@@ -332,7 +332,7 @@ namespace RSS_UI
             // Need to have channel have the same click properties as the other feeds in base
             CreateChannelWindow source = (CreateChannelWindow)sender;
             string channelName = source.TextBox.Text;
-            ComponentTreeViewItem newChannel = new ComponentTreeViewItem(channelName, this);    // Create item to be displayed in left hand 
+            ComponentTreeViewItem newChannel = new ComponentTreeViewItem(channelName);    // Create item to be displayed in left hand 
 
             newChannel.PreviewMouseRightButtonDown += treeView_PreviewMouseRightButtonDown;
             newChannel.addChannel.Click += AddComponentToChannel;                // Routing events to proper handlers
