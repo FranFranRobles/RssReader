@@ -129,23 +129,19 @@ namespace RSS_LogicEngine.Controllers
         /// <returns>a word with city details if it is a city or a word that indicates it is not a city</returns>
         private Word VerifyResults(IOrderedEnumerable<string[]> myQuery, string searchWord)
         {
-            bool verifiedWord = false;
-            int currCity = 0;
+            const int AtCity = 0;
             Word myWord = null;
-            while (verifiedWord == false && currCity < myQuery.Count())
-            {
-                if (searchWord == myQuery.ElementAt(currCity)[(int)City.Name]) // search word matches the city name
-                {
-                    myWord = new Word(myQuery.ElementAt(currCity)[(int)City.Name], 
-                        true, myQuery.ElementAt(currCity)[(int)City.Latitude], myQuery.ElementAt(currCity)[(int)City.Longitude]);
-                    verifiedWord = true;
-                }
-                currCity++;
+            if (myQuery.Count() > 0 && searchWord == myQuery.ElementAt(AtCity)[(int)City.Name])
+            {   // creates a word with city info
+                myWord = new Word(myQuery.ElementAt(AtCity)[(int)City.Name], true, 
+                    myQuery.ElementAt(AtCity)[(int)City.Latitude], 
+                    myQuery.ElementAt(AtCity)[(int)City.Longitude]);
             }
-            if (verifiedWord == false)  // searchword does not match any city in the query
-            {
+            else
+            {   // creates a word indicating it is not a city
                 myWord = new Word(searchWord, false, "", "");
             }
+
             return myWord;
         }
         /// <summary>
@@ -190,7 +186,8 @@ namespace RSS_LogicEngine.Controllers
         /// <returns>an array of words parsed from the text</returns>
         private string[] ParseSearchWord(string text)
         {
-            char[] parserTokens = { ' ', ',', '.', '!', '?' };
+            char[] parserTokens = { ' ', ',', '.', ';', '!', '(', ')', '?', '&', '@', '$', '[', ']',
+                '{', '}', '\'', '\\', '/' };
             text = text.ToLower();
             return text.Split(parserTokens);
         }
