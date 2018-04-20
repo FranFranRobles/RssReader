@@ -27,12 +27,6 @@ namespace RSS_UI
             InitializeComponent();
             myMap.Focus();
             //47.97898 -122.20208   Everett, Wa
-
-            //addPin(47.97898, - 122.20208);
-
-            Feed_Manager feed = Feed_Manager.Get_Instance();
-            List<string[]> test = feed.GetAllTitlesAndCordinates();
-
             myMap.Mode = new AerialMode(true);
 
         }
@@ -47,16 +41,8 @@ namespace RSS_UI
         {
             Pushpin pin = new Pushpin();
             pin.Location = new Location(latitude, longitude);
-            Label customLabel = new Label();
-            customLabel.Content = title;
-            MapLayer labelLayer = new MapLayer();
-
-            //labelLayer.AddChild
-            //TextBlock textBlock = new TextBlock();
-            //textBlock.Text = title;
-          
+            pin.ToolTip = title;
             this.myMap.Children.Add(pin);
-            this.myMap.Children.Add(customLabel);
         }
 
     }

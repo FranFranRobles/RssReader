@@ -144,25 +144,23 @@ namespace RSS_UI
         {
 
             Feed_Manager feed = Feed_Manager.Get_Instance();
-            List<string[]> test = feed.GetAllTitlesAndCordinates();     // 0 = title, 1 = lat 2 =long
-            foreach (string[] articleInfo in test)
+            List<string[]> article = feed.GetAllTitlesAndCordinates();     // 0 = title, 1 = lat,  2 =long
+            foreach (string[] articleInfo in article)
             {
-                if (articleInfo[1] == "" || articleInfo[2] == "")
+                if (articleInfo[1] == "" || articleInfo[2] == "")   // If either lat or lon is empty then don't do anything
                 {
-
+                 
                 }
-                else
+                else    //If we reach this else, then we no neither lat or lon is empty
                 {
-                    bool isLatDouble = Double.TryParse(articleInfo[1].ToString(), out double lat);
-                    bool isLongDouble = Double.TryParse(articleInfo[2].ToString(), out double lon);
-                    if (isLatDouble == true && isLongDouble == true)
+                    bool isLatDouble = Double.TryParse(articleInfo[1].ToString(), out double lat);  //ensure our [1] lat is a double
+                    bool isLongDouble = Double.TryParse(articleInfo[2].ToString(), out double lon); //ensure our [2] lon is a double
+                    if (isLatDouble == true && isLongDouble == true)        // if both lat and long are double then we add the pin onto myMap
                     {
-                        myMap.addPin(lat, lon, "Hello");
+                        myMap.addPin(lat, lon, articleInfo[0]);
                     }
                 }
             }
-
-            myMap.addPin(47.97898, -122.20208, "Hello");
             myContent.Content = myMap;
         }
 
