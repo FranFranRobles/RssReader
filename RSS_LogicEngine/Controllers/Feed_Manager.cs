@@ -113,12 +113,29 @@ namespace RSS_LogicEngine
         /// <summary>
         /// function retreves all article titles cordinates from the feed manager
         /// elements are return in the following fashing index: title = 0, latitude = 1, longitude = 2 
+        /// <remarks>this is not the final product of the function.....
+        ///          we need to have this placed in the correct locations & then  needs the 
+        ///          method of return to maybe be mor efficient...
+        ///          this was only done this way just to get it done....</remarks>
         /// </summary>
         /// <returns></returns>
         public List<string[]> GetAllTitlesAndCordinates()
         {
-            string[] tempArticle = { "title", "12.1", "15.3" };// new string[3];
+            const int ARTICLE_TITLE = 0;
+            const int LATITUDE = 1;
+            const int LONGITUDE = 2;
             List<string[]> holder = new List<string[]>();
+            string[] tempArticle = new string[3];
+            foreach (Feed f in feeds)
+            {
+                foreach (Article a in f.Get_Articles())
+                {
+                    tempArticle[ARTICLE_TITLE] = a.Title;
+                    tempArticle[LATITUDE] = a.Latitude;
+                    tempArticle[LONGITUDE] = a.Longitude;
+                    holder.Add(tempArticle);
+                }
+            }
             holder.Add(tempArticle);
             return holder;
         }
