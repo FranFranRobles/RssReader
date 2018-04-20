@@ -90,6 +90,7 @@ namespace RSS_UI
         private string FindChannelPath(string currentPath, string channelName)
         {
             string channelPath = currentPath;    // Temp
+            string retVal;
 
             List<string> children = compView.Get_Children_Of(currentPath);
 
@@ -100,11 +101,15 @@ namespace RSS_UI
                     if (s == channelName) // We found the matching channel
                         return channelPath + s;
                     else
-                        return this.FindChannelPath(channelPath + s + "/", channelName);
+                    {
+                        retVal = this.FindChannelPath(channelPath + s + "/", channelName);
+                        if (retVal != "")
+                            return retVal;
+                    }
                 }
             }
 
-            return channelPath;
+            return ""; // We have gone through and not found the desired channel
         }
     }
 }

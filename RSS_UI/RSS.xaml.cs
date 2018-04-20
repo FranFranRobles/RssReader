@@ -299,11 +299,12 @@ namespace RSS_UI
             // Need to find second slash
             int highestLevelSlash = path.IndexOf("/", 1);
             string highestLevel = path.Substring(1, highestLevelSlash - 1); // Should be highest level in path
-
+            string secondLevel = "";
             int movedSlash = path.LastIndexOf("/");
-            // Uhhhh shit
+            
             int secondLevelSlash = path.IndexOf("/", highestLevelSlash + 1);
-            string secondLevel = path.Substring(secondLevelSlash + 1, (movedSlash - secondLevelSlash) - 1);
+            if (secondLevelSlash != -1)
+                secondLevel = path.Substring(highestLevelSlash + 1, (secondLevelSlash - highestLevelSlash) - 1);
 
             int parentSlash = path.LastIndexOf("/", movedSlash - 1);
             string parent = path.Substring(parentSlash + 1, (movedSlash - parentSlash) - 1);
