@@ -134,7 +134,7 @@ namespace RSS_LogicEngine
                     tempArticle.Add(a.Latitude);
                     tempArticle.Add(a.Longitude);
                     holder.Add(tempArticle.ToArray());
-                    holder = new List<string[]>();
+                    tempArticle = new List<string>();
                 }
             }
             return holder;
