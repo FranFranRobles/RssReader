@@ -11,7 +11,8 @@
         VerticalContentAlignment="Stretch"
         HorizontalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
-        Height="768" Width="1024">
+        Height="768" Width="1024"
+        Closed="Window_Closed">
 
     <Window.CommandBindings>
         <CommandBinding Command="self:CCs.Up"    CanExecute="UpCommand_CanExecute"   Executed="UpCommand_Executed"  />

@@ -49,6 +49,7 @@
     <Compile Include="Entities\Component.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Feed.cs" />
+    <Compile Include="Entities\TopicItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\Feed_Manager.cs" />
   </ItemGroup>

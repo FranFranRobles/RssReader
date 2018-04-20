@@ -60,9 +60,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Component.xaml.cs">
-      <DependentUpon>Component.xaml</DependentUpon>
+    <Compile Include="Pop Up Windows\AddFeedWindow.xaml.cs">
+      <DependentUpon>AddFeedWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pop Up Windows\AddToChannelWindow.xaml.cs">
+      <DependentUpon>AddToChannelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ArticleListItem.cs" />
+    <Compile Include="Pop Up Windows\AddTopicWindow.xaml.cs">
+      <DependentUpon>AddTopicWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pop Up Windows\CreateChannelWindow.xaml.cs">
+      <DependentUpon>CreateChannelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentTreeViewItem.cs" />
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
@@ -78,7 +89,20 @@
     <Compile Include="TOPIC.xaml.cs">
       <DependentUpon>TOPIC.xaml</DependentUpon>
     </Compile>
-    <Page Include="Component.xaml">
+    <Compile Include="TopicTreeViewItem.cs" />
+    <Page Include="Pop Up Windows\AddFeedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pop Up Windows\AddToChannelWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pop Up Windows\AddTopicWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pop Up Windows\CreateChannelWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

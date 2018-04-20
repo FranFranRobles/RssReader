@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace RSS_UI
+namespace RSS_UI.Pop_Up_Windows
 {
     /// <summary>
-    /// Interaction logic for Component.xaml
+    /// Interaction logic for AddTopicWindow.xaml
     /// </summary>
-    public partial class Component : Window
+    public partial class AddTopicWindow : Window
     {
-        public Component()
+        public AddTopicWindow()
         {
             InitializeComponent();
         }
