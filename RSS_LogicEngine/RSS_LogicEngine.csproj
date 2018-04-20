@@ -56,5 +56,8 @@
   <ItemGroup>
     <Folder Include="Temp_Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="USLocationsFile\uslocations.csv" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
