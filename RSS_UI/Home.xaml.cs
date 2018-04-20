@@ -141,6 +141,8 @@ namespace RSS_UI
         }
         private void MAPCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            
+            myMap.addPin(47.97898, -122.20208);
             myContent.Content = myMap;
         }
 
@@ -153,20 +155,12 @@ namespace RSS_UI
         {
             myContent.Content = myTopic;
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> a95e1cada4d2cdc89dc58a5d54c482ff15a3fe85
-=======
 
         private void Window_Closed(object sender, EventArgs e)
         {
             myRSS.OnClosed();   // Still need this?
         }
->>>>>>> 27ebec26a7a3d82af58f7f7f10a5f3b370961859
+
     }
 
     public static class CCs

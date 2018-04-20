@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Maps.MapControl.WPF;
-
+using RSS_LogicEngine;
 
 namespace RSS_UI
 {
@@ -30,37 +30,29 @@ namespace RSS_UI
 
             //addPin(47.97898, - 122.20208);
 
-            for (double i = 47.97898; i < 100; i = i + 5)
-            {
-                for (double j = -122.20208; j < 0; j = j + 5)
-                {
-                    addPin(i, j);
-                }
-            }
+            Feed_Manager feed = Feed_Manager.Get_Instance();
+            List<string[]> test = feed.GetAllTitlesAndCordinates();
 
             myMap.Mode = new AerialMode(true);
 
         }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> a95e1cada4d2cdc89dc58a5d54c482ff15a3fe85
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Content = new RSS();
         }
 
-        private void addPin(Double latitude, Double longitude)
+        public void addPin(Double latitude, Double longitude)
         {
             Pushpin pin = new Pushpin();
             pin.Location = new Location(latitude, longitude);
+
+            Feed_Manager feed = Feed_Manager.Get_Instance();
+            List<string[]> test = feed.GetAllTitlesAndCordinates();
             this.myMap.Children.Add(pin);
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> a95e1cada4d2cdc89dc58a5d54c482ff15a3fe85
     }
 }
 

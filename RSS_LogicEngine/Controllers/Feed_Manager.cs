@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace RSS_LogicEngine
 {
-    class Feed_Manager
+    public class Feed_Manager
     {
         private static Feed_Manager instance;
         private Feed_Manager()
