@@ -118,7 +118,7 @@ namespace RSS_LogicEngine
         public List<string[]> GetAllTitlesAndCordinates()
         {
             string[] temp = { "title", "12.1", "15.3" };// new string[3];
-            List<string[]> holder = new List<string[]>;
+            List<string[]> holder = new List<string[]>();
             holder.Add(temp);
             return holder;
         }
