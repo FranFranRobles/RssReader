@@ -125,18 +125,17 @@ namespace RSS_LogicEngine
             const int LATITUDE = 1;
             const int LONGITUDE = 2;
             List<string[]> holder = new List<string[]>();
-            string[] tempArticle = new string[3];
+            List<string> tempArticle = new List<string>();
             foreach (Feed f in feeds)
             {
                 foreach (Article a in f.Get_Articles())
                 {
-                    tempArticle[ARTICLE_TITLE] = a.Title;
-                    tempArticle[LATITUDE] = a.Latitude;
-                    tempArticle[LONGITUDE] = a.Longitude;
-                    holder.Add(tempArticle);
+                    tempArticle.Add(a.Title);
+                    tempArticle.Add(a.Latitude);
+                    tempArticle.Add(a.Longitude);
+                    holder.Add(tempArticle.ToArray());
                 }
             }
-            holder.Add(tempArticle);
             return holder;
         }
 
