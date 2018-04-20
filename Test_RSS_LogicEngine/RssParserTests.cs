@@ -7,16 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
-using System.IO;
-using System.Xml;
-using System.Xml.Linq;
-
 namespace RSS_LogicEngine.Tests
 {
     [TestClass()]
@@ -24,7 +14,7 @@ namespace RSS_LogicEngine.Tests
     {
         const string PROVIDER_TYPE = "Microsoft.VisualStudio.TestTools.DataSource.XML";
         const string FILE = @"~\..\..\..\TestingDataSources\RssSourceLocations.xml";
-        const string TEST_RSS_SOURCE = "RssSource";
+        const string TEST_RSS_SOURCE = "RSS";
         const string TEST_NON_RSS_SOURCE = "nonRss";
         const string PARSER_TESTS = "Parser Tests";
         const string URL = "url";
@@ -65,24 +55,11 @@ namespace RSS_LogicEngine.Tests
         //[DataSource(PROVIDER_TYPE, FILE, TEST_NON_RSS_SOURCE, DataAccessMethod.Sequential)]
         //public void ParseFromNonRssSource()
         //{
-            //string url = TestContext.DataRow[URL].ToString();
-            //bool caughtException = false;
-            //Feed myFeed = new Feed(url);
-            //Assert.AreEqual(url, myFeed.URI);
-            //Assert.AreEqual(0, myFeed.Get_Articles().Count, BAD_FEED_INSTANTIATION);
-            //try
-            //{
-            //    MyFeedManager.Update_Feed(myFeed);
-            //}
-            //catch (System.Net.WebException)
-            //{
-            //    caughtException = true;
-            //}
-            //catch (System.Xml.XmlException) // have some weird error here
-            //{
-            //    caughtException = true;
-            //}
-            //Assert.IsTrue(caughtException, "Failed toThow an exception");
+        //    string url = TestContext.DataRow[URL].ToString();
+        //    Feed myFeed = new Feed(url);
+        //    Assert.AreEqual(url, myFeed.URI);
+        //    Assert.AreEqual(0, myFeed.Get_Articles().Count, BAD_FEED_INSTANTIATION);
+        //    Assert.ThrowsException<Exception>(() => MyFeedManager.Update_Feed(myFeed));
         //}
         [TestMethod()]
         [TestCategory(PARSER_TESTS)]

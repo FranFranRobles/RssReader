@@ -1,13 +1,28 @@
 ﻿<root>
-  <RssSource>
+  <RSS>
     <url>http://abcnews.go.com/abcnews/topstories</url>
-     </RssSource>
-  <RssSource>
+     </RSS>
+  <RSS>
     <url>https://www.vice.com/en_us/rss</url>
-    </RssSource>
-  <RssSource>
+    </RSS>
+  <RSS>
+    <url>http://www.funnycatsite.com/rss/all/</url>
+  </RSS>
+  <RSS>
+    <url>https://www.sec.gov/news/pressreleases.rss</url>
+  </RSS>
+  <RSS>
+    <url>https://www.cnbc.com/id/100003114/device/rss/rss.html</url>
+  </RSS>
+  <RSS>
+    <url>http://feeds.bbci.co.uk/news/science_and_environment/rss.xml</url>
+  </RSS>
+  <RSS>
+    <url>http://feeds.washingtonpost.com/rss/politics</url>
+  </RSS>
+  <RSS>
     <url>http://rss.cnn.com/rss/cnn_topstories.rss</url>
-      </RssSource>
+   </RSS>
   <nonRss>
     <url>https://www.google.com</url>
     </nonRss>
