@@ -85,11 +85,14 @@ namespace RSS_LogicEngine.Controllers
         /// <returns>true if input text is a city</returns>
         private bool SearchWord(string searchValue, out Word cityInfo)
         {
-            bool InCache = myCache.TryGetValue(searchValue, out cityInfo); // search cache first
-            if (InCache == false)  //search word in the database if not found in the cache
+            lock (myCache)
             {
-                cityInfo = SearchDataBase(searchValue);    // perform search
-                myCache.Add(searchValue, cityInfo);   // Add search results into cache
+                bool InCache = myCache.TryGetValue(searchValue, out cityInfo); // search cache first
+                if (InCache == false)  //search word in the database if not found in the cache
+                {
+                    cityInfo = SearchDataBase(searchValue);    // perform search
+                    myCache.Add(searchValue, cityInfo);   // Add search results into cache
+                }
             }
 
             return cityInfo.Is_A_City;
