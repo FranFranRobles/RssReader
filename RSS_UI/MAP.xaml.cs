@@ -49,9 +49,11 @@ namespace RSS_UI
             pin.Location = new Location(latitude, longitude);
             Label customLabel = new Label();
             customLabel.Content = title;
-            // = new MapLayer();
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = title;
+            MapLayer labelLayer = new MapLayer();
+
+            //labelLayer.AddChild
+            //TextBlock textBlock = new TextBlock();
+            //textBlock.Text = title;
           
             this.myMap.Children.Add(pin);
             this.myMap.Children.Add(customLabel);
