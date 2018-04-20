@@ -43,14 +43,18 @@ namespace RSS_UI
             this.Content = new RSS();
         }
 
-        public void addPin(Double latitude, Double longitude)
+        public void addPin(Double latitude, Double longitude, string title)
         {
             Pushpin pin = new Pushpin();
             pin.Location = new Location(latitude, longitude);
-
-            Feed_Manager feed = Feed_Manager.Get_Instance();
-            List<string[]> test = feed.GetAllTitlesAndCordinates();
+            Label customLabel = new Label();
+            customLabel.Content = title;
+            // = new MapLayer();
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = title;
+          
             this.myMap.Children.Add(pin);
+            this.myMap.Children.Add(customLabel);
         }
 
     }

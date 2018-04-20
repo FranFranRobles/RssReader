@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using RSS_UI;
 using Microsoft.Win32;
 using System.Xml;
+using RSS_LogicEngine;
 
 namespace RSS_UI
 {
@@ -141,8 +142,27 @@ namespace RSS_UI
         }
         private void MAPCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            
-            myMap.addPin(47.97898, -122.20208);
+
+            //Feed_Manager feed = Feed_Manager.Get_Instance();
+            //List<string[]> test = feed.GetAllTitlesAndCordinates();     // 0 = title, 1 = lat 2 =long
+            //foreach(string[] articleInfo in test)
+            //{
+            //    if(articleInfo[1] == "" || articleInfo[2] == "")
+            //    {
+
+            //    }
+            //    else
+            //    {
+            //        bool isLatDouble = Double.TryParse(articleInfo[1].ToString(), out double lat);
+            //        bool isLongDouble = Double.TryParse(articleInfo[2].ToString(), out double lon);
+            //        if (isLatDouble == true && isLongDouble == true)
+            //        {
+            //            myMap.addPin(lat, lon, "Hello");
+            //        }
+            //    }
+            //}
+
+            myMap.addPin(47.97898, -122.20208, "Hello");
             myContent.Content = myMap;
         }
 
