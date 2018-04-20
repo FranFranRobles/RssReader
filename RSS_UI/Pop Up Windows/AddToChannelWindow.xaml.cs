@@ -39,17 +39,14 @@ namespace RSS_UI
         {
             if (e.Key == Key.Enter)
             {
-                string childPath;
-                this.newPath = "/" + this.TextBox.Text + sourceComponent.Path;  
+                string desiredChannel = this.TextBox.Text;
+                string movedComponent = this.GetLowestLevel(sourceComponent.Path);
+                this.newPath = this.FindChannelPath("/", desiredChannel) + movedComponent;
                 sourceComponent.Path = this.newPath;
-
-                // Need to iterate through each path to find proper level
-                // Using raw string value from the textbox is a weak methodology
-                compView.Get_Children_Of("/");
 
                 foreach (ComponentTreeViewItem c in sourceComponent.Items)
                 {
-                    childPath = c.Path;
+                    string childPath = c.Path;
                     c.Path = "/" + this.TextBox.Text + c.Path;
                 }
 

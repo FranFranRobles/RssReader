@@ -296,6 +296,7 @@ namespace RSS_UI
 
         private bool MoveComponentTreeViewItem(string path, ComponentTreeViewItem currentComponent, ComponentTreeViewItem movedComponent)
         {
+            ComponentTreeViewItem parentComp;
             // Need to find second slash
             int highestLevelSlash = path.IndexOf("/", 1);
             string highestLevel = path.Substring(1, highestLevelSlash - 1); // Should be highest level in path
@@ -311,6 +312,12 @@ namespace RSS_UI
             
             if (parent == (string)currentComponent.Header)
             {
+                // Need to figure out parent container
+                if (movedComponent.Parent != null)
+                {
+                    parentComp = (ComponentTreeViewItem)movedComponent.Parent;
+                    parentComp.Items.Remove(movedComponent);
+                }
                 currentComponent.Items.Add(movedComponent);
                 return true;
             }
