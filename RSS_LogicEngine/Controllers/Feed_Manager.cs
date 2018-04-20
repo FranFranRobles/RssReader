@@ -41,7 +41,9 @@ namespace RSS_LogicEngine
                 string rss_filename = "rss_temp.xml";
                 (new WebClient()).DownloadFile(f.URI, rss_filename);
                 f.Clear_Articles();
-                f.Add_Articles(FindCordinates(ParseArticles(rss_filename)));
+                List<Article> currFeed = ParseArticles(rss_filename);
+                var a = Task.Run(() => FindCordinates(currFeed));
+                f.Add_Articles(currFeed);
             }
         }
         /// <summary>
@@ -56,13 +58,16 @@ namespace RSS_LogicEngine
             Controllers.LocationsManager myManager = Controllers.LocationsManager.GetInstance();
             foreach (Article article in articles)
             {
-                latitude = myManager.SearchCordinates(article.Title, out longitude);
-                if (latitude == "" && longitude == "")
+                if (article.Latitude == "" || article.Longitude == "")
                 {
-                    latitude = myManager.SearchCordinates(article.Summary, out longitude);
+                    latitude = myManager.SearchCordinates(article.Title, out longitude);
+                    if (latitude == "" && longitude == "")
+                    {
+                        latitude = myManager.SearchCordinates(article.Summary, out longitude);
+                    }
+                    article.Latitude = latitude;
+                    article.Longitude = longitude;
                 }
-                article.Latitude = latitude;
-                article.Longitude = longitude;
             }
             return articles;
         }
@@ -104,6 +109,18 @@ namespace RSS_LogicEngine
             }
            
             return articleList;
+        }
+        /// <summary>
+        /// function retreves all article titles cordinates from the feed manager
+        /// elements are return in the following fashing index: title = 0, latitude = 1, longitude = 2 
+        /// </summary>
+        /// <returns></returns>
+        public List<string[]> GetAllTitlesAndCordinates()
+        {
+            string[] temp = { "title", "12.1", "15.3" };// new string[3];
+            List<string[]> holder = new List<string[]>;
+            holder.Add(temp);
+            return holder;
         }
 
     }

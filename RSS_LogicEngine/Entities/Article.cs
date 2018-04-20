@@ -5,7 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Test_RSS_LogicEngine")]
-
+/*
+ * parse the entire file completely & parse them into words... then place into a balanced tree
+ * create a query off the subtree
+ * search search the sub tree
+ * verify results
+ * update the article
+ */
 namespace RSS_LogicEngine
 {
     public class Article
