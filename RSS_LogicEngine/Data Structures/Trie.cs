@@ -17,11 +17,14 @@ namespace RSS_LogicEngine.Data_Structures
             public Node parent;
             public int currIndex;
             public Node[] children;
+            public string latitude;
+            public string longitude;
 
             public Node(bool is_City, Node myParent)
             {
                 isCity = is_City;
                 parent = myParent;
+                latitude = longitude = "";
                 currIndex = 0;
                 children = new Node[TOTAL_CHILDREN];
             }
@@ -33,16 +36,15 @@ namespace RSS_LogicEngine.Data_Structures
         }
         public void Clear()
         { }
-        public void insert(string myData)
+        public void insert(string city, string lat, string longi)
         { }
-        public bool Search(string data)
+        public bool Search(string city, out string lat, out string longi)
         {
             throw new NotImplementedException();
         }
-        bool Contains(string Data)
+        public bool Contains(string city)
         {
             throw new NotImplementedException();
         }
-
     }
 }

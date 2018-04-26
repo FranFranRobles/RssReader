@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ArticleTests.cs" />
     <Compile Include="Controllers\LocationsManagerTests.cs" />
+    <Compile Include="Data Structures\TrieTests.cs" />
     <Compile Include="RssParserTests.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
