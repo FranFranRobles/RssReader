@@ -34,17 +34,81 @@ namespace RSS_LogicEngine.Data_Structures
         {
             root = new Node(false, null);
         }
-        public void Clear()
-        { }
-        public void insert(string city, string lat, string longi)
-        { }
+        public void Insert(string city, string lat, string longi)
+        {
+            city = city.ToLower();
+            int index = 0;
+            char currLtr = ' ';
+            Node temp = root;
+
+            while (index < city.Count())
+            {
+                currLtr = city[index];
+                if (temp.children[currLtr - 'a'] == null)
+                {
+                    temp.children[currLtr - 'a'] = new Node(false, temp);
+                }
+                if (index == city.Count() - 1)
+                {
+                    temp.isCity = true;
+                    temp.latitude = lat;
+                    temp.longitude = longi;
+                }
+                else
+                {
+                    temp = temp.children[currLtr - 'a'];
+                }
+                index++;
+            }
+        }
         public bool Search(string city, out string lat, out string longi)
         {
-            throw new NotImplementedException();
+            city = city.ToLower();
+            int index = 0;
+            Node temp = root;
+            char letter = ' ';
+            string word = "";
+            bool found = false;
+            lat = "";
+            longi = "";
+            while (index < city.Count() && temp != null && found == false)
+            {
+                letter = city[index];
+                word += city[index];
+                if (temp.isCity == true && city.Count() - 1 == index)
+                {
+                    lat = temp.latitude;
+                    longi = temp.longitude;
+                    found = true;
+                }
+
+                temp = temp.children[letter - 'a'];
+                index++;
+            }
+            return found;
         }
         public bool Contains(string city)
         {
-            throw new NotImplementedException();
+            city = city.ToLower();
+            bool found = true;
+            int index = 0;
+            char letter = ' ';
+            Node temp = root;
+
+            while (index < city.Count() && found == true)
+            {
+                letter = city[index];
+                if (temp.children[letter - 'a'] == null)
+                {
+                    found = false;
+                }
+                else
+                {
+                    temp = temp.children[letter - 'a'];
+                }
+                index++;
+            }
+            return found;
         }
     }
 }
