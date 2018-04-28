@@ -1,10 +1,10 @@
 ﻿<root>
   <RSS>
     <url>http://abcnews.go.com/abcnews/topstories</url>
-     </RSS>
+  </RSS>
   <RSS>
     <url>https://www.vice.com/en_us/rss</url>
-    </RSS>
+  </RSS>
   <RSS>
     <url>http://www.funnycatsite.com/rss/all/</url>
   </RSS>
@@ -12,17 +12,14 @@
     <url>https://www.sec.gov/news/pressreleases.rss</url>
   </RSS>
   <RSS>
-    <url>c</url>
-  </RSS>
-  <RSS>
-    <url>c</url>
+    <url>http://feeds.bbci.co.uk/news/science_and_environment/rss.xml</url>
   </RSS>
   <RSS>
     <url>http://feeds.washingtonpost.com/rss/politics</url>
   </RSS>
   <RSS>
     <url>http://rss.cnn.com/rss/cnn_topstories.rss</url>
-   </RSS>
+  </RSS>
   <nonRss>
     <url>https://www.google.com</url>
     </nonRss>
