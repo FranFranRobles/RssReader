@@ -47,18 +47,18 @@ namespace RSS_LogicEngine.Controllers.Tests
             }
         }
         [TestMethod()]
-        [Timeout(TEST_TIMEOUT)]
+        //[Timeout(TEST_TIMEOUT)]
         [TestCategory(LOCATIONS_MGR_TESTS)]
         public void NoCordinatesTest()
         {
-            string[] notACity = {"a", "blah", "sjsj blah in", "the in F a"};
+            string[] notACity = {"a", "blah", "sjsj blah"};
             LocationsManager myLocations = LocationsManager.GetInstance();
             foreach (string text in notACity)
             {
                 string latitude = "";
                 string longitude = "";
                 latitude = myLocations.SearchCordinates(text, out longitude);
-                Assert.AreEqual("", latitude, "Search should have found a latidude cordinate");
+                Assert.AreEqual("", latitude, "Search should have found a latidude cordinate on  {0}", text);
                 Assert.AreEqual("", longitude, "Search should have found a longitude cordinate");
             }
         }

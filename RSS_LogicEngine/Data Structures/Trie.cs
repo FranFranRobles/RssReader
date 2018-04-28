@@ -8,7 +8,10 @@ namespace RSS_LogicEngine.Data_Structures
 {
     public class Trie
     {
-        private const int TOTAL_CHILDREN = 26;
+        private const int TOTAL_CHILDREN = 27;
+        const int SPACE_CHAR_SHIFT = 91;
+        char[] parserTokens = {',', '.', ';', '!', '(', ')', '?', '&', '@', '$', '[', ']',
+                '{', '}', '\'', '\\', '/','\"','-'};
 
         private Node root;
         private class Node
@@ -36,7 +39,8 @@ namespace RSS_LogicEngine.Data_Structures
         }
         public void Insert(string city, string lat, string longi)
         {
-            city = city.ToLower();
+            string tp = city;
+            city = NormalizeInput(city);
             int index = 0;
             char currLtr = ' ';
             Node temp = root;
@@ -44,26 +48,33 @@ namespace RSS_LogicEngine.Data_Structures
             while (index < city.Count())
             {
                 currLtr = city[index];
-                if (temp.children[currLtr - 'a'] == null)
+                if(currLtr == 32 || (currLtr > 97 && currLtr < 122)) // 32 = ' ' 97 - 122  = alphabet
                 {
-                    temp.children[currLtr - 'a'] = new Node(false, temp);
-                }
-                if (index == city.Count() - 1)
-                {
-                    temp.isCity = true;
-                    temp.latitude = lat;
-                    temp.longitude = longi;
-                }
-                else
-                {
-                    temp = temp.children[currLtr - 'a'];
+                    if (currLtr == ' ')
+                    {
+                        currLtr = (char)(currLtr + SPACE_CHAR_SHIFT);
+                    }
+                    if (temp.children[currLtr - 'a'] == null)
+                    {
+                        temp.children[currLtr - 'a'] = new Node(false, temp);
+                    }
+                    if (index == city.Count() - 1)
+                    {
+                        temp.isCity = true;
+                        temp.latitude = lat;
+                        temp.longitude = longi;
+                    }
+                    else
+                    {
+                        temp = temp.children[currLtr - 'a'];
+                    }
                 }
                 index++;
             }
         }
         public bool Search(string city, out string lat, out string longi)
         {
-            city = city.ToLower();
+            city = NormalizeInput(city);
             int index = 0;
             Node temp = root;
             char letter = ' ';
@@ -75,21 +86,29 @@ namespace RSS_LogicEngine.Data_Structures
             {
                 letter = city[index];
                 word += city[index];
-                if (temp.isCity == true && city.Count() - 1 == index)
+                if (letter == 32 || (letter > 97 && letter < 122))
                 {
-                    lat = temp.latitude;
-                    longi = temp.longitude;
-                    found = true;
+                    if (letter == ' ')
+                    {
+                        letter = (char)(letter + SPACE_CHAR_SHIFT);
+                    }
+                    if (temp.isCity == true && city.Count() - 1 == index)
+                    {
+                        lat = temp.latitude;
+                        longi = temp.longitude;
+                        found = true;
+                    }
+
+                    temp = temp.children[letter - 'a'];
                 }
 
-                temp = temp.children[letter - 'a'];
                 index++;
             }
             return found;
         }
         public bool Contains(string city)
         {
-            city = city.ToLower();
+            city = NormalizeInput(city);
             bool found = true;
             int index = 0;
             char letter = ' ';
@@ -98,17 +117,36 @@ namespace RSS_LogicEngine.Data_Structures
             while (index < city.Count() && found == true)
             {
                 letter = city[index];
-                if (temp.children[letter - 'a'] == null)
+                if (letter == 32 || (letter > 97 && letter < 122))
                 {
-                    found = false;
+                    if (letter == ' ')
+                    {
+                        letter = (char)(letter + SPACE_CHAR_SHIFT);
+                    }
+                    if (temp.children[letter - 'a'] == null)
+                    {
+                        found = false;
+                    }
+                    else
+                    {
+                        temp = temp.children[letter - 'a'];
+                    }
                 }
-                else
-                {
-                    temp = temp.children[letter - 'a'];
-                }
+               
                 index++;
             }
             return found;
+        }
+        private string NormalizeInput(string text)
+        {
+            text = text.ToLower();
+            string[] splitText = text.Split(parserTokens);
+            string retText = "";
+            foreach (string str in splitText)
+            {
+                retText += str + " ";
+            }
+            return retText;
         }
     }
 }

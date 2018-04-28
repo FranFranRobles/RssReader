@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using RSS_LogicEngine.Data_Structures;
 
 namespace RSS_LogicEngine.Controllers
 {
     public class LocationsManager
     {
         private const string DATABASE_DATA_SOURCE = @"..\..\..\RSS_LogicEngine\USLocationsFile\uslocations.csv";
-        enum City { Name = 0, Latitude, Longitude }
+        private enum City { Name = 0, Latitude, Longitude }
         private class Word
         {
             public string myName;
@@ -27,8 +28,11 @@ namespace RSS_LogicEngine.Controllers
         }
         static private LocationsManager instance = null;
         private Dictionary<string, Word> myCache;
+        private Trie locationsTrie;
         private LocationsManager()
         {
+            myCache = new Dictionary<string, Word>();
+            locationsTrie = new Trie();
             LoadCities();
         }
         /// <summary>
@@ -36,8 +40,15 @@ namespace RSS_LogicEngine.Controllers
         /// </summary>
         private void LoadCities()
         {
-            myCache = new Dictionary<string, Word>();
-            // will be reimplented later with acutal load save functionality
+            const int FILE_HEADER = 1;
+            List<string[]> CitiesWithCordinates = ParseCities(File.ReadLines(DATABASE_DATA_SOURCE).Skip(FILE_HEADER));  // parse each row
+            foreach (string[] city in CitiesWithCordinates)
+            {
+                if (!locationsTrie.Contains(city[(int)City.Name]))       // all duplicate names will not be inserted
+                {
+                    locationsTrie.Insert(city[(int)City.Name], city[(int)City.Latitude], city[(int)City.Longitude]);
+                }
+            }
         }
         /// <summary>
         /// Creates the locations manager if it has not already been instanciated
@@ -104,48 +115,10 @@ namespace RSS_LogicEngine.Controllers
         /// <returns>searched word with avaible details on the word</returns>
         private Word SearchDataBase(string searchWord)
         {
-            const int FILE_HEADER = 1;
-            Word searchedWord = VerifyResults(CreateQuery(File.ReadLines(DATABASE_DATA_SOURCE).Skip(FILE_HEADER), searchWord),
-                searchWord);
-            return searchedWord;
-        }
-        /// <summary>
-        /// Creates a query of possible Cities that contain the search word
-        /// </summary>
-        /// <param name="unparsedCities">Data file city info</param>
-        /// <param name="searchWord">word to do search on</param>
-        /// <returns>a query of possible citys that contain the search word</returns>
-        private IOrderedEnumerable<string[]> CreateQuery(IEnumerable<string> unparsedCities,string searchWord)
-        {
-            IEnumerable<string[]> cityList = ParseCities(unparsedCities);
-            IOrderedEnumerable<string[]> query = from item in cityList
-                        where item[(int)City.Name].Contains(searchWord) && searchWord.Length == item[(int)City.Name].Length
-                        orderby item[(int)City.Name].Length ascending
-                        select item;
-            return query;
-        }
-        /// <summary>
-        /// verifies the search word matches one of the search results
-        /// </summary>
-        /// <param name="myQuery">data table</param>
-        /// <param name="searchWord">word to be verified</param>
-        /// <returns>a word with city details if it is a city or a word that indicates it is not a city</returns>
-        private Word VerifyResults(IOrderedEnumerable<string[]> myQuery, string searchWord)
-        {
-            const int AtCity = 0;
-            Word myWord = null;
-            if (myQuery.Count() > 0 && searchWord == myQuery.ElementAt(AtCity)[(int)City.Name])
-            {   // creates a word with city info
-                myWord = new Word(myQuery.ElementAt(AtCity)[(int)City.Name], true, 
-                    myQuery.ElementAt(AtCity)[(int)City.Latitude], 
-                    myQuery.ElementAt(AtCity)[(int)City.Longitude]);
-            }
-            else
-            {   // creates a word indicating it is not a city
-                myWord = new Word(searchWord, false, "", "");
-            }
-
-            return myWord;
+            string lat = "";
+            string longi = "";
+            bool found = locationsTrie.Search(searchWord, out lat, out longi);
+            return new Word(searchWord, found, lat, longi);
         }
         /// <summary>
         /// parses a data row to extract the city name, latitude cordinate, & the longitude cordinate
@@ -172,14 +145,14 @@ namespace RSS_LogicEngine.Controllers
         /// </summary>
         /// <param name="unparsedCities">list of string rows from the data</param>
         /// <returns> a list of "city" arrays where index 0 = city name, 1 = latitude cordinate, 2 = longitude cordinate</returns>
-        private IEnumerable<string[]> ParseCities(IEnumerable<string> unparsedCities)
+        private List<string[]> ParseCities(IEnumerable<string> unparsedCities)
         {
             List<string[]> parsedCities = new List<string[]>();
             foreach (var city in unparsedCities)
             {
                 parsedCities.Add(ParseCity(city));
             }
-            return parsedCities.AsEnumerable();
+            return parsedCities;
         }
         /// <summary>
         /// cleans the search word to remove any unnessary charactors from the text and then split the text 
@@ -190,7 +163,7 @@ namespace RSS_LogicEngine.Controllers
         private string[] ParseSearchWord(string text)
         {
             char[] parserTokens = { ' ', ',', '.', ';', '!', '(', ')', '?', '&', '@', '$', '[', ']',
-                '{', '}', '\'', '\\', '/' };
+                '{', '}', '\'', '\\', '/','\"','-' };
             text = text.ToLower();
             return text.Split(parserTokens);
         }

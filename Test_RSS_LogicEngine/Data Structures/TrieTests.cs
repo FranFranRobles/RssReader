@@ -12,7 +12,7 @@ namespace RSS_LogicEngine.Data_Structures.Tests
     public class TrieTests
     {
         const string TRIE_TESTS = "Trie Tests";
-        readonly string[] SAMPLE_NAMES = { "Everett", "seattle", "PorTland" };
+        readonly string[] SAMPLE_NAMES = { "Everett", "seattle", "PorTland", "San FrancIsco" };
         const string NOT_FOUND = "blah";
 
         [TestCategory(TRIE_TESTS)]
