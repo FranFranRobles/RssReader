@@ -15,6 +15,7 @@ namespace RSS_LogicEngine
     public class Feed_Manager
     {
         private static Feed_Manager instance;
+        private Task findLocations = null;
         private Feed_Manager()
         {
             feeds = new HashSet<Feed>();
@@ -42,7 +43,10 @@ namespace RSS_LogicEngine
                 (new WebClient()).DownloadFile(f.URI, rss_filename);
                 f.Clear_Articles();
                 List<Article> currFeed = ParseArticles(rss_filename);
-                var a = Task.Run(() => FindCordinates(currFeed));
+                if (findLocations == null || findLocations.IsCompleted == true)
+                {
+                    findLocations = Task.Run(() => FindCordinates(currFeed));
+                }
                 f.Add_Articles(currFeed);
             }
         }
@@ -51,7 +55,7 @@ namespace RSS_LogicEngine
         /// </summary>
         /// <param name="articles"></param>
         /// <returns></returns>
-        private List<Article> FindCordinates(List<Article> articles)
+        private void FindCordinates(List<Article> articles)
         {
             string latitude = "";
             string longitude = "";
@@ -69,7 +73,6 @@ namespace RSS_LogicEngine
                     article.Longitude = longitude;
                 }
             }
-            return articles;
         }
         /// <summary>
         /// Parses the unparsed articles to create article objects
@@ -104,7 +107,7 @@ namespace RSS_LogicEngine
                     }
                     articleList.Add(new Article(article.Element(TITLE).Value, article.Element(URL).Value, article.Element(DESCRIPTION).Value, pubDate));
                 }
-               
+
 
             }
            
