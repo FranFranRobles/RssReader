@@ -115,7 +115,7 @@ namespace RSS_UI
             newFeed.PreviewMouseRightButtonDown += treeView_PreviewMouseRightButtonDown;
             newFeed.addChannel.Click += AddComponentToChannel;                // Routing events to proper handlers
             newFeed.removeChannel.Click += removeFromChannel;
-            newFeed.renameFeed.Click += renameChannel;
+            newFeed.renameFeed.Click += RenameChannel;
 
             // Call the Component_View's Add_Feed function to pass proper info to the logic engine to create feed
             compView.Add_Feed("/" + feedName, rssURL);
@@ -250,6 +250,7 @@ namespace RSS_UI
         {
             addFeedWindow = new AddFeedWindow();
             addFeedWindow.OpenWindow();
+            addFeedWindow.OnFeedCreated += this.OnCreateFeedWindowClose;
         }
 
         private void OpenCreateChannelWindow(object sender, RoutedEventArgs e)
@@ -259,14 +260,13 @@ namespace RSS_UI
             createChannelWindow.OnChannelCreated += this.OnCreateChannelWindowClose;
         }
 
-        private void renameChannel(object sender, RoutedEventArgs e)
+        private void RenameChannel(object sender, RoutedEventArgs e)
         {
-            ;
-        }
+            ComponentTreeViewItem newNameComp = (ComponentTreeViewItem)treeView.SelectedItem;
+            string currentName = (string)newNameComp.Header;
+            string currentPath = newNameComp.Path;
 
-        private void nameBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ;
+            RenameComponentWindow renameWindow = new RenameComponentWindow();
         }
 
         public void OnClosed()      // Do we still need this? Used in Home.xaml.cs Line 151
@@ -345,8 +345,15 @@ namespace RSS_UI
             newChannel.PreviewMouseRightButtonDown += treeView_PreviewMouseRightButtonDown;
             newChannel.addChannel.Click += AddComponentToChannel;                // Routing events to proper handlers
             newChannel.removeChannel.Click += removeFromChannel;
-            newChannel.renameFeed.Click += renameChannel;
+            newChannel.renameFeed.Click += RenameChannel;
             this.treeView.Items.Add(newChannel);
+        }
+
+        private void OnCreateFeedWindowClose(object sender, EventArgs e)
+        {
+            // Receive list of string
+            List<string> feedInfo = (List<string>)sender;
+            this.add(feedInfo[0], feedInfo[1]);
         }
     }
 }

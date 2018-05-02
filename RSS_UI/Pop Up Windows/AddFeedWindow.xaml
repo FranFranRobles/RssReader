@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Add Feed" Height="175" Width="300">
     <Grid>
-        <Label Content="Feed URL" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
-        <Label Content="Name of Feed" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+        <Label Content="Feed Name" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
+        <Label Content="Feed URL" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
         <TextBox Name="FeedName" HorizontalAlignment="Left" Height="23" Margin="100,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
-        <TextBox Name="RSSURL" HorizontalAlignment="Left" Height="23" Margin="100,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
+        <TextBox Name="RSSURL" HorizontalAlignment="Left" Height="23" Margin="100,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182" KeyDown="AddFeedEnterPressed"/>
         <Button Content="Add" HorizontalAlignment="Left" Margin="115,90,0,0" VerticalAlignment="Top" Width="75" Click="AddClick"/>
 
     </Grid>

@@ -80,6 +80,9 @@
     <Compile Include="MAP.xaml.cs">
       <DependentUpon>MAP.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pop Up Windows\RenameComponentWindow.xaml.cs">
+      <DependentUpon>RenameComponentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RSS.xaml.cs">
       <DependentUpon>RSS.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MAP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pop Up Windows\RenameComponentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

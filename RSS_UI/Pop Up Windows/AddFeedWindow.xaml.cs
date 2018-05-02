@@ -21,12 +21,12 @@ namespace RSS_UI
     {
         //RSS parent;
         public event EventHandler OnFeedCreated;
+        private List<string> feedInfo;
 
         public AddFeedWindow()  // Previous parameter was "RSS instance"
         {
             //parent = instance;
             InitializeComponent();
-            //this.Hide();
         }
 
         public void OpenWindow()
@@ -36,8 +36,23 @@ namespace RSS_UI
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            //parent.add(this.FeedName.Text, this.RSSURL.Text);
-            //this.Hide();
+            feedInfo = new List<string>();
+            feedInfo.Add(this.FeedName.Text);
+            feedInfo.Add(this.RSSURL.Text);
+            OnFeedCreated(feedInfo, new EventArgs());
+            this.Close();
+        }
+
+        private void AddFeedEnterPressed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                feedInfo = new List<string>();
+                feedInfo.Add(this.FeedName.Text);
+                feedInfo.Add(this.RSSURL.Text);
+                OnFeedCreated(feedInfo, new EventArgs());
+                this.Close();
+            }
         }
     }
 }
